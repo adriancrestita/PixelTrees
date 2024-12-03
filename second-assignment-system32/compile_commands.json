@@ -1,0 +1,21 @@
+[{
+  "file": "/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/main.cpp",
+  "directory": "/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32",
+  "command": "clang++ -c /Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/main.cpp -o /Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/main.cpp.o  -I. -I.  -gdwarf-2  -O0  -Wall"
+ }, {
+  "file": "/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/RGBPixelXY.cpp",
+  "directory": "/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32",
+  "command": "clang++ -c /Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/RGBPixelXY.cpp -o /Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/RGBPixelXY.cpp.o  -I. -I.  -gdwarf-2  -O0  -Wall"
+ }, {
+  "file": "/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/RGBPixelXY.hpp",
+  "directory": "/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32",
+  "command": "clang++ -c /Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/RGBPixelXY.hpp -o /Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/RGBPixelXY.hpp.o  -I. -I.  -gdwarf-2  -O0  -Wall"
+ }, {
+  "file": "/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/TinyImageJM.cpp",
+  "directory": "/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32",
+  "command": "clang++ -c /Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/TinyImageJM.cpp -o /Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/TinyImageJM.cpp.o  -I. -I.  -gdwarf-2  -O0  -Wall"
+ }, {
+  "file": "/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/TinyImageJM.hpp",
+  "directory": "/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32",
+  "command": "clang++ -c /Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/TinyImageJM.hpp -o /Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/TinyImageJM.hpp.o  -I. -I.  -gdwarf-2  -O0  -Wall"
+ }]
