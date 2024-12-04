@@ -1,0 +1,1 @@
+../build-Debug/second-assignment-system32/RGBPixelXY.cpp.o ../build-Debug/second-assignment-system32/Queue.cpp.o ../build-Debug/second-assignment-system32/TinyImageJM.cpp.o ../build-Debug/second-assignment-system32/PixelQueue.cpp.o ../build-Debug/second-assignment-system32/main.cpp.o
