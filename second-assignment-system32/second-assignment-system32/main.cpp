@@ -1,8 +1,16 @@
-#include <stdio.h>
+#include <iostream>
+#include "ImageLoaderUI.hpp"
 
-int main(int argc, char **argv)
+using namespace std;
+
+// Main function
+int main()
 {
-	printf("hello world\n");
-	return 0;
+    // Create an instance of the user interface
+    ImageLoaderUI loader;
+
+    // Run the image loading and processing program
+    loader.run();
+
+    return 0; // Exit the program successfully
 }
- 

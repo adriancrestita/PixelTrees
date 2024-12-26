@@ -64,7 +64,7 @@ AS       := C:/msys64/mingw64/bin/as.exe
 ## User defined environment variables
 ##
 CodeLiteDir:=C:\Program Files\CodeLite
-Objects0=$(IntermediateDirectory)/List.cpp$(ObjectSuffix) $(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/Queue.cpp$(ObjectSuffix) $(IntermediateDirectory)/TinyImageJM.cpp$(ObjectSuffix) $(IntermediateDirectory)/PixelQueue.cpp$(ObjectSuffix) $(IntermediateDirectory)/T1.cpp$(ObjectSuffix) $(IntermediateDirectory)/RGBPixelXY.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/ImageLoaderUI.cpp$(ObjectSuffix) $(IntermediateDirectory)/List.cpp$(ObjectSuffix) $(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/Queue.cpp$(ObjectSuffix) $(IntermediateDirectory)/TinyImageJM.cpp$(ObjectSuffix) $(IntermediateDirectory)/PixelQueue.cpp$(ObjectSuffix) $(IntermediateDirectory)/T1.cpp$(ObjectSuffix) $(IntermediateDirectory)/RGBPixelXY.cpp$(ObjectSuffix) 
 
 
 
@@ -95,6 +95,11 @@ PreBuild:
 ##
 ## Objects
 ##
+$(IntermediateDirectory)/ImageLoaderUI.cpp$(ObjectSuffix): ImageLoaderUI.cpp 
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/adria/Desktop/second-assignment-system32/second-assignment-system32/second-assignment-system32/ImageLoaderUI.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ImageLoaderUI.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/ImageLoaderUI.cpp$(PreprocessSuffix): ImageLoaderUI.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ImageLoaderUI.cpp$(PreprocessSuffix) ImageLoaderUI.cpp
+
 $(IntermediateDirectory)/List.cpp$(ObjectSuffix): List.cpp 
 	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/adria/Desktop/second-assignment-system32/second-assignment-system32/second-assignment-system32/List.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/List.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/List.cpp$(PreprocessSuffix): List.cpp
