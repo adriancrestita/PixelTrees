@@ -125,4 +125,51 @@ void List<T>::print() const
     std::cout << std::endl;
 }
 
+// Inserts an element at position N in the list
+template <typename T>
+bool List<T>::insertAtPosition(unsigned int position, const T& value)
+{
+    // Check if the position is valid (0 <= position <= size)
+    if (position > size)
+    {
+        return false; // Invalid position
+    }
+
+    Node* newNode = new Node(value); // Create a new node
+
+    // Special case: insert at the beginning (position 0)
+    if (position == 0)
+    {
+        newNode->next = head; // Link the new node to the current head
+        head = newNode;       // Update the head to the new node
+        if (!tail)            // If the list was empty, set tail to the new node as well
+        {
+            tail = newNode;
+        }
+    }
+    // Special case: insert at the end (position == size)
+    else if (position == size)
+    {
+        tail->next = newNode; // Link the new node to the end of the list
+        tail = newNode;       // Update the tail pointer
+    }
+    else
+    {
+        Node* current = head; // Start from the head
+        // Traverse to the node just before the insertion point
+        for (unsigned int i = 0; i < position - 1; ++i)
+        {
+            current = current->next;
+        }
+
+        // Insert the new node after the current node
+        newNode->next = current->next;
+        current->next = newNode;
+    }
+
+    ++size; // Increment the size of the list
+    return true; // Successful insertion
+}
+
+
 #endif

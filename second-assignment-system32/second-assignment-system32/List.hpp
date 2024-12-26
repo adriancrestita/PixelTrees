@@ -46,6 +46,9 @@ public:
 
     // Prints all elements in the list
     void print() const;
+    
+    // Inserts an element at position N in the list
+    bool insertAtPosition(unsigned int position, const T& value);
 };
 
 #include "List.cpp" // Include implementation for templates
