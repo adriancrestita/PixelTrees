@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="second-assignment-system32" Version="11000" InternalType="Console">
   <VirtualDirectory Name="include">
+    <File Name="List.hpp"/>
+    <File Name="T1.hpp"/>
     <File Name="Queue.hpp"/>
     <File Name="PixelQueue.hpp"/>
     <File Name="TinyImageJM.hpp"/>
@@ -100,6 +102,8 @@
     </Configuration>
   </Settings>
   <VirtualDirectory Name="src">
+    <File Name="List.cpp"/>
+    <File Name="T1.cpp"/>
     <File Name="Queue.cpp"/>
     <File Name="PixelQueue.cpp"/>
     <File Name="RGBPixelXY.cpp"/>
