@@ -49,6 +49,12 @@ public:
     
     // Inserts an element at position N in the list
     bool insertAtPosition(unsigned int position, const T& value);
+    
+    // Returns the first node of the list
+    typename List<T>::Node* getHead();
+    
+    // Returns the node located at N position
+    Node* getNodeAt(unsigned int position);  
 };
 
 #include "List.cpp" // Include implementation for templates

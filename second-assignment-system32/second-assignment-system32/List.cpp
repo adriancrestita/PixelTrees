@@ -170,6 +170,23 @@ bool List<T>::insertAtPosition(unsigned int position, const T& value)
     ++size; // Increment the size of the list
     return true; // Successful insertion
 }
+// Returns the first element of the list
+template <typename T>
+typename List<T>::Node* List<T>::getHead() {
+    return head; // Devuelve el primer nodo
+}
+
+// Returns the element in N position
+template <typename T>
+typename List<T>::Node* List<T>::getNodeAt(unsigned int position) {
+    if (position >= size) return nullptr; // Si la posición es fuera de rango
+    Node* current = head;
+    for (unsigned int i = 0; i < position; ++i) {
+        current = current->next;
+    }
+    return current;
+}
+
 
 
 #endif

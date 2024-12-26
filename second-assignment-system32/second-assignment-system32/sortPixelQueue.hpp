@@ -1,8 +1,11 @@
 #ifndef SORTPIXELQUEUE_HPP
 #define SORTPIXELQUEUE_HPP
 
-#include "Queue.hpp"  // Include Queue header
+#include "Queue.hpp"
+#include "List.hpp"
+#include "RGBPixelXY.hpp"
 
+// Clase que maneja la ordenación de los píxeles en una lista
 class sortPixelQueue {
 public:
     // Constructor
@@ -11,18 +14,8 @@ public:
     // Destructor
     ~sortPixelQueue();
 
-    // Function to sort the queue of pixels
-    void quickSortQueue(Queue& pixelQueue);
-
-private:
-    // Recursive quicksort function for sorting the queue
-    void quickSort(Queue& queue, int low, int high);
-
-    // Function to partition the queue around the pivot element
-    int partition(Queue& queue, int low, int high);
-
-    // Function to swap two nodes in the queue by their indices
-    void swapNodes(Queue& queue, int index1, int index2);
+    // Función para ordenar los píxeles desde una cola a una lista ordenada
+    List<RGBPixelXY> sortPixels(Queue& queue);
 };
 
 #endif // SORTPIXELQUEUE_HPP
