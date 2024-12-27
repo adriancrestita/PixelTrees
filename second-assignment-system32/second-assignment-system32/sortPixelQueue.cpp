@@ -1,37 +1,73 @@
 #include "sortPixelQueue.hpp"
-#include "PixelQueue.hpp"
-#include "List.hpp"
-#include "RGBPixelXY.hpp"
 
-// Constructor
-sortPixelQueue::sortPixelQueue() {}
+// Temporary node structure for the linked list to store the pixels
+struct TempNode {
+    RGBPixelXY data;  // Pixel data (RGB values)
+    TempNode* next;   // Pointer to the next node in the list
+    // Constructor to initialize a node with a pixel
+    TempNode(const RGBPixelXY& pixel) : data(pixel), next(nullptr) {}
+};
 
-// Destructor
-sortPixelQueue::~sortPixelQueue() {}
+// Function to sort a queue of pixels
+Queue sortPixelQueue(const Queue& queue) {
+    Queue sortedQueue; // New queue to store the sorted elements
 
-// Función para ordenar los píxeles desde una cola a una lista ordenada
-List<RGBPixelXY> sortPixelQueue::sortPixels(Queue& queue) {
-    List<RGBPixelXY> sortedList;  // Crea una lista vacía para almacenar los píxeles ordenados
+    // Step 1: Extract elements from the original queue into a temporary linked list
+    TempNode* head = nullptr;  // Head of the linked list
+    Queue tempQueue = queue.copy();  // Create a copy of the original queue
 
-    // Procesa todos los píxeles en la cola
-    while (!queue.isEmpty()) {
-        RGBPixelXY currentPixel = queue.peek();  // Obtiene el siguiente píxel de la cola sin eliminarlo
-        queue.dequeue();  // Elimina el píxel de la cola
+    // Transfer all elements from the queue to the temporary linked list
+    while (!tempQueue.isEmpty()) {
+        RGBPixelXY pixel = tempQueue.peek();  // Get the front pixel
+        tempQueue.dequeue();  // Remove the pixel from the queue
 
-        // Determina la posición correcta en la lista ordenada
-        unsigned int position = 0;  // Comienza desde el inicio de la lista
-
-        // Recorre la lista ordenada para encontrar la posición correcta
-        for (typename List<RGBPixelXY>::Node* currentNode = sortedList.getHead(); currentNode != nullptr; currentNode = currentNode->next) {
-            if (currentPixel.getSumRGB() <= currentNode->data.getSumRGB()) {
-                break;  // Detiene cuando se encuentra la posición correcta
-            }
-            ++position;  // Avanza a la siguiente posición
-        }
-
-        // Inserta el píxel en la posición correcta de la lista ordenada
-        sortedList.insertAtPosition(position, currentPixel);
+        // Create a new node for the pixel and insert it at the beginning of the linked list
+        TempNode* newNode = new TempNode(pixel);
+        newNode->next = head;
+        head = newNode;
     }
 
-    return sortedList;  // Devuelve la lista ordenada de píxeles
+    // Step 2: Sort the linked list using Bubble Sort algorithm
+    if (!head || !head->next) {
+        // If the list has 0 or 1 elements, it is already sorted
+        TempNode* current = head;
+        while (current) {
+            sortedQueue.enqueue(current->data);  // Insert into the sorted queue
+            TempNode* temp = current;
+            current = current->next;  // Move to the next node
+            delete temp;  // Delete the current node
+        }
+        return sortedQueue;
+    }
+
+    bool swapped;  // Flag to check if any elements were swapped
+    do {
+        swapped = false;  // Reset the swapped flag
+        TempNode* current = head;
+        TempNode* prev = nullptr;
+
+        // Traverse the linked list and compare adjacent nodes
+        while (current && current->next) {
+            if (current->data.getSumRGB() < current->next->data.getSumRGB()) {
+                // If the current node's sum of RGB is less than the next node's, swap them
+                RGBPixelXY temp = current->data;
+                current->data = current->next->data;
+                current->next->data = temp;
+                swapped = true;  // Mark that a swap occurred
+            }
+            prev = current;  // Move the prev pointer forward
+            current = current->next;  // Move the current pointer forward
+        }
+    } while (swapped);  // Repeat the process as long as swaps occur
+
+    // Step 3: Insert the sorted elements back into the sorted queue
+    TempNode* current = head;
+    while (current) {
+        sortedQueue.enqueue(current->data);  // Insert each pixel into the sorted queue
+        TempNode* temp = current;
+        current = current->next;  // Move to the next node
+        delete temp;  // Delete the current node to free memory
+    }
+
+    return sortedQueue;  // Return the sorted queue
 }

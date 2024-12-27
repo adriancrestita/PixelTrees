@@ -2,20 +2,10 @@
 #define SORTPIXELQUEUE_HPP
 
 #include "Queue.hpp"
-#include "List.hpp"
-#include "RGBPixelXY.hpp"
 
-// Clase que maneja la ordenación de los píxeles en una lista
-class sortPixelQueue {
-public:
-    // Constructor
-    sortPixelQueue();
+// Function to sort the pixels from a queue
+Queue sortPixelQueue(const Queue& queue);
+// Function to print all pixels in the queue
+void printPixelQueue(const Queue& queue);
 
-    // Destructor
-    ~sortPixelQueue();
-
-    // Función para ordenar los píxeles desde una cola a una lista ordenada
-    List<RGBPixelXY> sortPixels(Queue& queue);
-};
-
-#endif // SORTPIXELQUEUE_HPP
+#endif

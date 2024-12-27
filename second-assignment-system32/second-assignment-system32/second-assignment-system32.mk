@@ -14,7 +14,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=hugos
-Date                   :=26/12/2024
+Date                   :=27/12/2024
 CodeLitePath           :="C:/Program Files/CodeLite"
 MakeDirCommand         :=mkdir
 LinkerName             :=C:/msys64/mingw64/bin/g++.exe
@@ -64,7 +64,7 @@ AS       := C:/msys64/mingw64/bin/as.exe
 ## User defined environment variables
 ##
 CodeLiteDir:=C:\Program Files\CodeLite
-Objects0=$(IntermediateDirectory)/sortPixelQueue.cpp$(ObjectSuffix) $(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/RGBPixelXY.cpp$(ObjectSuffix) $(IntermediateDirectory)/PixelQueue.cpp$(ObjectSuffix) $(IntermediateDirectory)/TinyImageJM.cpp$(ObjectSuffix) $(IntermediateDirectory)/Queue.cpp$(ObjectSuffix) $(IntermediateDirectory)/T1.cpp$(ObjectSuffix) $(IntermediateDirectory)/List.cpp$(ObjectSuffix) $(IntermediateDirectory)/ImageLoaderUI.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/RGBPixelXY.cpp$(ObjectSuffix) $(IntermediateDirectory)/PixelQueue.cpp$(ObjectSuffix) $(IntermediateDirectory)/TinyImageJM.cpp$(ObjectSuffix) $(IntermediateDirectory)/Queue.cpp$(ObjectSuffix) $(IntermediateDirectory)/List.cpp$(ObjectSuffix) $(IntermediateDirectory)/ImageLoaderUI.cpp$(ObjectSuffix) $(IntermediateDirectory)/T1.cpp$(ObjectSuffix) $(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/sortPixelQueue.cpp$(ObjectSuffix) 
 
 
 
@@ -95,16 +95,6 @@ PreBuild:
 ##
 ## Objects
 ##
-$(IntermediateDirectory)/sortPixelQueue.cpp$(ObjectSuffix): sortPixelQueue.cpp 
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/hugos/OneDrive/Escritorio/Data Structures/second-assignment-system32/second-assignment-system32/second-assignment-system32/sortPixelQueue.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/sortPixelQueue.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/sortPixelQueue.cpp$(PreprocessSuffix): sortPixelQueue.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/sortPixelQueue.cpp$(PreprocessSuffix) sortPixelQueue.cpp
-
-$(IntermediateDirectory)/main.cpp$(ObjectSuffix): main.cpp 
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/hugos/OneDrive/Escritorio/Data Structures/second-assignment-system32/second-assignment-system32/second-assignment-system32/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/main.cpp$(PreprocessSuffix): main.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.cpp$(PreprocessSuffix) main.cpp
-
 $(IntermediateDirectory)/RGBPixelXY.cpp$(ObjectSuffix): RGBPixelXY.cpp 
 	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/hugos/OneDrive/Escritorio/Data Structures/second-assignment-system32/second-assignment-system32/second-assignment-system32/RGBPixelXY.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/RGBPixelXY.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/RGBPixelXY.cpp$(PreprocessSuffix): RGBPixelXY.cpp
@@ -125,11 +115,6 @@ $(IntermediateDirectory)/Queue.cpp$(ObjectSuffix): Queue.cpp
 $(IntermediateDirectory)/Queue.cpp$(PreprocessSuffix): Queue.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Queue.cpp$(PreprocessSuffix) Queue.cpp
 
-$(IntermediateDirectory)/T1.cpp$(ObjectSuffix): T1.cpp 
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/hugos/OneDrive/Escritorio/Data Structures/second-assignment-system32/second-assignment-system32/second-assignment-system32/T1.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/T1.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/T1.cpp$(PreprocessSuffix): T1.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/T1.cpp$(PreprocessSuffix) T1.cpp
-
 $(IntermediateDirectory)/List.cpp$(ObjectSuffix): List.cpp 
 	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/hugos/OneDrive/Escritorio/Data Structures/second-assignment-system32/second-assignment-system32/second-assignment-system32/List.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/List.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/List.cpp$(PreprocessSuffix): List.cpp
@@ -139,6 +124,21 @@ $(IntermediateDirectory)/ImageLoaderUI.cpp$(ObjectSuffix): ImageLoaderUI.cpp
 	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/hugos/OneDrive/Escritorio/Data Structures/second-assignment-system32/second-assignment-system32/second-assignment-system32/ImageLoaderUI.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ImageLoaderUI.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/ImageLoaderUI.cpp$(PreprocessSuffix): ImageLoaderUI.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ImageLoaderUI.cpp$(PreprocessSuffix) ImageLoaderUI.cpp
+
+$(IntermediateDirectory)/T1.cpp$(ObjectSuffix): T1.cpp 
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/hugos/OneDrive/Escritorio/Data Structures/second-assignment-system32/second-assignment-system32/second-assignment-system32/T1.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/T1.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/T1.cpp$(PreprocessSuffix): T1.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/T1.cpp$(PreprocessSuffix) T1.cpp
+
+$(IntermediateDirectory)/main.cpp$(ObjectSuffix): main.cpp 
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/hugos/OneDrive/Escritorio/Data Structures/second-assignment-system32/second-assignment-system32/second-assignment-system32/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/main.cpp$(PreprocessSuffix): main.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.cpp$(PreprocessSuffix) main.cpp
+
+$(IntermediateDirectory)/sortPixelQueue.cpp$(ObjectSuffix): sortPixelQueue.cpp 
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/hugos/OneDrive/Escritorio/Data Structures/second-assignment-system32/second-assignment-system32/second-assignment-system32/sortPixelQueue.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/sortPixelQueue.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/sortPixelQueue.cpp$(PreprocessSuffix): sortPixelQueue.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/sortPixelQueue.cpp$(PreprocessSuffix) sortPixelQueue.cpp
 
 ##
 ## Clean
