@@ -1,4 +1,4 @@
-#include "sortPixelQueue.hpp"
+#include "SortPixelQueue.hpp"
 
 // Temporary node structure for the linked list to store the pixels
 struct TempNode {
@@ -9,7 +9,7 @@ struct TempNode {
 };
 
 // Function to sort a queue of pixels
-Queue sortPixelQueue(const Queue& queue) {
+Queue SortPixelQueue::sortPixelQueue(const Queue& queue) {
     Queue sortedQueue; // New queue to store the sorted elements
 
     // Step 1: Extract elements from the original queue into a temporary linked list
@@ -73,7 +73,7 @@ Queue sortPixelQueue(const Queue& queue) {
 }
 
 // Function to print the sum of RGB values for each pixel in the queue
-void printPixelQueue(const Queue& queue) {
+void SortPixelQueue::printPixelQueue(const Queue& queue) {
     // Create a temporary queue by copying the original queue to avoid modifying it
     Queue tempQueue = queue.copy();
 
@@ -86,3 +86,4 @@ void printPixelQueue(const Queue& queue) {
         std::cout << "Sum of RGB values: " << pixel.getSumRGB() << std::endl;
     }
 }
+

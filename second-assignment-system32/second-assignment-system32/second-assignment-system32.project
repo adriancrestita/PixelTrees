@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="second-assignment-system32" Version="11000" InternalType="Console">
   <VirtualDirectory Name="include">
-    <File Name="sortPixelQueue.hpp"/>
+    <VirtualDirectory Name="ImageManagement">
+      <File Name="SortPixelQueue.hpp"/>
+      <File Name="TinyImageJM.hpp"/>
+      <File Name="RGBPixelXY.hpp"/>
+      <File Name="PixelQueue.hpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="ADTs">
+      <File Name="Queue.hpp"/>
+      <File Name="T1.hpp"/>
+      <File Name="List.hpp"/>
+    </VirtualDirectory>
     <File Name="ImageLoaderUI.hpp"/>
-    <File Name="List.hpp"/>
-    <File Name="T1.hpp"/>
-    <File Name="Queue.hpp"/>
-    <File Name="PixelQueue.hpp"/>
-    <File Name="TinyImageJM.hpp"/>
-    <File Name="RGBPixelXY.hpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="images"/>
   <Description/>
@@ -104,14 +108,18 @@
     </Configuration>
   </Settings>
   <VirtualDirectory Name="src">
-    <File Name="sortPixelQueue.cpp"/>
+    <VirtualDirectory Name="ImageManagement">
+      <File Name="SortPixelQueue.cpp"/>
+      <File Name="PixelQueue.cpp"/>
+      <File Name="TinyImageJM.cpp"/>
+      <File Name="RGBPixelXY.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="ADTs">
+      <File Name="Queue.cpp"/>
+      <File Name="T1.cpp"/>
+      <File Name="List.cpp"/>
+    </VirtualDirectory>
     <File Name="ImageLoaderUI.cpp"/>
-    <File Name="List.cpp"/>
-    <File Name="T1.cpp"/>
-    <File Name="Queue.cpp"/>
-    <File Name="PixelQueue.cpp"/>
-    <File Name="RGBPixelXY.cpp"/>
-    <File Name="TinyImageJM.cpp"/>
     <File Name="main.cpp"/>
   </VirtualDirectory>
 </CodeLite_Project>

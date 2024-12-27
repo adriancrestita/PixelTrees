@@ -3,7 +3,10 @@
 
 #include <string>
 #include "TinyImageJM.hpp"  // Existing class for BMP image handling
+#include "Queue.hpp"   // Queue to hold pixel data
 #include "PixelQueue.hpp"   // Queue to hold pixel data
+#include "SortPixelQueue.hpp"
+
 
 // User Interface for loading images and managing pixel queues
 class ImageLoaderUI
@@ -20,11 +23,11 @@ private:
     bool loadImage(const std::string& imageName, TinyImageJM& image);
 
     // Load pixels from the image into a queue
-    void loadPixelsToQueue(TinyImageJM& image, PixelQueue& queue);
+    void loadPixelsToQueue(TinyImageJM& image, Queue& queue);
 
     // Attributes for pixel queues
-    PixelQueue queue1; // Queue for the first image
-    PixelQueue queue2; // Queue for the second image
+    Queue queue1; // Queue for the first image
+    Queue queue2; // Queue for the second image
 };
 
 #endif // IMAGELOADERUI_HPP
