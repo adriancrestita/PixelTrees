@@ -71,3 +71,18 @@ Queue sortPixelQueue(const Queue& queue) {
 
     return sortedQueue;  // Return the sorted queue
 }
+
+// Function to print the sum of RGB values for each pixel in the queue
+void printPixelQueue(const Queue& queue) {
+    // Create a temporary queue by copying the original queue to avoid modifying it
+    Queue tempQueue = queue.copy();
+
+    // Iterate through the queue and print the sum of RGB values for each pixel
+    while (!tempQueue.isEmpty()) {
+        RGBPixelXY pixel = tempQueue.peek();  // Get the front pixel of the queue
+        tempQueue.dequeue();  // Remove the pixel from the temporary queue
+
+        // Print the sum of the RGB values of the pixel
+        std::cout << "Sum of RGB values: " << pixel.getSumRGB() << std::endl;
+    }
+}
