@@ -5,6 +5,7 @@
 #include "TinyImageJM.hpp"  // Existing class for BMP image handling
 #include "Queue.hpp"   // Queue to hold pixel data
 #include "PixelQueue.hpp"   // Queue to hold pixel data
+#include "T1.hpp"
 
 
 // User Interface for loading images and managing pixel queues
@@ -23,12 +24,11 @@ private:
 
     // Load pixels from the image into a queue
     void loadPixelsToQueue(TinyImageJM& image, Queue& queue);
-    
-    void printQueue(const Queue& queue) const;
-
-    // Attributes for pixel queues
-    Queue queue1; // Queue for the first image
-    Queue queue2; // Queue for the second image
+	
+	void processImageWithTree(const TinyImageJM& image, PixelQueue& pixelQueue, unsigned int fileID);
+	
+	// Tree atribute
+	T1 tree1;
 };
 
 #endif // IMAGELOADERUI_HPP

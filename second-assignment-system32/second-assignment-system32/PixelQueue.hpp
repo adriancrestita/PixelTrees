@@ -16,10 +16,7 @@ public:
 
     //Getter of the pixel queue
     Queue& getPixelQueue();
-    
-    // Sort the queue by SumRGB using StaticArray
-    Queue sortQueueBySumRGB(const Queue& queue, const TinyImageJM& image);
-    
+	
 private:
     Queue pixelQueue;  // Cola para almacenar los píxeles
 };

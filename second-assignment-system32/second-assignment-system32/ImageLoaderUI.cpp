@@ -28,25 +28,16 @@ void ImageLoaderUI::run()
     }
 
     // Load pixels from the first image into the queue
-    loadPixelsToQueue(image1, queue1);
+    PixelQueue queue1;
+	loadPixelsToQueue(image1, queue1);
     if(!queue1.isEmpty())
     {
         cout << "First image loaded into the queue successfully." << endl;    
-        /*
-        // Print queue contents
-        cout << "Queue contents (First Image):" << endl;
-        printQueue(queue1);    
-        */
-        
-        // Sort the queue by SumRGB
-        PixelQueue pixelQueueManager;
-        Queue sortedQueue = pixelQueueManager.sortQueueBySumRGB(queue1, image1);
-
-        // Print sorted queue contents
-        cout << "Sorted Queue by SumRGB:" << endl;
-        printQueue(sortedQueue); 
     }
     
+	processImageWithTree(image1, queue1, 1);
+	
+	/*
     // Request second image file name
     cout << "Enter the name of the second BMP image file (including extension):\n ";
     cin >> imageFile2;
@@ -64,12 +55,8 @@ void ImageLoaderUI::run()
     if(!queue2.isEmpty())
     {
         cout << "Second image loaded into the queue successfully." << endl;    
-        /*
-        // Print queue contents
-        cout << "Queue contents (Second Image):" << endl;
-        printQueue(queue2);  
-        */
     }
+	*/
  
 }
 //   C:\Users\adria\Desktop\logo.bmp            C:/Users/adria/Desktop/pinguino.bmp
@@ -110,17 +97,26 @@ void ImageLoaderUI::loadPixelsToQueue(TinyImageJM& image, Queue& queue)
     cout << "Image pixels loaded into the queue successfully." << endl;
 }
 
-
-// Helper function to print the queue contents
-void ImageLoaderUI::printQueue(const Queue& queue) const
+void ImageLoaderUI::processImageWithTree(const TinyImageJM& image, PixelQueue& pixelQueue, unsigned int fileID)
 {
-    Queue tempQueue = queue.copy(); // Create a copy to avoid modifying the original queue
+    // Copy the pixel queue
+    Queue tempQueue = pixelQueue.getPixelQueue();
 
+    // Insert pixels in the tree
     while (!tempQueue.isEmpty())
     {
-        RGBPixelXY pixel = tempQueue.peek();
-        cout << "Pixel (" << pixel.getX() << ", " << pixel.getY()
-             << ") - SumRGB: " << pixel.getSumRGB() << endl;
-        tempQueue.dequeue();
+        RGBPixelXY pixel = tempQueue.peek(); 
+        tree1.insert(pixel, fileID);         
+        tempQueue.dequeue();                
     }
+
+    cout << "Tree T1 created successfully with pixels from the image." << endl;
+
+    // Calcular estadísticas del árbol
+    unsigned int treeDepth = tree1.getTreeDepth();
+    unsigned int maxNodeElements = tree1.getMaxNodeElements();
+
+    cout << "Statistics for Tree T1:" << endl;
+    cout << "Maximum Depth: " << treeDepth << endl;
+    cout << "Node with Maximum Elements: " << maxNodeElements << endl;
 }
