@@ -7,6 +7,7 @@
       <File Name="PixelQueue.hpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="ADTs">
+      <File Name="T2.hpp"/>
       <File Name="Queue.hpp"/>
       <File Name="T1.hpp"/>
       <File Name="List.hpp"/>
@@ -113,6 +114,7 @@
       <File Name="RGBPixelXY.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="ADTs">
+      <File Name="T2.cpp"/>
       <File Name="Queue.cpp"/>
       <File Name="T1.cpp"/>
       <File Name="List.cpp"/>
