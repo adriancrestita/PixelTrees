@@ -1,5 +1,4 @@
 #include "PixelQueue.hpp"
-#include "StaticArray.hpp"
 #include "Queue.hpp"
 
 #include <iostream>

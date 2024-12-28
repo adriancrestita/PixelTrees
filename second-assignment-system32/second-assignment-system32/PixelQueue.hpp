@@ -3,7 +3,6 @@
 
 #include "Queue.hpp"
 #include "TinyImageJM.hpp"
-#include "PixelVector.hpp"
 #include <iostream>
 
 using namespace std;
