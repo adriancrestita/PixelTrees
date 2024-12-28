@@ -34,9 +34,10 @@ void ImageLoaderUI::run()
         cout << "First image loaded into the queue successfully." << endl;    
     }
     
+	// Insert pixels from image1 to t1 tree
 	processImageWithTree(image1, queue1, 1);
 	
-	/*
+	
     // Request second image file name
     cout << "Enter the name of the second BMP image file (including extension):\n ";
     cin >> imageFile2;
@@ -55,8 +56,6 @@ void ImageLoaderUI::run()
     {
         cout << "Second image loaded into the queue successfully." << endl;    
     }
-	*/
- 
 }
 //   C:\Users\adria\Desktop\logo.bmp            C:/Users/adria/Desktop/pinguino.bmp
 
@@ -109,4 +108,26 @@ void ImageLoaderUI::processImageWithTree(const TinyImageJM& image, Queue& queue,
     cout << "Statistics for Tree T1:" << endl;
     cout << "Maximum Depth: " << treeDepth << endl;
     cout << "Node with Maximum Elements: " << maxNodeElements << endl;
+}
+
+void ImageLoaderUI::processImage2Addition(Queue& pixelQueue)
+{
+    Queue tempQueue = pixelQueue.copy();
+    unsigned int fileID = 2;
+
+    while (!tempQueue.isEmpty())
+    {
+        RGBPixelXY pixel = tempQueue.peek();
+        if (tree1.contains(pixel.getSumRGB()))
+        {
+            tree1.addToExistingNode(pixel.getSumRGB(), pixel, fileID);
+        }
+        if (tree2.contains(pixel.getSumRGB()))
+        {
+            tree2.addToExistingNode(pixel.getSumRGB(), pixel, fileID);
+        }
+        tempQueue.dequeue();
+    }
+
+    cout << "Image 2 processed and added to T1 and T2." << endl;
 }

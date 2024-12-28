@@ -62,7 +62,7 @@ AS       := llvm-as
 ## User defined environment variables
 ##
 CodeLiteDir:=/Applications/codelite.app/Contents/SharedSupport/
-Objects0=$(IntermediateDirectory)/List.cpp$(ObjectSuffix) $(IntermediateDirectory)/T1.cpp$(ObjectSuffix) $(IntermediateDirectory)/Queue.cpp$(ObjectSuffix) $(IntermediateDirectory)/RGBPixelXY.cpp$(ObjectSuffix) $(IntermediateDirectory)/TinyImageJM.cpp$(ObjectSuffix) $(IntermediateDirectory)/PixelQueue.cpp$(ObjectSuffix) $(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/ImageLoaderUI.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/T1.cpp$(ObjectSuffix) $(IntermediateDirectory)/Queue.cpp$(ObjectSuffix) $(IntermediateDirectory)/T2.cpp$(ObjectSuffix) $(IntermediateDirectory)/RGBPixelXY.cpp$(ObjectSuffix) $(IntermediateDirectory)/PixelQueue.cpp$(ObjectSuffix) $(IntermediateDirectory)/TinyImageJM.cpp$(ObjectSuffix) $(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/ImageLoaderUI.cpp$(ObjectSuffix) $(IntermediateDirectory)/List.cpp$(ObjectSuffix) 
 
 
 
@@ -93,11 +93,6 @@ PreBuild:
 ##
 ## Objects
 ##
-$(IntermediateDirectory)/List.cpp$(ObjectSuffix): List.cpp 
-	$(CXX) $(IncludePCH) $(SourceSwitch) "/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/List.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/List.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/List.cpp$(PreprocessSuffix): List.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/List.cpp$(PreprocessSuffix) List.cpp
-
 $(IntermediateDirectory)/T1.cpp$(ObjectSuffix): T1.cpp 
 	$(CXX) $(IncludePCH) $(SourceSwitch) "/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/T1.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/T1.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/T1.cpp$(PreprocessSuffix): T1.cpp
@@ -108,20 +103,25 @@ $(IntermediateDirectory)/Queue.cpp$(ObjectSuffix): Queue.cpp
 $(IntermediateDirectory)/Queue.cpp$(PreprocessSuffix): Queue.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Queue.cpp$(PreprocessSuffix) Queue.cpp
 
+$(IntermediateDirectory)/T2.cpp$(ObjectSuffix): T2.cpp 
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/T2.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/T2.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/T2.cpp$(PreprocessSuffix): T2.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/T2.cpp$(PreprocessSuffix) T2.cpp
+
 $(IntermediateDirectory)/RGBPixelXY.cpp$(ObjectSuffix): RGBPixelXY.cpp 
 	$(CXX) $(IncludePCH) $(SourceSwitch) "/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/RGBPixelXY.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/RGBPixelXY.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/RGBPixelXY.cpp$(PreprocessSuffix): RGBPixelXY.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/RGBPixelXY.cpp$(PreprocessSuffix) RGBPixelXY.cpp
 
-$(IntermediateDirectory)/TinyImageJM.cpp$(ObjectSuffix): TinyImageJM.cpp 
-	$(CXX) $(IncludePCH) $(SourceSwitch) "/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/TinyImageJM.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/TinyImageJM.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/TinyImageJM.cpp$(PreprocessSuffix): TinyImageJM.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/TinyImageJM.cpp$(PreprocessSuffix) TinyImageJM.cpp
-
 $(IntermediateDirectory)/PixelQueue.cpp$(ObjectSuffix): PixelQueue.cpp 
 	$(CXX) $(IncludePCH) $(SourceSwitch) "/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/PixelQueue.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/PixelQueue.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/PixelQueue.cpp$(PreprocessSuffix): PixelQueue.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/PixelQueue.cpp$(PreprocessSuffix) PixelQueue.cpp
+
+$(IntermediateDirectory)/TinyImageJM.cpp$(ObjectSuffix): TinyImageJM.cpp 
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/TinyImageJM.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/TinyImageJM.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/TinyImageJM.cpp$(PreprocessSuffix): TinyImageJM.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/TinyImageJM.cpp$(PreprocessSuffix) TinyImageJM.cpp
 
 $(IntermediateDirectory)/main.cpp$(ObjectSuffix): main.cpp 
 	$(CXX) $(IncludePCH) $(SourceSwitch) "/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
@@ -132,6 +132,11 @@ $(IntermediateDirectory)/ImageLoaderUI.cpp$(ObjectSuffix): ImageLoaderUI.cpp
 	$(CXX) $(IncludePCH) $(SourceSwitch) "/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/ImageLoaderUI.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ImageLoaderUI.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/ImageLoaderUI.cpp$(PreprocessSuffix): ImageLoaderUI.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ImageLoaderUI.cpp$(PreprocessSuffix) ImageLoaderUI.cpp
+
+$(IntermediateDirectory)/List.cpp$(ObjectSuffix): List.cpp 
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/List.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/List.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/List.cpp$(PreprocessSuffix): List.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/List.cpp$(PreprocessSuffix) List.cpp
 
 ##
 ## Clean

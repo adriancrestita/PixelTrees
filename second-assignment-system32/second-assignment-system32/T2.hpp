@@ -4,46 +4,76 @@
 #include "RGBPixelXY.hpp"
 #include "List.hpp"
 
-// Node structure for the binary balanced tree
+// Node structure for binary balanced tree
 struct BalancedNode
 {
-    unsigned int sumRGB; // Sum of RGB values
-    List<RGBPixelXY> pixels; // List of pixels with the same sumRGB
-    unsigned int originFile; // File identifier
-    BalancedNode* left;  // Pointer to the left subtree
-    BalancedNode* right; // Pointer to the right subtree
+    unsigned int sumRGB;         // Sum of RGB values
+    List<RGBPixelXY> pixels;     // List of pixels with the same sumRGB
+    unsigned int originFile;     // File identifier (1 for image 1, 2 for image 2, 0 for mixed origin)
+    BalancedNode* left;          // Pointer to the left subtree
+    BalancedNode* right;         // Pointer to the right subtree
 
+    // Constructor for initializing a node
     BalancedNode(unsigned int sum, const RGBPixelXY& pixel, unsigned int file)
         : sumRGB(sum), originFile(file), left(nullptr), right(nullptr)
     {
-        pixels.append(pixel); // Add the pixel to the list
+        pixels.append(pixel);
     }
 };
 
 class T2
 {
 private:
-    BalancedNode* root; // Root of the balanced tree
+    BalancedNode* root; // Root node of the tree
 
-    void clear(BalancedNode* node); // Helper to delete all nodes
-    BalancedNode* insert(BalancedNode* node, RGBPixelXY pixel, unsigned int file); // Helper to insert a pixel
-    BalancedNode* balanceTree(BalancedNode* node); // Helper to balance the tree
-    int getHeight(BalancedNode* node); // Helper to get the height of the tree
-    int getBalanceFactor(BalancedNode* node); // Helper to calculate balance factor
-    BalancedNode* rotateLeft(BalancedNode* node); // Perform left rotation
-    BalancedNode* rotateRight(BalancedNode* node); // Perform right rotation
+    // Recursively clears all nodes in the tree
+    void clear(BalancedNode* node);
 
-    unsigned int calculateDepth(BalancedNode* node); // Helper to calculate tree depth
-    unsigned int calculateMaxNodeElements(BalancedNode* node); // Helper to calculate max elements in any node
+    // Helper to insert a pixel into the tree
+    BalancedNode* insert(BalancedNode* node, RGBPixelXY pixel, unsigned int file);
+
+    // Balances the tree after an insertion
+    BalancedNode* balanceTree(BalancedNode* node);
+
+    // Returns the height of a subtree
+    int getHeight(BalancedNode* node);
+
+    // Calculates the balance factor of a node
+    int getBalanceFactor(BalancedNode* node);
+
+    // Performs a left rotation on a subtree
+    BalancedNode* rotateLeft(BalancedNode* node);
+
+    // Performs a right rotation on a subtree
+    BalancedNode* rotateRight(BalancedNode* node);
+
+    // Recursively calculates the depth of the tree
+    unsigned int calculateDepth(BalancedNode* node);
+
+    // Recursively calculates the maximum number of elements in any node
+    unsigned int calculateMaxNodeElements(BalancedNode* node);
 
 public:
-    T2();  // Constructor
-    ~T2(); // Destructor
+    // Constructor to initialize an empty tree
+    T2();
 
-    void insert(RGBPixelXY pixel, unsigned int file); // Public method to insert a pixel
-    unsigned int getTreeDepth(); // Method to get the depth of the tree
-    unsigned int getMaxNodeElements(); // Method to get max elements in any node
-    void clearTree(); // Clears the entire tree
+    // Destructor to clear the tree
+    ~T2();
+
+    // Inserts a pixel into the tree
+    void insert(RGBPixelXY pixel, unsigned int file);
+
+    // Returns the depth of the tree
+    unsigned int getTreeDepth();
+
+    // Returns the maximum number of elements in any node
+    unsigned int getMaxNodeElements();
+
+    // Checks if a node with the given sumRGB exists in the tree
+    bool contains(unsigned int sumRGB);
+
+    // Adds a pixel to an existing node with a matching sumRGB
+    void addToExistingNode(unsigned int sumRGB, const RGBPixelXY& pixel, unsigned int file);
 };
 
 #endif

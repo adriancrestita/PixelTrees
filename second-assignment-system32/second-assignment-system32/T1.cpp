@@ -65,6 +65,36 @@ void T1::insertFromQueue(Queue& pixelQueue, unsigned int file)
     }
 }
 
+// Add a pixel to an existing node with the given sumRGB
+void T1::addToExistingNode(unsigned int sumRGB, const RGBPixelXY& pixel, unsigned int file)
+{
+    Node* current = root;
+
+    while (current)
+    {
+        if (sumRGB == current->sumRGB)
+        {
+            // Add the pixel to the node's list
+            current->pixels.append(pixel);
+
+            // Update originFile if necessary
+            if (current->originFile != file)
+            {
+                current->originFile = 0; // Mark as mixed origin
+            }
+            return;
+        }
+        else if (sumRGB < current->sumRGB)
+        {
+            current = current->left; // Traverse left
+        }
+        else
+        {
+            current = current->right; // Traverse right
+        }
+    }
+}
+
 // Helper method to calculate the depth of the tree
 unsigned int T1::calculateDepth(Node* node)
 {
@@ -105,3 +135,29 @@ unsigned int T1::getMaxNodeElements()
 {
     return calculateMaxNodeElements(root); // Start calculating from the root
 }
+
+// Check if a node with the given sumRGB exists
+bool T1::contains(unsigned int sumRGB)
+{
+    Node* current = root;
+	bool contains = false;
+	
+    while (current)
+    {
+        if (sumRGB == current->sumRGB)
+        {
+            contains = true;; // Found the node
+        }
+        else if (sumRGB < current->sumRGB)
+        {
+            current = current->left; // Traverse left
+        }
+        else
+        {
+            current = current->right; // Traverse right
+        }
+    }
+
+    return contains; // if false, node not found, if true, node found
+}
+
