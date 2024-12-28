@@ -28,15 +28,25 @@ void ImageLoaderUI::run()
     }
 
     // Load pixels from the first image into the queue
-    //loadPixelsToQueue(image1, queue1);
-    PixelQueue pq1;
-    pq1.loadPixelsIntoQueue(image1);
-    queue1 = pq1.getPixelQueue().copy();
+    loadPixelsToQueue(image1, queue1);
     if(!queue1.isEmpty())
     {
-    cout << "First image loaded into the queue successfully." << endl;        
-    }
+        cout << "First image loaded into the queue successfully." << endl;    
+        /*
+        // Print queue contents
+        cout << "Queue contents (First Image):" << endl;
+        printQueue(queue1);    
+        */
+        
+        // Sort the queue by SumRGB
+        PixelQueue pixelQueueManager;
+        Queue sortedQueue = pixelQueueManager.sortQueueBySumRGB(queue1, image1);
 
+        // Print sorted queue contents
+        cout << "Sorted Queue by SumRGB:" << endl;
+        printQueue(sortedQueue); 
+    }
+    
     // Request second image file name
     cout << "Enter the name of the second BMP image file (including extension):\n ";
     cin >> imageFile2;
@@ -50,60 +60,20 @@ void ImageLoaderUI::run()
     }
 
     // Load pixels from the second image into the queue
-    //loadPixelsToQueue(image2, queue2);
-    PixelQueue pq2;
-    pq2.loadPixelsIntoQueue(image2);
-    queue2 = pq2.getPixelQueue().copy();
-    if(!queue1.isEmpty())
+    loadPixelsToQueue(image2, queue2);
+    if(!queue2.isEmpty())
     {
-    cout << "First image loaded into the queue successfully." << endl;        
-    }    
-    
-    
-    Queue copy1 = queue1.copy();
-    while(!copy1.isEmpty())
-    {
-        RGBPixelXY pixel = copy1.peek();  // Get the front pixel of the queue
-        copy1.dequeue();  // Remove the pixel from the temporary queue
-
-        // Print the sum of the RGB values of the pixel
-        cout << "Sum of RGB values: " << pixel.getSumRGB() << endl;
+        cout << "Second image loaded into the queue successfully." << endl;    
+        /*
+        // Print queue contents
+        cout << "Queue contents (Second Image):" << endl;
+        printQueue(queue2);  
+        */
     }
-    
-    cout << "--------------------------------" << endl;
-    cout << "--------------------------------" << endl;
-    cout << "--------------------------------" << endl;
-    cout << "--------------------------------" << endl;
-    cout << "--------------------------------" << endl;
-    cout << "--------------------------------" << endl;
-    cout << "--------------------------------" << endl;
-    cout << "--------------------------------" << endl;
-    cout << "--------------------------------" << endl;
-    cout << "--------------------------------" << endl;
-    cout << "--------------------------------" << endl;
-    cout << "--------------------------------" << endl;
-    cout << "--------------------------------" << endl;
-    cout << "--------------------------------" << endl;
-    cout << "--------------------------------" << endl;
-    cout << "--------------------------------" << endl;
-    cout << "--------------------------------" << endl;
-    cout << "--------------------------------" << endl;
-    cout << "--------------------------------" << endl;
-    cout << "--------------------------------" << endl;
-    cout << "--------------------------------" << endl;
-
-    SortPixelQueue spq;
-    Queue sorted = spq.sortPixelQueue(copy1);
-    while(!sorted.isEmpty())
-    {
-        RGBPixelXY pixel = sorted.peek();  // Get the front pixel of the queue
-        sorted.dequeue();  // Remove the pixel from the temporary queue
-
-        // Print the sum of the RGB values of the pixel
-        cout << "Sum of RGB values: " << pixel.getSumRGB() << endl;
-    }
+ 
 }
-//   C:\Users\adria\Desktop\pinguino.bmp
+//   C:\Users\adria\Desktop\logo.bmp            C:/Users/adria/Desktop/pinguino.bmp
+
 
 // Method to validate and load an image
 bool ImageLoaderUI::loadImage(const string& imageName, TinyImageJM& image)
@@ -138,4 +108,19 @@ void ImageLoaderUI::loadPixelsToQueue(TinyImageJM& image, Queue& queue)
 
     // Notify the user that the pixels were successfully loaded into the queue
     cout << "Image pixels loaded into the queue successfully." << endl;
+}
+
+
+// Helper function to print the queue contents
+void ImageLoaderUI::printQueue(const Queue& queue) const
+{
+    Queue tempQueue = queue.copy(); // Create a copy to avoid modifying the original queue
+
+    while (!tempQueue.isEmpty())
+    {
+        RGBPixelXY pixel = tempQueue.peek();
+        cout << "Pixel (" << pixel.getX() << ", " << pixel.getY()
+             << ") - SumRGB: " << pixel.getSumRGB() << endl;
+        tempQueue.dequeue();
+    }
 }

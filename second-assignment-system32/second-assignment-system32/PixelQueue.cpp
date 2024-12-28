@@ -1,6 +1,8 @@
 #include "PixelQueue.hpp"
-#include <iostream>
+#include "StaticArray.hpp"
 #include "Queue.hpp"
+
+#include <iostream>
 
 using namespace std;
 
@@ -39,4 +41,43 @@ void PixelQueue::loadPixelsIntoQueue(TinyImageJM& image)
 Queue& PixelQueue::getPixelQueue()
 {
 	return pixelQueue; 
+}
+
+Queue PixelQueue::sortQueueBySumRGB(const Queue& queue, const TinyImageJM& image)
+{
+    // Validate the queue
+    if (queue.isEmpty())
+    {
+        cerr << "Error: Cannot sort an empty queue." << endl;
+        return Queue(); // Return an empty queue
+    }
+
+    // Create a PixelVector to store pixels from the queue
+    PixelVector pixelVector;
+
+    // Copy pixels from the queue to the PixelVector
+    Queue tempQueue = queue.copy();
+    while (!tempQueue.isEmpty())
+    {
+        pixelVector.pushBack(tempQueue.peek());
+        tempQueue.dequeue();
+    }
+
+    cout << "Successfully loaded " << pixelVector.getSize() << " pixels into PixelVector." << endl;
+
+    // Sort the PixelVector using Bubble Sort
+    pixelVector.bubbleSort();
+    cout << "PixelVector sorted successfully using BubbleSort." << endl;
+
+    // Create a new queue to hold the sorted pixels
+    Queue sortedQueue;
+    for (size_t i = 0; i < pixelVector.getSize(); i++)
+    {
+        sortedQueue.enqueue(pixelVector[i]);
+    }
+
+    cout << "Sorted queue created successfully." << endl;
+
+    // Return the sorted queue
+    return sortedQueue;
 }

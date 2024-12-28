@@ -5,7 +5,6 @@
 #include "TinyImageJM.hpp"  // Existing class for BMP image handling
 #include "Queue.hpp"   // Queue to hold pixel data
 #include "PixelQueue.hpp"   // Queue to hold pixel data
-#include "SortPixelQueue.hpp"
 
 
 // User Interface for loading images and managing pixel queues
@@ -24,6 +23,8 @@ private:
 
     // Load pixels from the image into a queue
     void loadPixelsToQueue(TinyImageJM& image, Queue& queue);
+    
+    void printQueue(const Queue& queue) const;
 
     // Attributes for pixel queues
     Queue queue1; // Queue for the first image

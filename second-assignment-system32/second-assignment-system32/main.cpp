@@ -1,6 +1,5 @@
 #include <iostream>
 #include "ImageLoaderUI.hpp"
-#include "SortPixelQueue.hpp"
 
 using namespace std;
 
@@ -12,5 +11,6 @@ int main()
 
     // Run the image loading and processing program
     loader.run();
+    
     return 0; // Exit the program successfully
 }

@@ -36,8 +36,8 @@ public:
     bool isValid();
 
     unsigned char * getImagePointertoInternal();
-    int getWidth();
-    int getHeight();
+    int getWidth() const;
+    int getHeight() const;
     std::string getInternalError();
     std::string getFilename();
     bool releaseImageMemory();
