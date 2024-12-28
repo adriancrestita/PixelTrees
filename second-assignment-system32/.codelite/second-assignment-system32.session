@@ -1,33 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Session Name="C:\Users\hugos\OneDrive\Escritorio\Data Structures\second-assignment-system32\second-assignment-system32\second-assignment-system32.workspace">
+<Session Name="/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32.workspace">
   <int Value="0" Name="m_selectedTab"/>
-  <wxString Value="C:\Users\hugos\OneDrive\Escritorio\Data Structures\second-assignment-system32\second-assignment-system32\second-assignment-system32.workspace" Name="m_workspaceName"/>
+  <wxString Value="/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32.workspace" Name="m_workspaceName"/>
   <TabInfoArray Name="TabInfoArray">
     <TabInfo>
-      <wxString Value="C:\Users\hugos\OneDrive\Escritorio\Data Structures\second-assignment-system32\second-assignment-system32\second-assignment-system32\sortPixelQueue.cpp" Name="FileName"/>
-      <int Value="18" Name="FirstVisibleLine"/>
+      <wxString Value="/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/ImageLoaderUI.cpp" Name="FileName"/>
+      <int Value="14" Name="FirstVisibleLine"/>
+      <int Value="31" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/PixelQueue.cpp" Name="FileName"/>
+      <int Value="20" Name="FirstVisibleLine"/>
+      <int Value="44" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/Queue.hpp" Name="FileName"/>
+      <int Value="0" Name="FirstVisibleLine"/>
+      <int Value="20" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/Queue.cpp" Name="FileName"/>
+      <int Value="23" Name="FirstVisibleLine"/>
       <int Value="0" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>
     <TabInfo>
-      <wxString Value="C:\Users\hugos\OneDrive\Escritorio\Data Structures\second-assignment-system32\second-assignment-system32\second-assignment-system32\RGBPixelXY.cpp" Name="FileName"/>
+      <wxString Value="/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/main.cpp" Name="FileName"/>
       <int Value="0" Name="FirstVisibleLine"/>
       <int Value="0" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>
     <TabInfo>
-      <wxString Value="C:\Users\hugos\OneDrive\Escritorio\Data Structures\second-assignment-system32\second-assignment-system32\second-assignment-system32\List.hpp" Name="FileName"/>
-      <int Value="6" Name="FirstVisibleLine"/>
-      <int Value="10" Name="CurrentLine"/>
+      <wxString Value="/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/TinyImageJM.cpp" Name="FileName"/>
+      <int Value="0" Name="FirstVisibleLine"/>
+      <int Value="0" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>
     <TabInfo>
-      <wxString Value="C:\Users\hugos\OneDrive\Escritorio\Data Structures\second-assignment-system32\second-assignment-system32\second-assignment-system32\List.cpp" Name="FileName"/>
-      <int Value="13" Name="FirstVisibleLine"/>
-      <int Value="21" Name="CurrentLine"/>
+      <wxString Value="/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/RGBPixelXY.cpp" Name="FileName"/>
+      <int Value="56" Name="FirstVisibleLine"/>
+      <int Value="0" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/T1.cpp" Name="FileName"/>
+      <int Value="84" Name="FirstVisibleLine"/>
+      <int Value="0" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/List.cpp" Name="FileName"/>
+      <int Value="0" Name="FirstVisibleLine"/>
+      <int Value="0" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/ImageLoaderUI.hpp" Name="FileName"/>
+      <int Value="0" Name="FirstVisibleLine"/>
+      <int Value="29" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/TinyImageJM.hpp" Name="FileName"/>
+      <int Value="0" Name="FirstVisibleLine"/>
+      <int Value="7" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/RGBPixelXY.hpp" Name="FileName"/>
+      <int Value="0" Name="FirstVisibleLine"/>
+      <int Value="0" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/PixelQueue.hpp" Name="FileName"/>
+      <int Value="0" Name="FirstVisibleLine"/>
+      <int Value="18" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="/Users/crestas/second-assignment-system32/second-assignment-system32/second-assignment-system32/T1.hpp" Name="FileName"/>
+      <int Value="0" Name="FirstVisibleLine"/>
+      <int Value="0" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>

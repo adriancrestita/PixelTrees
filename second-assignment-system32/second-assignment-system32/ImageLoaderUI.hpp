@@ -25,9 +25,10 @@ private:
     // Load pixels from the image into a queue
     void loadPixelsToQueue(TinyImageJM& image, Queue& queue);
 	
-	void processImageWithTree(const TinyImageJM& image, PixelQueue& pixelQueue, unsigned int fileID);
+	void processImageWithTree(const TinyImageJM& image, Queue& pixelQueue, unsigned int fileID);
 	
-	// Tree atribute
+	// Atributes
+	Queue queue1;
 	T1 tree1;
 };
 

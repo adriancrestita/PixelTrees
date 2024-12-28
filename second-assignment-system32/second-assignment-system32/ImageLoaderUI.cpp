@@ -28,8 +28,7 @@ void ImageLoaderUI::run()
     }
 
     // Load pixels from the first image into the queue
-    PixelQueue queue1;
-	loadPixelsToQueue(image1, queue1);
+	loadPixelsToQueue(image1, queue1);	
     if(!queue1.isEmpty())
     {
         cout << "First image loaded into the queue successfully." << endl;    
@@ -97,18 +96,9 @@ void ImageLoaderUI::loadPixelsToQueue(TinyImageJM& image, Queue& queue)
     cout << "Image pixels loaded into the queue successfully." << endl;
 }
 
-void ImageLoaderUI::processImageWithTree(const TinyImageJM& image, PixelQueue& pixelQueue, unsigned int fileID)
+void ImageLoaderUI::processImageWithTree(const TinyImageJM& image, Queue& queue, unsigned int fileID)
 {
-    // Copy the pixel queue
-    Queue tempQueue = pixelQueue.getPixelQueue();
-
-    // Insert pixels in the tree
-    while (!tempQueue.isEmpty())
-    {
-        RGBPixelXY pixel = tempQueue.peek(); 
-        tree1.insert(pixel, fileID);         
-        tempQueue.dequeue();                
-    }
+	tree1.insertFromQueue(queue, fileID);         
 
     cout << "Tree T1 created successfully with pixels from the image." << endl;
 
