@@ -22,7 +22,7 @@ void Timer::calculateDuration() {
 
 // Prints the elapsed time in seconds
 void Timer::printTime() {
-    cout << "Time taken to process the image: " << duration.count() << " seconds." << endl;
+    cout << "Dedicated time operation: " << duration.count() << " seconds." << endl;
 }
 
 // Resets the timer by setting a new start time

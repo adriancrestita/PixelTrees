@@ -1,5 +1,6 @@
 #include "ImageLoaderUI.hpp"
 #include "Queue.hpp"
+#include "Timer.hpp"
 
 #include <iostream>
 
@@ -18,6 +19,9 @@ void ImageLoaderUI::run()
     // Request first image file name
     cout << "Enter the name of the first BMP image file (including extension):\n ";
     cin >> imageFile1;
+    
+    // Start timer for calculate processing time
+    Timer timer;
 
     // Validate and load the first image
     TinyImageJM image1(imageFile1);
@@ -36,12 +40,23 @@ void ImageLoaderUI::run()
     
 	// Insert pixels from image1 to t1 tree and to t2 tree
 	processImageWithTree(image1, queue1, 1);
+    
+    // Stop timer and print dedicated time
+    timer.endTimer();
+    timer.calculateDuration();
+    cout << "*******************************************" endl;
+    cout << "Image 1 procesing time:" << endl;
+    timer.printTime();
+    cout << "*******************************************" << endl;
 	
 	
     // Request second image file name
     cout << "Enter the name of the second BMP image file (including extension):\n ";
     cin >> imageFile2;
-
+    
+    // Restart the timer for the second image
+    timer.resetTimer();
+    
     // Validate and load the second image
     TinyImageJM image2(imageFile2);
     if (!loadImage(imageFile2, image2))
@@ -56,9 +71,29 @@ void ImageLoaderUI::run()
     {
         cout << "Second image loaded into the queue successfully." << endl;    
     }
+    
+    // Stop timer and print dedicated time
+    timer.endTimer();
+    timer.calculateDuration();
+    cout << "*******************************************" endl;
+    cout << "Image 2 procesing time:" << endl;
+    timer.printTime();
+    cout << "*******************************************" << endl;
 	
+    
+    // Reset timer
+    timer.resetTimer();
+    
 	// Add pixels from the second image to T1 and T2
     processImage2Addition(queue2);
+    
+    // Stop timer and print dedicated time
+    timer.endTimer();
+    timer.calculateDuration();
+    cout << "*******************************************" endl;
+    cout << "Time take to merge both images: " << endl;
+    timer.printTime();
+    cout << "*******************************************" << endl;
 }
 
 // Method to validate and load an image
