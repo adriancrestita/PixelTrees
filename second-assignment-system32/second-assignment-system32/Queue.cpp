@@ -1,5 +1,4 @@
 #include "Queue.hpp"
-#include <stdexcept>
 
 // Constructor initializes the queue as empty
 Queue::Queue() : frontNode(nullptr), rearNode(nullptr) {}

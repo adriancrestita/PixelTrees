@@ -2,12 +2,14 @@
 #define IMAGELOADERUI_HPP
 
 #include <string>
+#include <iostream>
+
 #include "TinyImageJM.hpp"  // Existing class for BMP image handling
 #include "Queue.hpp"   // Queue to hold pixel data
 #include "PixelQueue.hpp"   // Queue to hold pixel data
 #include "T1.hpp"
 #include "T2.hpp"
-
+#include "Timer.hpp"
 
 
 // User Interface for loading images and managing pixel queues

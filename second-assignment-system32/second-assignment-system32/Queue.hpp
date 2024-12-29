@@ -2,6 +2,7 @@
 #define QUEUE_HPP
 
 #include "RGBPixelXY.hpp"
+#include <stdexcept>
 
 class Queue {
 private:

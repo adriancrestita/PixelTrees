@@ -1,8 +1,4 @@
 #include "ImageLoaderUI.hpp"
-#include "Queue.hpp"
-#include "Timer.hpp"
-
-#include <iostream>
 
 using namespace std;
 
@@ -93,10 +89,10 @@ void ImageLoaderUI::run()
     cout << "*******************************************" << endl;
     cout << "Time take to merge both images: " << endl;
     timer.printTime();
-    cout << "*******************************************" << endl;
     
     // Print the lists of node presence for T1
     printNodePresenceListsForT1();
+    cout << "*******************************************" << endl;
 }
 
 // Method to validate and load an image

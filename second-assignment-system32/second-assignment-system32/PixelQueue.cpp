@@ -1,7 +1,4 @@
 #include "PixelQueue.hpp"
-#include "Queue.hpp"
-
-#include <iostream>
 
 using namespace std;
 

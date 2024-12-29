@@ -5,6 +5,7 @@
 #include "TinyImageJM.hpp"
 #include <iostream>
 
+
 using namespace std;
 
 class PixelQueue 
