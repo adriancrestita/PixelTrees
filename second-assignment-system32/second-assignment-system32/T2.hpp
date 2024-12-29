@@ -2,6 +2,7 @@
 #define T2_HPP
 
 #include "RGBPixelXY.hpp"
+#include "Queue.hpp"
 #include "List.hpp"
 
 // Node structure for binary balanced tree

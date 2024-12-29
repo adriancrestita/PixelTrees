@@ -6,6 +6,8 @@
 #include "Queue.hpp"   // Queue to hold pixel data
 #include "PixelQueue.hpp"   // Queue to hold pixel data
 #include "T1.hpp"
+#include "T2.hpp"
+
 
 
 // User Interface for loading images and managing pixel queues
@@ -26,6 +28,8 @@ private:
     void loadPixelsToQueue(TinyImageJM& image, Queue& queue);
 	
 	void processImageWithTree(const TinyImageJM& image, Queue& pixelQueue, unsigned int fileID);
+    
+    void processImage2Addition(Queue& pixelQueue);
 	
 	// Atributes
 	Queue queue1;

@@ -139,25 +139,24 @@ unsigned int T1::getMaxNodeElements()
 // Check if a node with the given sumRGB exists
 bool T1::contains(unsigned int sumRGB)
 {
-    Node* current = root;
-	bool contains = false;
-	
-    while (current)
+    Node* current = root; // Start at the root of the tree
+
+    while (current) // Traverse the tree until a leaf is reached
     {
         if (sumRGB == current->sumRGB)
         {
-            contains = true;; // Found the node
+            return true; // Node found, return true immediately
         }
         else if (sumRGB < current->sumRGB)
         {
-            current = current->left; // Traverse left
+            current = current->left; // Move to the left subtree
         }
         else
         {
-            current = current->right; // Traverse right
+            current = current->right; // Move to the right subtree
         }
     }
 
-    return contains; // if false, node not found, if true, node found
+    return false; // Node not found, return false
 }
 

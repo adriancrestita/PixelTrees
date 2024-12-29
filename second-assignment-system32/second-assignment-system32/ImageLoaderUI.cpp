@@ -105,7 +105,7 @@ void ImageLoaderUI::processImageWithTree(const TinyImageJM& image, Queue& queue,
     // Calculate statistics for T1
     unsigned int treeDepth = tree1.getTreeDepth();
     unsigned int maxNodeElements = tree1.getMaxNodeElements();
-
+    cout << "*******************************************" << endl;
     cout << "Statistics for Tree T1:" << endl;
     cout << "Maximum Depth: " << treeDepth << endl;
     cout << "Node with Maximum Elements: " << maxNodeElements << endl;
@@ -117,6 +117,7 @@ void ImageLoaderUI::processImageWithTree(const TinyImageJM& image, Queue& queue,
     // Calculate statistics for T2
     unsigned int t2Depth = tree2.getTreeDepth();
     unsigned int t2MaxNodeElements = tree2.getMaxNodeElements();
+    cout << "*******************************************" << endl;
     cout << "Statistics for Tree T2:" << endl;
     cout << "Maximum Depth: " << t2Depth << endl;
     cout << "Node with Maximum Elements: " << t2MaxNodeElements << endl;
@@ -142,4 +143,24 @@ void ImageLoaderUI::processImage2Addition(Queue& pixelQueue)
     }
 
     cout << "Image 2 processed and added to T1 and T2." << endl;
+    
+    // Calculate statistics for T1
+    unsigned int treeDepth = tree1.getTreeDepth();
+    unsigned int maxNodeElements = tree1.getMaxNodeElements();
+    cout << "*******************************************" << endl;
+    cout << "Statistics for Tree T1:" << endl;
+    cout << "Maximum Depth: " << treeDepth << endl;
+    cout << "Node with Maximum Elements: " << maxNodeElements << endl;
+    
+    // Calculate statistics for T2
+    unsigned int t2Depth = tree2.getTreeDepth();
+    unsigned int t2MaxNodeElements = tree2.getMaxNodeElements();
+    cout << "*******************************************" << endl;
+    cout << "Statistics for Tree T2:" << endl;
+    cout << "Maximum Depth: " << t2Depth << endl;
+    cout << "Node with Maximum Elements: " << t2MaxNodeElements << endl;
+    
+    
 }
+
+// C:\Users\adria\Desktop\logo.bmp
