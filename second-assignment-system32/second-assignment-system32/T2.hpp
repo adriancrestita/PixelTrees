@@ -74,6 +74,10 @@ public:
 
     // Adds a pixel to an existing node with a matching sumRGB
     void addToExistingNode(unsigned int sumRGB, const RGBPixelXY& pixel, unsigned int file);
+	
+	// Insert all pixels from a queue into the tree
+	void insertFromQueue(Queue& pixelQueue, unsigned int file); 
+
 };
 
 #endif

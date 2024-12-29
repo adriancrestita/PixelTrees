@@ -29,7 +29,10 @@ private:
 	
 	// Atributes
 	Queue queue1;
+	Queue queue2;
 	T1 tree1;
+	T2 tree2;
+	
 };
 
 #endif // IMAGELOADERUI_HPP

@@ -34,7 +34,7 @@ void ImageLoaderUI::run()
         cout << "First image loaded into the queue successfully." << endl;    
     }
     
-	// Insert pixels from image1 to t1 tree
+	// Insert pixels from image1 to t1 tree and to t2 tree
 	processImageWithTree(image1, queue1, 1);
 	
 	
@@ -56,9 +56,10 @@ void ImageLoaderUI::run()
     {
         cout << "Second image loaded into the queue successfully." << endl;    
     }
+	
+	// Add pixels from the second image to T1 and T2
+    processImage2Addition(queue2);
 }
-//   C:\Users\adria\Desktop\logo.bmp            C:/Users/adria/Desktop/pinguino.bmp
-
 
 // Method to validate and load an image
 bool ImageLoaderUI::loadImage(const string& imageName, TinyImageJM& image)
@@ -101,13 +102,24 @@ void ImageLoaderUI::processImageWithTree(const TinyImageJM& image, Queue& queue,
 
     cout << "Tree T1 created successfully with pixels from the image." << endl;
 
-    // Calcular estadísticas del árbol
+    // Calculate statistics for T1
     unsigned int treeDepth = tree1.getTreeDepth();
     unsigned int maxNodeElements = tree1.getMaxNodeElements();
 
     cout << "Statistics for Tree T1:" << endl;
     cout << "Maximum Depth: " << treeDepth << endl;
     cout << "Node with Maximum Elements: " << maxNodeElements << endl;
+	
+	// Insert pixels into T2
+    tree2.insertFromQueue(queue, fileID);
+    cout << "Tree T2 created successfully with pixels from the image." << endl;
+
+    // Calculate statistics for T2
+    unsigned int t2Depth = tree2.getTreeDepth();
+    unsigned int t2MaxNodeElements = tree2.getMaxNodeElements();
+    cout << "Statistics for Tree T2:" << endl;
+    cout << "Maximum Depth: " << t2Depth << endl;
+    cout << "Node with Maximum Elements: " << t2MaxNodeElements << endl;
 }
 
 void ImageLoaderUI::processImage2Addition(Queue& pixelQueue)

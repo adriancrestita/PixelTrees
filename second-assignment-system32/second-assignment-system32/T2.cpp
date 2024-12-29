@@ -235,3 +235,16 @@ void T2::addToExistingNode(unsigned int sumRGB, const RGBPixelXY& pixel, unsigne
         }
     }
 }
+
+// Insert all pixels from a queue into the tree
+void T2::insertFromQueue(Queue& pixelQueue, unsigned int file)
+{
+    Queue tempQueue = pixelQueue.copy(); // Copy the queue
+
+    while (!tempQueue.isEmpty())
+    {
+        RGBPixelXY pixel = tempQueue.peek(); // Get the front pixel
+        insert(pixel, file);                 // Insert into the tree
+        tempQueue.dequeue();                 // Remove the pixel from the queue
+    }
+}
