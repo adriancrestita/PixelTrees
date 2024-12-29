@@ -6,19 +6,37 @@
 
 using namespace std;
 
-class Timer {
+class Timer 
+{
 private:
-    chrono::time_point<chrono::high_resolution_clock> start; // Start time
-    chrono::time_point<chrono::high_resolution_clock> end;   // End time
-    chrono::duration<double> duration;                       // Duration of the timer
+    // Start time
+    chrono::time_point<chrono::high_resolution_clock> start; 
+    
+    // End time
+    chrono::time_point<chrono::high_resolution_clock> end; 
+
+    // Duration of the timer
+    chrono::duration<double> duration;                       
 
 public:
-    Timer();                           // Constructor: initializes the start time
-    ~Timer();                          // Destructor
-    void endTimer();                   // Marks the end time
-    void calculateDuration();          // Calculates the time duration
-    void printTime();                  // Prints the elapsed time
-    void resetTimer();                 // Resets the timer to start again
+    
+    // Constructor: initializes the start time
+    Timer();                           
+    
+    // Destructor
+    ~Timer();                          
+    
+    // Marks the end time
+    void endTimer();                   
+    
+    // Calculates the time duration
+    void calculateDuration();          
+    
+    // Prints the elapsed time
+    void printTime();
+
+    // Resets the timer to start again
+    void resetTimer();                 
 };
 
 #endif

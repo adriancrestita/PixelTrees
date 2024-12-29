@@ -44,7 +44,7 @@ void ImageLoaderUI::run()
     // Stop timer and print dedicated time
     timer.endTimer();
     timer.calculateDuration();
-    cout << "*******************************************" endl;
+    cout << "*******************************************" << endl;
     cout << "Image 1 procesing time:" << endl;
     timer.printTime();
     cout << "*******************************************" << endl;
@@ -75,7 +75,7 @@ void ImageLoaderUI::run()
     // Stop timer and print dedicated time
     timer.endTimer();
     timer.calculateDuration();
-    cout << "*******************************************" endl;
+    cout << "*******************************************" << endl;
     cout << "Image 2 procesing time:" << endl;
     timer.printTime();
     cout << "*******************************************" << endl;
@@ -90,10 +90,13 @@ void ImageLoaderUI::run()
     // Stop timer and print dedicated time
     timer.endTimer();
     timer.calculateDuration();
-    cout << "*******************************************" endl;
+    cout << "*******************************************" << endl;
     cout << "Time take to merge both images: " << endl;
     timer.printTime();
     cout << "*******************************************" << endl;
+    
+    // Print the lists of node presence for T1
+    printNodePresenceListsForT1();
 }
 
 // Method to validate and load an image
@@ -197,5 +200,35 @@ void ImageLoaderUI::processImage2Addition(Queue& pixelQueue)
     
     
 }
+
+void ImageLoaderUI::printNodePresenceListsForT1()
+{
+    List<unsigned int> valuesWithNode;      // List of values with nodes
+    List<unsigned int> valuesWithoutNode;  // List of values without nodes
+
+    // Traverse the range from 0 to 765
+    for (unsigned int i = 0; i <= 765; ++i)
+    {
+        if (tree1.contains(i)) // Check if the value exists in T1
+        {
+            valuesWithNode.append(i); // Add to the list of values with nodes
+        }
+        else
+        {
+            valuesWithoutNode.append(i); // Add to the list of values without nodes
+        }
+    }
+
+    // Print the list of values with nodes
+    cout << "*******************************************" << endl;
+    cout << "Values with Nodes in T1:" << endl;
+    valuesWithNode.print();
+
+    // Print the list of values without nodes
+    cout << "*******************************************" << endl;
+    cout << "Values without Nodes in T1:" << endl;
+    valuesWithoutNode.print();
+}
+
 
 // C:\Users\adria\Desktop\logo.bmp
