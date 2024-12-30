@@ -53,7 +53,7 @@ private:
 
     // Recursively calculates the maximum number of elements in any node
     unsigned int calculateMaxNodeElements(BalancedNode* node);
-
+    
 public:
     // Constructor to initialize an empty tree
     T2();
@@ -78,7 +78,6 @@ public:
 	
 	// Insert all pixels from a queue into the tree
 	void insertFromQueue(Queue& pixelQueue, unsigned int file); 
-
 };
 
 #endif

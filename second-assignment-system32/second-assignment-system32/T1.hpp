@@ -60,6 +60,8 @@ public:
 	
 	// Add a pixel to an existing node
 	void addToExistingNode(unsigned int sumRGB, const RGBPixelXY& pixel, unsigned int file); 
+    
+
 };
 
 #endif

@@ -248,3 +248,4 @@ void T2::insertFromQueue(Queue& pixelQueue, unsigned int file)
         tempQueue.dequeue();                 // Remove the pixel from the queue
     }
 }
+
