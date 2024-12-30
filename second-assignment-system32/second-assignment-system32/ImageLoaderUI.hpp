@@ -23,12 +23,6 @@ public:
     void run();
 
 private:
-	// Atributes
-	Queue queue1;
-	Queue queue2;
-	T1 tree1;
-	T2 tree2;
-    
     // Validate and load an image file
     bool loadImage(const std::string& imageName, TinyImageJM& image);
 
@@ -40,7 +34,14 @@ private:
     void processImage2Addition(Queue& pixelQueue);
     
     void printNodePresenceListsForT1();
-    
-    //void generateOutputImages(const TinyImageJM& image1, const TinyImageJM& image2);
+
+	
+	// Atributes
+	Queue queue1;
+	Queue queue2;
+	T1 tree1;
+	T2 tree2;
+	
+};
 
 #endif // IMAGELOADERUI_HPP

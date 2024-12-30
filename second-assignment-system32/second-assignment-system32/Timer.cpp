@@ -37,12 +37,3 @@ void Timer::resetTimer()
     start = chrono::high_resolution_clock::now();
     duration = chrono::duration<double>::zero(); // Reset the duration to zero
 }
-
-// Subtracts the duration of another timer
-void Timer::subtractTime(const Timer& other) 
-{
-    duration -= other.duration; // Subtract the duration of the other timer
-    if (duration.count() < 0) {
-        duration = chrono::duration<double>::zero(); // Ensure no negative durations
-    }
-}

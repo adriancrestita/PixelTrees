@@ -16,9 +16,6 @@ void ImageLoaderUI::run()
     cout << "Enter the name of the first BMP image file (including extension):\n ";
     cin >> imageFile1;
     
-    // Start timer for global operations
-    Timer globalTimer;
-    
     // Start timer for calculate processing time
     Timer timer;
 
@@ -50,11 +47,8 @@ void ImageLoaderUI::run()
 	
 	
     // Request second image file name
-    Timer inputTimer;
     cout << "Enter the name of the second BMP image file (including extension):\n ";
     cin >> imageFile2;
-    inputTimer.endTimer();
-    inputTimer.calculateDuration();
     
     // Restart the timer for the second image
     timer.resetTimer();
@@ -96,29 +90,9 @@ void ImageLoaderUI::run()
     cout << "Time take to merge both images: " << endl;
     timer.printTime();
     
-    // Reset timer
-    timer.resetTimer();
-    
-    // Print the lists of node presence for T1 and its running time
+    // Print the lists of node presence for T1
     printNodePresenceListsForT1();
-    timer.endTimer();
-    timer.calculateDuration();
     cout << "*******************************************" << endl;
-    cout << "Time taken to analyze sumRGB in T1:" << endl;
-    timer.printTime();
-    cout << "*******************************************" << endl;    
-    
-    // Generate and save output images
-    //generateOutputImages(image1, image2);
-
-    // Stop global timer and print dedicated time
-    globalTimer.endTimer();
-    globalTimer.calculateDuration();
-    cout << "-------------------------------------------" << endl;
-    cout << "Global time taken:" << endl;
-    globalTimer.subtractTime(inputTimer);
-    globalTimer.printTime();
-    cout << "-------------------------------------------" << endl;
 }
 
 // Method to validate and load an image
@@ -251,92 +225,6 @@ void ImageLoaderUI::printNodePresenceListsForT1()
     cout << "Values without Nodes in T1:" << endl;
     valuesWithoutNode.print();
 }
-/*
-void ImageLoaderUI::generateOutputImages(const TinyImageJM& image1, const TinyImageJM& image2)
-{
-    // Get dimensions of the images
-    int width1 = image1.getWidth();
-    int height1 = image1.getHeight();
-    int width2 = image2.getWidth();
-    int height2 = image2.getHeight();
 
-    // Allocate memory for the new images (all black by default)
-    unsigned char* outputImage1 = new unsigned char[width1 * height1 * 3]();
-    unsigned char* outputImage2 = new unsigned char[width2 * height2 * 3]();
-    unsigned char* outputImage3 = new unsigned char[width2 * height2 * 3]();
-
-    // Generate the first output image
-    for (unsigned int y = 0; y < height1; ++y)
-    {
-        for (unsigned int x = 0; x < width1; ++x)
-        {
-            RGBPixelXY pixel;
-            if (pixel.getFromRaw(image1.getImagePointertoInternal(), width1, height1, x, y))
-            {
-                if (tree1.contains(pixel.getSumRGB()))
-                {
-                    BalancedNode* node = tree1.findNode(pixel.getSumRGB());
-                    if (node && node->originFile == 1)
-                    {
-                        pixel.setIntoRaw(outputImage1, width1, height1, x, y);
-                    }
-                }
-            }
-        }
-    }
-
-    // Generate the second output image
-    for (unsigned int y = 0; y < height2; ++y)
-    {
-        for (unsigned int x = 0; x < width2; ++x)
-        {
-            RGBPixelXY pixel;
-            if (pixel.getFromRaw(image2.getImagePointertoInternal(), width2, height2, x, y))
-            {
-                if (tree1.contains(pixel.getSumRGB()))
-                {
-                    pixel.setIntoRaw(outputImage2, width2, height2, x, y);
-                }
-            }
-        }
-    }
-
-    // Generate the third output image
-    for (unsigned int y = 0; y < height2; ++y)
-    {
-        for (unsigned int x = 0; x < width2; ++x)
-        {
-            RGBPixelXY pixel;
-            if (pixel.getFromRaw(image2.getImagePointertoInternal(), width2, height2, x, y))
-            {
-                if (tree2.contains(pixel.getSumRGB()))
-                {
-                    pixel.setIntoRaw(outputImage3, width2, height2, x, y);
-                }
-            }
-        }
-    }
-
-    // Save the output images to disk
-    TinyImageJM output1("output1.bmp");
-    output1.setNewImagePointerWithOldRemoval(outputImage1, width1, height1);
-    output1.saveImageToDisk("output1", "_T1_origin1");
-
-    TinyImageJM output2("output2.bmp");
-    output2.setNewImagePointerWithOldRemoval(outputImage2, width2, height2);
-    output2.saveImageToDisk("output2", "_T1");
-
-    TinyImageJM output3("output3.bmp");
-    output3.setNewImagePointerWithOldRemoval(outputImage3, width2, height2);
-    output3.saveImageToDisk("output3", "_T2");
-
-    // Free allocated memory
-    delete[] outputImage1;
-    delete[] outputImage2;
-    delete[] outputImage3;
-
-    cout << "Output images generated and saved successfully." << endl;
-}
-*/
 
 // C:\Users\adria\Desktop\logo.bmp
