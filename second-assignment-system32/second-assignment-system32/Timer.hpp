@@ -36,7 +36,10 @@ public:
     void printTime();
 
     // Resets the timer to start again
-    void resetTimer();                 
+    void resetTimer();    
+
+    // Subtracts another timer's duration
+    void subtractTime(const Timer& other);
 };
 
 #endif

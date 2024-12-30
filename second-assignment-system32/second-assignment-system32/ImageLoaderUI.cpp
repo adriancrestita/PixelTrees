@@ -18,6 +18,9 @@ void ImageLoaderUI::run()
     
     // Start timer for calculate processing time
     Timer timer;
+    
+    // Start global timer
+    Timer globalTimer;
 
     // Validate and load the first image
     TinyImageJM image1(imageFile1);
@@ -47,8 +50,11 @@ void ImageLoaderUI::run()
 	
 	
     // Request second image file name
+    Timer inputTimer;
     cout << "Enter the name of the second BMP image file (including extension):\n ";
     cin >> imageFile2;
+    inputTimer.endTimer();
+    inputTimer.calculateDuration();
     
     // Restart the timer for the second image
     timer.resetTimer();
@@ -89,9 +95,26 @@ void ImageLoaderUI::run()
     cout << "Time take to merge both images: " << endl;
     timer.printTime();
     
-    // Print the lists of node presence for T1
+    // Reset timer
+    timer.resetTimer();
+    
+    // Print the lists of node presence for T1 and its running time
     printNodePresenceListsForT1();
+    timer.endTimer();
+    timer.calculateDuration();
     cout << "*******************************************" << endl;
+    cout << "Time taken to analyze sumRGB in T1:" << endl;
+    timer.printTime();
+    cout << "*******************************************" << endl;
+    
+    // Stop global timer and print dedicated time
+    globalTimer.endTimer();
+    globalTimer.calculateDuration();
+    cout << "-------------------------------------------" << endl;
+    cout << "Global time taken:" << endl;
+    globalTimer.subtractTime(inputTimer);
+    globalTimer.printTime();
+    cout << "-------------------------------------------" << endl;
 }
 
 // Method to validate and load an image
