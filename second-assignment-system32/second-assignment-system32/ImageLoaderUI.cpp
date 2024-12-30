@@ -76,7 +76,6 @@ void ImageLoaderUI::run()
     timer.printTime();
     cout << "*******************************************" << endl;
 	
-    
     // Reset timer
     timer.resetTimer();
     
@@ -225,6 +224,7 @@ void ImageLoaderUI::printNodePresenceListsForT1()
     cout << "Values without Nodes in T1:" << endl;
     valuesWithoutNode.print();
 }
+
 
 
 // C:\Users\adria\Desktop\logo.bmp
