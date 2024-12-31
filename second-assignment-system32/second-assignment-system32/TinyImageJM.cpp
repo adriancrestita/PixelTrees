@@ -1,5 +1,18 @@
 #include "TinyImageJM.hpp"
 
+TinyImageJM::TinyImageJM()
+{
+    original_fn = "";
+    internal_name = "";
+    filePointer = nullptr;
+    imageValid = false;
+    internal_width = 0;
+    internal_height = 0;
+    internal_error = "";
+    internal_image = nullptr;
+    internal_palette = nullptr;
+}
+
 TinyImageJM::TinyImageJM(std::string p_name)
 {
     original_fn = p_name;
@@ -13,7 +26,7 @@ TinyImageJM::TinyImageJM(std::string p_name)
     internal_palette = nullptr;   // palette data (if uses palette)
 }
 	
-std::string TinyImageJM::getFilename()
+std::string TinyImageJM::getFilename() const
 {
 	return original_fn;
 }
@@ -120,7 +133,7 @@ bool TinyImageJM::isValid()
 	return imageValid;
 }
 
-unsigned char * TinyImageJM::getImagePointertoInternal()
+unsigned char * TinyImageJM::getImagePointertoInternal() const
 {
 	unsigned char * result = nullptr;
 	if (imageValid)

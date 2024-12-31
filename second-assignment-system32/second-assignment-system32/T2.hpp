@@ -71,14 +71,15 @@ public:
     unsigned int getMaxNodeElements();
 
     // Checks if a node with the given sumRGB exists in the tree
-    bool contains(unsigned int sumRGB);
+    bool contains(unsigned int sumRGB) const;
 
     // Adds a pixel to an existing node with a matching sumRGB
     void addToExistingNode(unsigned int sumRGB, const RGBPixelXY& pixel, unsigned int file);
 	
 	// Insert all pixels from a queue into the tree
 	void insertFromQueue(Queue& pixelQueue, unsigned int file); 
-
+	
+	unsigned int getNodeOriginFile(unsigned int sumRGB);
 };
 
 #endif

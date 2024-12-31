@@ -30,16 +30,18 @@ class TinyImageJM
     bool openFile(std::string p_flags);
     
 public:
-    TinyImageJM(std::string p_name);
+    TinyImageJM();
+    
+	TinyImageJM(std::string p_name);
     
     bool loadImageFromDisk();        /* returns isValid() */
     bool isValid();
 
-    unsigned char * getImagePointertoInternal();
+    unsigned char * getImagePointertoInternal() const;
     int getWidth() const;
     int getHeight() const;
     std::string getInternalError();
-    std::string getFilename();
+    std::string getFilename() const;
     bool releaseImageMemory();
     
     void setNewImagePointerWithOldRemoval(unsigned char * p_image, int p_width, int p_height);

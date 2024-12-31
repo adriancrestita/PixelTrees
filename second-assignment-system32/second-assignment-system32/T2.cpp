@@ -183,7 +183,7 @@ unsigned int T2::getMaxNodeElements()
 }
 
 // Check if a node with the given sumRGB exists
-bool T2::contains(unsigned int sumRGB)
+bool T2::contains(unsigned int sumRGB) const
 {
     BalancedNode* current = root;
 
@@ -247,4 +247,25 @@ void T2::insertFromQueue(Queue& pixelQueue, unsigned int file)
         insert(pixel, file);                 // Insert into the tree
         tempQueue.dequeue();                 // Remove the pixel from the queue
     }
+}
+
+unsigned int T2::getNodeOriginFile(unsigned int sumRGB)
+{
+    BalancedNode* current = root;
+    while (current)
+    {
+        if (sumRGB < current->sumRGB)
+        {
+            current = current->left;
+        }
+        else if (sumRGB > current->sumRGB)
+        {
+            current = current->right;
+        }
+        else
+        {
+            return current->originFile;
+        }
+    }
+    return 0; // Not found
 }

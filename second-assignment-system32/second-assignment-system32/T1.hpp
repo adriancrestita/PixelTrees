@@ -56,10 +56,13 @@ public:
     unsigned int getMaxNodeElements();
 	
 	// Check if a node with the given sumRGB exists
-	bool contains(unsigned int sumRGB); 
+	bool contains(unsigned int sumRGB) const; 
 	
 	// Add a pixel to an existing node
 	void addToExistingNode(unsigned int sumRGB, const RGBPixelXY& pixel, unsigned int file); 
+	
+	unsigned int getNodeOriginFile(unsigned int sumRGB) const;
+
 };
 
 #endif

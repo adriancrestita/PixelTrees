@@ -137,7 +137,7 @@ unsigned int T1::getMaxNodeElements()
 }
 
 // Check if a node with the given sumRGB exists
-bool T1::contains(unsigned int sumRGB)
+bool T1::contains(unsigned int sumRGB) const
 {
     Node* current = root; // Start at the root of the tree
 
@@ -158,5 +158,26 @@ bool T1::contains(unsigned int sumRGB)
     }
 
     return false; // Node not found, return false
+}
+
+unsigned int T1::getNodeOriginFile(unsigned int sumRGB) const
+{
+    Node* current = root;
+    while (current)
+    {
+        if (sumRGB < current->sumRGB)
+        {
+            current = current->left;
+        }
+        else if (sumRGB > current->sumRGB)
+        {
+            current = current->right;
+        }
+        else
+        {
+            return current->originFile;
+        }
+    }
+    return 0; // Not found
 }
 
