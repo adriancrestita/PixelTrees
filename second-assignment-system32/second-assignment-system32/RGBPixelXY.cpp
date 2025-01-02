@@ -155,7 +155,7 @@ bool RGBPixelXY::getFromRaw(const unsigned char *image, unsigned int width, unsi
     return result;
 }
 
-bool RGBPixelXY::setIntoRaw(unsigned char *image, unsigned int width, unsigned int height, unsigned int p_x, unsigned int p_y)
+bool RGBPixelXY::setIntoRaw(unsigned char *image, unsigned int width, unsigned int height, unsigned int p_x, unsigned int p_y) 
 {
     bool result = false; // no success
     
@@ -165,11 +165,10 @@ bool RGBPixelXY::setIntoRaw(unsigned char *image, unsigned int width, unsigned i
     }
     else
     {
-        int rowPix = width*3;
-
-        *(image+((p_y*rowPix)+(p_x*3)+0)) = colorB;  // blue
-        *(image+((p_y*rowPix)+(p_x*3)+1)) = colorG;  // green
-        *(image+((p_y*rowPix)+(p_x*3)+2)) = colorR;  // red
+        int baseIndex = (p_y * width * 3) + (p_x * 3);
+        image[baseIndex + 0] = colorB; // Blue
+        image[baseIndex + 1] = colorG; // Green
+        image[baseIndex + 2] = colorR; // Red
         result = true;
     }
     

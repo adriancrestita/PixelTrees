@@ -64,7 +64,7 @@ AS       := C:/msys64/mingw64/bin/as.exe
 ## User defined environment variables
 ##
 CodeLiteDir:=C:\Program Files\CodeLite
-Objects0=$(IntermediateDirectory)/List.cpp$(ObjectSuffix) $(IntermediateDirectory)/T1.cpp$(ObjectSuffix) $(IntermediateDirectory)/RGBPixelXY.cpp$(ObjectSuffix) $(IntermediateDirectory)/ImageSaver.cpp$(ObjectSuffix) $(IntermediateDirectory)/PixelQueue.cpp$(ObjectSuffix) $(IntermediateDirectory)/TinyImageJM.cpp$(ObjectSuffix) $(IntermediateDirectory)/T2.cpp$(ObjectSuffix) $(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/Timer.cpp$(ObjectSuffix) $(IntermediateDirectory)/Queue.cpp$(ObjectSuffix) \
+Objects0=$(IntermediateDirectory)/List.cpp$(ObjectSuffix) $(IntermediateDirectory)/T1.cpp$(ObjectSuffix) $(IntermediateDirectory)/RGBPixelXY.cpp$(ObjectSuffix) $(IntermediateDirectory)/PixelQueue.cpp$(ObjectSuffix) $(IntermediateDirectory)/ImageSaver.cpp$(ObjectSuffix) $(IntermediateDirectory)/Queue.cpp$(ObjectSuffix) $(IntermediateDirectory)/TinyImageJM.cpp$(ObjectSuffix) $(IntermediateDirectory)/T2.cpp$(ObjectSuffix) $(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/Timer.cpp$(ObjectSuffix) \
 	$(IntermediateDirectory)/ImageLoaderUI.cpp$(ObjectSuffix) 
 
 
@@ -111,15 +111,20 @@ $(IntermediateDirectory)/RGBPixelXY.cpp$(ObjectSuffix): RGBPixelXY.cpp
 $(IntermediateDirectory)/RGBPixelXY.cpp$(PreprocessSuffix): RGBPixelXY.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/RGBPixelXY.cpp$(PreprocessSuffix) RGBPixelXY.cpp
 
+$(IntermediateDirectory)/PixelQueue.cpp$(ObjectSuffix): PixelQueue.cpp 
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/adria/Desktop/second-assignment-system32/second-assignment-system32/second-assignment-system32/PixelQueue.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/PixelQueue.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/PixelQueue.cpp$(PreprocessSuffix): PixelQueue.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/PixelQueue.cpp$(PreprocessSuffix) PixelQueue.cpp
+
 $(IntermediateDirectory)/ImageSaver.cpp$(ObjectSuffix): ImageSaver.cpp 
 	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/adria/Desktop/second-assignment-system32/second-assignment-system32/second-assignment-system32/ImageSaver.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ImageSaver.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/ImageSaver.cpp$(PreprocessSuffix): ImageSaver.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ImageSaver.cpp$(PreprocessSuffix) ImageSaver.cpp
 
-$(IntermediateDirectory)/PixelQueue.cpp$(ObjectSuffix): PixelQueue.cpp 
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/adria/Desktop/second-assignment-system32/second-assignment-system32/second-assignment-system32/PixelQueue.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/PixelQueue.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/PixelQueue.cpp$(PreprocessSuffix): PixelQueue.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/PixelQueue.cpp$(PreprocessSuffix) PixelQueue.cpp
+$(IntermediateDirectory)/Queue.cpp$(ObjectSuffix): Queue.cpp 
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/adria/Desktop/second-assignment-system32/second-assignment-system32/second-assignment-system32/Queue.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Queue.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Queue.cpp$(PreprocessSuffix): Queue.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Queue.cpp$(PreprocessSuffix) Queue.cpp
 
 $(IntermediateDirectory)/TinyImageJM.cpp$(ObjectSuffix): TinyImageJM.cpp 
 	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/adria/Desktop/second-assignment-system32/second-assignment-system32/second-assignment-system32/TinyImageJM.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/TinyImageJM.cpp$(ObjectSuffix) $(IncludePath)
@@ -140,11 +145,6 @@ $(IntermediateDirectory)/Timer.cpp$(ObjectSuffix): Timer.cpp
 	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/adria/Desktop/second-assignment-system32/second-assignment-system32/second-assignment-system32/Timer.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Timer.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/Timer.cpp$(PreprocessSuffix): Timer.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Timer.cpp$(PreprocessSuffix) Timer.cpp
-
-$(IntermediateDirectory)/Queue.cpp$(ObjectSuffix): Queue.cpp 
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/adria/Desktop/second-assignment-system32/second-assignment-system32/second-assignment-system32/Queue.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Queue.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/Queue.cpp$(PreprocessSuffix): Queue.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Queue.cpp$(PreprocessSuffix) Queue.cpp
 
 $(IntermediateDirectory)/ImageLoaderUI.cpp$(ObjectSuffix): ImageLoaderUI.cpp 
 	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/adria/Desktop/second-assignment-system32/second-assignment-system32/second-assignment-system32/ImageLoaderUI.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ImageLoaderUI.cpp$(ObjectSuffix) $(IncludePath)

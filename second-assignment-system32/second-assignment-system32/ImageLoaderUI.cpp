@@ -108,9 +108,16 @@ void ImageLoaderUI::run()
     cout << "*******************************************" << endl;
     
 	// Generate output images
-    ImageSaver::saveImage1(image1, tree1, imageFile1);
+    
+    
+    cout << "Creating image 2..." << endl;
     ImageSaver::saveImage2(image2, tree1, imageFile2);
+    
+    cout << "Creating image 3..." << endl;
     ImageSaver::saveImage3(image2, tree2, imageFile2);
+    
+    cout << "Creating image 1..." << endl;
+    ImageSaver::saveImage1(image1, tree1, imageFile1);
 	
     // Stop global timer and print dedicated time
     globalTimer.endTimer();
