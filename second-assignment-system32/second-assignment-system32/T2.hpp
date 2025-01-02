@@ -80,6 +80,9 @@ public:
 	void insertFromQueue(Queue& pixelQueue, unsigned int file); 
 	
 	unsigned int getNodeOriginFile(unsigned int sumRGB);
+    
+    List<RGBPixelXY> getNodePixels(unsigned int sumRGB) const;
+
 };
 
 #endif

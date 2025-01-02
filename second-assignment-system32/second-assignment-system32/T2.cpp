@@ -45,7 +45,7 @@ BalancedNode* T2::insert(BalancedNode* node, RGBPixelXY pixel, unsigned int file
         node->pixels.append(pixel);
         if (node->originFile != file)
         {
-            node->originFile = 0; // Mark as mixed origin
+            node->originFile = 2; // Mark as mixed origin
         }
     }
 
@@ -221,7 +221,7 @@ void T2::addToExistingNode(unsigned int sumRGB, const RGBPixelXY& pixel, unsigne
             // Update originFile if necessary
             if (current->originFile != file)
             {
-                current->originFile = 0; // Mark as mixed origin
+                current->originFile = 2; // Mark as mixed origin
             }
             return;
         }
@@ -268,4 +268,19 @@ unsigned int T2::getNodeOriginFile(unsigned int sumRGB)
         }
     }
     return 0; // Not found
+}
+
+// Get pixels from a node
+List<RGBPixelXY> T2::getNodePixels(unsigned int sumRGB) const
+{
+    BalancedNode* current = root;
+    while (current)
+    {
+        if (sumRGB == current->sumRGB)
+        {
+            return current->pixels;
+        }
+        current = (sumRGB < current->sumRGB) ? current->left : current->right;
+    }
+    return List<RGBPixelXY>(); // Return empty list if not found
 }

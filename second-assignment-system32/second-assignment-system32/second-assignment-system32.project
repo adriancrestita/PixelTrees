@@ -3,6 +3,7 @@
   <VirtualDirectory Name="include">
     <File Name="Timer.hpp"/>
     <VirtualDirectory Name="ImageManagement">
+      <File Name="ImageSaver.hpp"/>
       <File Name="TinyImageJM.hpp"/>
       <File Name="RGBPixelXY.hpp"/>
       <File Name="PixelQueue.hpp"/>
@@ -111,6 +112,7 @@
   <VirtualDirectory Name="src">
     <File Name="Timer.cpp"/>
     <VirtualDirectory Name="ImageManagement">
+      <File Name="ImageSaver.cpp"/>
       <File Name="PixelQueue.cpp"/>
       <File Name="TinyImageJM.cpp"/>
       <File Name="RGBPixelXY.cpp"/>

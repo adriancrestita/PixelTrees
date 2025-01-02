@@ -10,6 +10,8 @@
 #include "T1.hpp"
 #include "T2.hpp"
 #include "Timer.hpp"
+#include "ImageSaver.hpp"
+
 
 
 // User Interface for loading images and managing pixel queues
@@ -40,15 +42,7 @@ private:
     void processImage2Addition(Queue& pixelQueue);
     
     void printNodePresenceListsForT1();
-	
-	void generateImageFromT1ForFile1(const TinyImageJM& image, const T1& tree1);
-	
-	void generateImageFromT1ForFile2(const TinyImageJM& image, const T1& tree1);
-	
-	void generateImageFromT2(const TinyImageJM& image, const T2& tree2);
-
-
-
 };
+
 
 #endif // IMAGELOADERUI_HPP

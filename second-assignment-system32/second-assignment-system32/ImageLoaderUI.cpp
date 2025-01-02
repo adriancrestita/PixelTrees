@@ -108,9 +108,9 @@ void ImageLoaderUI::run()
     cout << "*******************************************" << endl;
     
 	// Generate output images
-    generateImageFromT1ForFile1(image1, tree1);
-    generateImageFromT1ForFile2(image2, tree1);
-    generateImageFromT2(image2, tree2);
+    ImageSaver::saveImage1(image1, tree1, imageFile1);
+    ImageSaver::saveImage2(image2, tree1, imageFile2);
+    ImageSaver::saveImage3(image2, tree2, imageFile2);
 	
     // Stop global timer and print dedicated time
     globalTimer.endTimer();
@@ -220,8 +220,6 @@ void ImageLoaderUI::processImage2Addition(Queue& pixelQueue)
     cout << "Statistics for Tree T2:" << endl;
     cout << "Maximum Depth: " << t2Depth << endl;
     cout << "Node with Maximum Elements: " << t2MaxNodeElements << endl;
-    
-    
 }
 
 void ImageLoaderUI::printNodePresenceListsForT1()
@@ -251,108 +249,6 @@ void ImageLoaderUI::printNodePresenceListsForT1()
     cout << "*******************************************" << endl;
     cout << "Values without Nodes in T1:" << endl;
     valuesWithoutNode.print();
-}
-
-// Function to generate and save the first image
-void ImageLoaderUI::generateImageFromT1ForFile1(const TinyImageJM& image, const T1& tree1)
-{
-    int width = image.getWidth();
-    int height = image.getHeight();
-    unsigned char* outputImage = new unsigned char[width * height * 3];
-
-    for (int y = 0; y < height; y++)
-    {
-        for (int x = 0; x < width; x++)
-        {
-            RGBPixelXY pixel;
-            if (pixel.getFromRaw(image.getImagePointertoInternal(), width, height, x, y))
-            {
-                unsigned int sumRGB = pixel.getSumRGB();
-                if (tree1.contains(sumRGB) && tree1.getNodeOriginFile(sumRGB) == 1)
-                {
-                    pixel.setIntoRaw(outputImage, width, height, x, y);
-                }
-                else
-                {
-                    RGBPixelXY blackPixel(x, y, 0, 0, 0);
-                    blackPixel.setIntoRaw(outputImage, width, height, x, y);
-                }
-            }
-        }
-    }
-
-    TinyImageJM outputImg;
-    outputImg.setNewImagePointerWithOldRemoval(outputImage, width, height);
-    outputImg.saveImageToDisk(image.getFilename(), "_T1_File1");
-    delete[] outputImage;
-}
-
-// Function to generate and save the second image
-void ImageLoaderUI::generateImageFromT1ForFile2(const TinyImageJM& image, const T1& tree1)
-{
-    int width = image.getWidth();
-    int height = image.getHeight();
-    unsigned char* outputImage = new unsigned char[width * height * 3];
-
-    for (int y = 0; y < height; y++)
-    {
-        for (int x = 0; x < width; x++)
-        {
-            RGBPixelXY pixel;
-            if (pixel.getFromRaw(image.getImagePointertoInternal(), width, height, x, y))
-            {
-                unsigned int sumRGB = pixel.getSumRGB();
-                if (tree1.contains(sumRGB))
-                {
-                    pixel.setIntoRaw(outputImage, width, height, x, y);
-                }
-                else
-                {
-                    RGBPixelXY blackPixel(x, y, 0, 0, 0);
-                    blackPixel.setIntoRaw(outputImage, width, height, x, y);
-                }
-            }
-        }
-    }
-
-    TinyImageJM outputImg;
-    outputImg.setNewImagePointerWithOldRemoval(outputImage, width, height);
-    outputImg.saveImageToDisk(image.getFilename(), "_T1_File2");
-    delete[] outputImage;
-}
-
-// Function to generate and save the third image
-void ImageLoaderUI::generateImageFromT2(const TinyImageJM& image, const T2& tree2)
-{
-    int width = image.getWidth();
-    int height = image.getHeight();
-    unsigned char* outputImage = new unsigned char[width * height * 3];
-
-    for (int y = 0; y < height; y++)
-    {
-        for (int x = 0; x < width; x++)
-        {
-            RGBPixelXY pixel;
-            if (pixel.getFromRaw(image.getImagePointertoInternal(), width, height, x, y))
-            {
-                unsigned int sumRGB = pixel.getSumRGB();
-                if (tree2.contains(sumRGB))
-                {
-                    pixel.setIntoRaw(outputImage, width, height, x, y);
-                }
-                else
-                {
-                    RGBPixelXY blackPixel(x, y, 0, 0, 0);
-                    blackPixel.setIntoRaw(outputImage, width, height, x, y);
-                }
-            }
-        }
-    }
-
-    TinyImageJM outputImg;
-    outputImg.setNewImagePointerWithOldRemoval(outputImage, width, height);
-    outputImg.saveImageToDisk(image.getFilename(), "_T2");
-    delete[] outputImage;
 }
 
 // C:\Users\adria\Desktop\logo.bmp

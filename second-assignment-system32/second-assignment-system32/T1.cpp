@@ -46,7 +46,7 @@ void T1::insert(Node*& node, RGBPixelXY pixel, unsigned int file)
         // Update the originFile if pixels from a different file are added
         if (node->originFile != file)
         {
-            node->originFile = 0; // 0 indicates pixels from multiple files
+            node->originFile = 2;
         }
     }
 }
@@ -80,8 +80,9 @@ void T1::addToExistingNode(unsigned int sumRGB, const RGBPixelXY& pixel, unsigne
             // Update originFile if necessary
             if (current->originFile != file)
             {
-                current->originFile = 0; // Mark as mixed origin
+                current->originFile = 2; // Mark as mixed origin
             }
+            return;
             return;
         }
         else if (sumRGB < current->sumRGB)
@@ -181,3 +182,17 @@ unsigned int T1::getNodeOriginFile(unsigned int sumRGB) const
     return 0; // Not found
 }
 
+// Get pixels from a node
+List<RGBPixelXY> T1::getNodePixels(unsigned int sumRGB) const
+{
+    Node* current = root;
+    while (current)
+    {
+        if (sumRGB == current->sumRGB)
+        {
+            return current->pixels;
+        }
+        current = (sumRGB < current->sumRGB) ? current->left : current->right;
+    }
+    return List<RGBPixelXY>(); // Return empty list if not found
+}

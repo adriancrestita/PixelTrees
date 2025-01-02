@@ -62,6 +62,8 @@ public:
 	void addToExistingNode(unsigned int sumRGB, const RGBPixelXY& pixel, unsigned int file); 
 	
 	unsigned int getNodeOriginFile(unsigned int sumRGB) const;
+    
+    List<RGBPixelXY> getNodePixels(unsigned int sumRGB) const;
 
 };
 
