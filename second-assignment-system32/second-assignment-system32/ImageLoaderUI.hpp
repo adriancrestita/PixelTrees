@@ -32,12 +32,12 @@ private:
 	T2 tree2;
     
     // Validate and load an image file
-    bool loadImage(const std::string& imageName, TinyImageJM& image);
+    bool loadImage(const string& imageName, TinyImageJM& image);
 
     // Load pixels from the image into a queue
     void loadPixelsToQueue(TinyImageJM& image, Queue& queue);
 	
-	void processImageWithTree(const TinyImageJM& image, Queue& pixelQueue, unsigned int fileID);
+	void processImageWithTree(T1& tree1, T2& tree2, const TinyImageJM& image, Queue& pixelQueue, unsigned int fileID);
     
     void printNodePresenceListsForT1(T1& tree1);
 

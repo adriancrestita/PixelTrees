@@ -23,59 +23,39 @@ void T2::clear(BalancedNode* node)
 // Helper to insert a pixel into the tree
 BalancedNode* T2::insert(BalancedNode* node, RGBPixelXY pixel, unsigned int file)
 {
-    pixel.setOriginFile(file); // Set originFile for the pixel
+    pixel.setOriginFile(file); // Always set the origin file
 
+    // If the node is null (subtree is empty)
     if (!node)
     {
-        // Create a new node if none exists
-        return new BalancedNode(pixel.getSumRGB(), pixel);
+        // For file=1, create a new node (since we want to insert everything)
+        if (file == 1)
+        {
+            return new BalancedNode(pixel.getSumRGB(), pixel);
+        }
+        // For file=2, do NOT create a new node
+        // (meaning we don't insert it if sumRGB is not found)
+        return nullptr;
     }
 
+    // Compare sumRGB to decide BST placement
     if (pixel.getSumRGB() < node->sumRGB)
     {
-        // Insert into the left subtree if sumRGB is smaller
         node->left = insert(node->left, pixel, file);
     }
     else if (pixel.getSumRGB() > node->sumRGB)
     {
-        // Insert into the right subtree if sumRGB is greater
         node->right = insert(node->right, pixel, file);
     }
     else
     {
-        if (file == 1)
-        {
-            // For file 1, add the pixel unconditionally
-            node->pixels.append(pixel);
-        }
-        else if (file == 2)
-        {
-            // For file 2, only add the pixel if it already exists
-            bool exists = false;
-            auto current = node->pixels.getHead(); // Traverse the list
-            while (current)
-            {
-                const auto& existingPixel = current->data;
-                if (existingPixel.getX() == pixel.getX() &&
-                    existingPixel.getY() == pixel.getY() &&
-                    existingPixel.getR() == pixel.getR() &&
-                    existingPixel.getG() == pixel.getG() &&
-                    existingPixel.getB() == pixel.getB())
-                {
-                    exists = true;
-                    break;
-                }
-                current = current->next;
-            }
-
-            if (exists)
-            {
-                node->pixels.append(pixel);
-            }
-        }
+        // sumRGB == node->sumRGB
+        // For both file=1 and file=2, if the node already exists, we append the pixel
+        //  (since it's the same sumRGB)
+        node->pixels.append(pixel);
     }
 
-    // Balance the tree after insertion
+    // Balance the tree (if you're using AVL)
     return balanceTree(node);
 }
 

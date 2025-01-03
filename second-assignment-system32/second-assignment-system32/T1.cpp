@@ -20,52 +20,72 @@ void T1::clear(Node* node)
     }
 }
 
-// Method to insert pixels from a queue into the tree
-void T1::insertFromQueue(Queue<RGBPixelXY>& pixelQueue)
+// Method to insert pixels from a queue into the tree, especificando fileID
+void T1::insertFromQueue(Queue& pixelQueue, int fileID)
 {
-    // While the queue is not empty, dequeue a pixel and insert it into the tree
+    // Mientras la cola no esté vacía
     while (!pixelQueue.isEmpty())
     {
-        RGBPixelXY pixel = pixelQueue.dequeue(); // Dequeue a pixel from the queue
-        insert(pixel); // Call the insert method to add the pixel to the tree
+        // Tomamos el pixel de la cola
+        RGBPixelXY pixel = pixelQueue.peek();  
+        pixelQueue.dequeue();
+
+        // Asignamos el originFile al pixel antes de insertarlo
+        pixel.setOriginFile(fileID);
+
+        // Si fileID == 1, insertamos todos
+        if (fileID == 1)
+        {
+            insert(pixel);
+        }
+        // Si fileID == 2, solo insertamos si su sumRGB ya existe
+        else if (fileID == 2)
+        {
+            // contains() verifica si el sumRGB ya está en el árbol
+            if (contains(pixel.getSumRGB()))
+            {
+                insert(pixel);
+            }
+            // Si no existe, no hacemos nada
+        }
+        else
+        {
+            // Manejo de caso: fileID desconocido
+            cerr << "[insertFromQueue] fileID no esperado: " << fileID << endl;
+        }
     }
 }
 
-// Method to insert a pixel into the tree
+// Resto de métodos T1, sin cambios
+
 void T1::insert(const RGBPixelXY& pixel)
 {
-    unsigned int sumRGB = pixel.getSumRGB(); // Get the sumRGB value of the pixel
-    root = insertRecursive(root, sumRGB, pixel); // Call the recursive insert method
+    const unsigned int sumRGB = pixel.getSumRGB();
+    root = insertRecursive(root, sumRGB, pixel);
 }
 
-// Recursive method to insert a pixel into the tree
-Node* T1::insertRecursive(Node* node, unsigned int sumRGB, const RGBPixelXY& pixel)
+T1::Node* T1::insertRecursive(Node* node, unsigned int sumRGB, const RGBPixelXY& pixel)
 {
-    // Base case: if the node is null, create a new node
     if (node == nullptr)
     {
-        return new Node(sumRGB, pixel);
+        return new Node(sumRGB, pixel);  
     }
 
-    // If the sumRGB already exists at the current node, add the pixel to the list
     if (sumRGB == node->sumRGB)
     {
-        node->pixels.append(pixel); // Add the pixel to the list of this node
+        // Agregamos el pixel a la lista del nodo
+        node->pixels.append(pixel);
     }
-    // If the sumRGB is smaller, insert into the left subtree
     else if (sumRGB < node->sumRGB)
     {
         node->left = insertRecursive(node->left, sumRGB, pixel);
     }
-    // If the sumRGB is larger, insert into the right subtree
-    else
+    else // sumRGB > node->sumRGB
     {
         node->right = insertRecursive(node->right, sumRGB, pixel);
     }
-
-    return node; // Return the node without changes
+    return node;
 }
-
 // Helper method to calculate the depth of the tree
 unsigned int T1::calculateDepth(Node* node)
 {
@@ -116,24 +136,19 @@ bool T1::contains(unsigned int sumRGB) const
 bool T1::containsRecursive(Node* node, unsigned int sumRGB) const
 {
     if (node == nullptr) {
-        cout << "No node found for sumRGB: " << sumRGB << endl; // Debugging output
         return false; // Base case: node is not found
     }
 
-    cout << "Checking node with sumRGB: " << node->sumRGB << endl; // Debugging output
 
     if (sumRGB == node->sumRGB) {
-        cout << "Found node with sumRGB: " << sumRGB << endl; // Debugging output
         return true; // Node found, return true immediately
     }
 
     // Recursively check the left or right subtree based on comparison
     if (sumRGB < node->sumRGB) {
-        cout << "Going left (sumRGB: " << sumRGB << " < " << node->sumRGB << ")" << endl;
         return containsRecursive(node->left, sumRGB); // Recur on the left subtree
     }
     else {
-        cout << "Going right (sumRGB: " << sumRGB << " > " << node->sumRGB << ")" << endl;
         return containsRecursive(node->right, sumRGB); // Recur on the right subtree
     }
 }

@@ -44,7 +44,7 @@ public:
     T1();  // Constructor
     ~T1(); // Destructor
 
-    void insertFromQueue(Queue<RGBPixelXY>& pixelQueue);
+    void insertFromQueue(Queue& pixelQueue, int fileID);
     void insert(const RGBPixelXY& pixel);
     Node* insertRecursive(Node* node, unsigned int sumRGB, const RGBPixelXY& pixel);
 

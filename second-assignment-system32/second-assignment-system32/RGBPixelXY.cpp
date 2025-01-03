@@ -65,7 +65,7 @@ unsigned char RGBPixelXY::getB() const
     return colorB;
 }
 
-unsigned int RGBPixelXY::getSumRGB() 
+unsigned int RGBPixelXY::getSumRGB() const
 {
     return sumRGB;
 }

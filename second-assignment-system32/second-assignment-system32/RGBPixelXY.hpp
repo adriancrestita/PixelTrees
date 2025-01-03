@@ -28,7 +28,7 @@ public:
     unsigned char getR() const;
     unsigned char getG() const;
     unsigned char getB() const;
-	unsigned int getSumRGB();
+	unsigned int getSumRGB() const;
     
     void setComponents(unsigned char paramR, unsigned char paramG, unsigned char paramB);
     
