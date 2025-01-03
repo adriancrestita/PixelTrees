@@ -34,7 +34,7 @@ void ImageLoaderUI::run()
     
 	// Insert pixels from image1 to t1 tree and to t2 tree
 	processImageWithTree(image1, queue1, 1);
-    tree1.printValueLists();
+    printNodePresenceListsForT1(tree1);
     
     // Request second image file name
     cout << "Enter the name of the second BMP image file (including extension):\n ";
@@ -58,6 +58,8 @@ void ImageLoaderUI::run()
 	// Add pixels from the second image to T1 and T2
     processImageWithTree(image2, queue2, 2);
     
+    //Print the lists of node presence for T1 and its running time
+
     /*
 	// Generate output images
     cout << "Creating image 1..." << endl;
@@ -124,21 +126,57 @@ void ImageLoaderUI::processImageWithTree(const TinyImageJM& image, Queue& queue,
         cout << "Unknown file ID. Image processed and added to T1 and T2." << endl;
     }
 
+    // Calculate statistics for T1
+    unsigned int treeDepth = tree1.getTreeDepth();
+    unsigned int maxNodeElements = tree1.getMaxNodeElements();
     cout << "\n\n*******************************************" << endl;
     cout << "Statistics for Tree T1:" << endl;
-    tree1.calculateStatistics();
+    cout << "Maximum Depth: " << treeDepth << endl;
+    cout << "Node with Maximum Elements: " << maxNodeElements << endl;
 
     // Calculate statistics for T2
     unsigned int t2Depth = tree2.getTreeDepth();
     unsigned int t2MaxNodeElements = tree2.getMaxNodeElements();
     cout << "*******************************************" << endl;
     cout << "Statistics for Tree T2:" << endl;
-    tree2.calculateStatistics();
+    cout << "Maximum Depth: " << t2Depth << endl;
+    cout << "Node with Maximum Elements: " << t2MaxNodeElements << endl;
     cout << "*******************************************\n\n" << endl;
 
 }
 
+void ImageLoaderUI::printNodePresenceListsForT1(T1& tree1)
+{
+    List<unsigned int> valuesWithNode;      // List of sumRGB values with nodes
+    List<unsigned int> valuesWithoutNode;  // List of sumRGB values without nodes
 
+    // Traverse all possible sumRGB values (0 to 765)
+    for (unsigned int sumRGB = 0; sumRGB <= 765; ++sumRGB)
+    {
+        if (tree1.contains(sumRGB)) // Check if the node exists in T1
+        {
+            valuesWithNode.append(sumRGB);
+        }
+        else
+        {
+            valuesWithoutNode.append(sumRGB);
+        }
+    }
+
+    // Print the list of sumRGB values with nodes
+    cout << "*******************************************" << endl;
+    cout << "SumRGB Values with Nodes in T1:" << endl;
+    cout << "Count: " << valuesWithNode.getSize() << endl;
+    valuesWithNode.print();
+
+    // Print the list of sumRGB values without nodes
+    cout << "\n\n*******************************************" << endl;
+    cout << "SumRGB Values without Nodes in T1:" << endl;
+    cout << "Count: " << valuesWithoutNode.getSize() << endl;
+    valuesWithoutNode.print();
+    cout << "\n\n*******************************************\n\n" << endl;
+
+}
 
 
 // C:\Users\adria\Desktop\foto.bmp

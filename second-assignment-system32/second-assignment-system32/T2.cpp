@@ -9,205 +9,254 @@ T2::~T2()
     clear(root);
 }
 
-// Inserts a pixel into the balanced tree with file information
-void T2::insert(const RGBPixelXY& pixel, int file) {
-    unsigned int sum = pixel.getSumRGB(); // Get the sumRGB value of the pixel
-    insertHelper(root, pixel, file); // Call the recursive function to insert the pixel
+// Helper to recursively clear all nodes
+void T2::clear(BalancedNode* node)
+{
+    if (node)
+    {
+        clear(node->left);  // Clear left subtree
+        clear(node->right); // Clear right subtree
+        delete node;        // Delete current node
+    }
 }
 
-// Recursive function to insert a pixel into the tree
-void T2::insertHelper(BalancedNode*& node, const RGBPixelXY& pixel, int file) {
-    if (node == nullptr) {
-        // If the node does not exist, create a new node with the pixel
-        node = new BalancedNode(pixel.getSumRGB(), pixel);
-    } else if (node->sumRGB == pixel.getSumRGB()) {
-        // If a node with the same sumRGB value exists, add the pixel to the list
-        node->pixels.append(pixel);
-    } else if (node->sumRGB < pixel.getSumRGB()) {
-        // If the sumRGB of the node is smaller, go to the right subtree
-        insertHelper(node->right, pixel, file);
-    } else {
-        // If the sumRGB of the node is larger, go to the left subtree
-        insertHelper(node->left, pixel, file);
+// Helper to insert a pixel into the tree
+BalancedNode* T2::insert(BalancedNode* node, RGBPixelXY pixel, unsigned int file)
+{
+    pixel.setOriginFile(file); // Set originFile for the pixel
+
+    if (!node)
+    {
+        // Create a new node if none exists
+        return new BalancedNode(pixel.getSumRGB(), pixel);
     }
 
-    node = balance(node); // Balance the tree after insertion
-}
-
-// Get the height of a node
-int T2::getHeight(BalancedNode* node) {
-    return (node == nullptr) ? 0 : node->height;
-}
-
-// Get the balance factor of a node
-int T2::getBalance(BalancedNode* node) {
-    return (node == nullptr) ? 0 : getHeight(node->left) - getHeight(node->right);
-}
-
-// Right rotation to balance the tree
-BalancedNode* T2::rotateRight(BalancedNode* y) {
-    BalancedNode* x = y->left;
-    BalancedNode* T2 = x->right;
-
-    // Perform rotation
-    x->right = y;
-    y->left = T2;
-
-    // Update heights
-    y->height = max(getHeight(y->left), getHeight(y->right)) + 1;
-    x->height = max(getHeight(x->left), getHeight(x->right)) + 1;
-
-    return x; // New root
-}
-
-// Left rotation to balance the tree
-BalancedNode* T2::rotateLeft(BalancedNode* x) {
-    BalancedNode* y = x->right;
-    BalancedNode* T2 = y->left;
-
-    // Perform rotation
-    y->left = x;
-    x->right = T2;
-
-    // Update heights
-    x->height = max(getHeight(x->left), getHeight(x->right)) + 1;
-    y->height = max(getHeight(y->left), getHeight(y->right)) + 1;
-
-    return y; // New root
-}
-
-// Balance the tree at the given node
-BalancedNode* T2::balance(BalancedNode*& node) {
-    int balanceFactor = getBalance(node);
-
-    // Left heavy subtree
-    if (balanceFactor > 1) {
-        if (getBalance(node->left) < 0) {
-            node->left = rotateLeft(node->left); // Left-Right case
+    if (pixel.getSumRGB() < node->sumRGB)
+    {
+        // Insert into the left subtree if sumRGB is smaller
+        node->left = insert(node->left, pixel, file);
+    }
+    else if (pixel.getSumRGB() > node->sumRGB)
+    {
+        // Insert into the right subtree if sumRGB is greater
+        node->right = insert(node->right, pixel, file);
+    }
+    else
+    {
+        if (file == 1)
+        {
+            // For file 1, add the pixel unconditionally
+            node->pixels.append(pixel);
         }
-        node = rotateRight(node); // Left-Left case
-    }
+        else if (file == 2)
+        {
+            // For file 2, only add the pixel if it already exists
+            bool exists = false;
+            auto current = node->pixels.getHead(); // Traverse the list
+            while (current)
+            {
+                const auto& existingPixel = current->data;
+                if (existingPixel.getX() == pixel.getX() &&
+                    existingPixel.getY() == pixel.getY() &&
+                    existingPixel.getR() == pixel.getR() &&
+                    existingPixel.getG() == pixel.getG() &&
+                    existingPixel.getB() == pixel.getB())
+                {
+                    exists = true;
+                    break;
+                }
+                current = current->next;
+            }
 
-    // Right heavy subtree
-    else if (balanceFactor < -1) {
-        if (getBalance(node->right) > 0) {
-            node->right = rotateRight(node->right); // Right-Left case
-        }
-        node = rotateLeft(node); // Right-Right case
-    }
-
-    return node; // Return the balanced node
-}
-
-// Prints the tree in order
-void T2::print() const {
-    printInOrder(root);
-    cout << endl;
-}
-
-// Recursive function to print the tree in order
-void T2::printInOrder(BalancedNode* node) const {
-    if (node) {
-        printInOrder(node->left); // Print the left subtree
-        node->pixels.print();     // Print the pixels in the node
-        printInOrder(node->right); // Print the right subtree
-    }
-}
-
-// Returns the number of nodes in the tree
-unsigned int T2::size() const {
-    return sizeHelper(root);
-}
-
-// Recursive function to calculate the size of the tree
-unsigned int T2::sizeHelper(BalancedNode* node) const {
-    if (node == nullptr) {
-        return 0;
-    }
-    return 1 + sizeHelper(node->left) + sizeHelper(node->right); // Count the nodes in the left and right subtrees
-}
-
-// Recursive function to clear the memory of the tree
-void T2::clear(BalancedNode* node) {
-    if (node) {
-        clear(node->left);  // Clear the left subtree
-        clear(node->right); // Clear the right subtree
-        delete node;        // Delete the current node
-    }
-}
-
-// Calculates the maximum depth of the tree
-unsigned int T2::calculateDepth(BalancedNode* node) const {
-    if (node == nullptr) {
-        return 0;
-    }
-    unsigned int leftDepth = calculateDepth(node->left); // Calculate the depth of the left subtree
-    unsigned int rightDepth = calculateDepth(node->right); // Calculate the depth of the right subtree
-    return 1 + max(leftDepth, rightDepth); // Return the maximum depth between the left and right subtrees
-}
-
-// Calculates the node with the maximum number of elements (pixels)
-void T2::calculateMaxElements(BalancedNode* node) {
-    if (node) {
-        unsigned int nodeSize = node->pixels.getSize(); // Get the number of pixels in the node
-        if (nodeSize > maxElements) {
-            maxElements = nodeSize; // Update the maximum number of elements if necessary
-        }
-        calculateMaxElements(node->left); // Recursively check the left subtree
-        calculateMaxElements(node->right); // Recursively check the right subtree
-    }
-}
-
-// Calculates and prints statistical data about the tree
-void T2::calculateStatistics() {
-    maxDepth = calculateDepth(root); // Calculate the maximum depth of the tree
-    calculateMaxElements(root); // Calculate the node with the maximum number of elements
-
-    cout << "Maximum depth: " << maxDepth << endl;
-    cout << "Maximum number of elements in a node: " << maxElements << endl;
-}
-
-// Recursively collects values with and without nodes in the tree
-void T2::collectValues(BalancedNode* node, bool valuesWithNode[], bool valuesWithoutNode[]) const {
-    if (node) {
-        valuesWithNode[node->sumRGB] = true; // Mark the value as present in the tree
-        collectValues(node->left, valuesWithNode, valuesWithoutNode); // Recursively check the left subtree
-        collectValues(node->right, valuesWithNode, valuesWithoutNode); // Recursively check the right subtree
-    }
-}
-
-// Prints the lists of values with and without nodes in the tree
-void T2::printValueLists() const {
-    bool valuesWithNode[766] = {false}; // Array to track values with nodes (initialized to false)
-    bool valuesWithoutNode[766] = {true}; // Array to track values without nodes (initialized to true)
-
-    collectValues(root, valuesWithNode, valuesWithoutNode); // Collect values with and without nodes
-
-    cout << "Values with nodes in the tree:" << endl;
-    for (int i = 0; i <= 765; ++i) {
-        if (valuesWithNode[i]) {
-            cout << i << " "; // Print the value if it exists in the tree
+            if (exists)
+            {
+                node->pixels.append(pixel);
+            }
         }
     }
-    cout << endl;
 
-    cout << "Values without nodes in the tree:" << endl;
-    for (int i = 0; i <= 765; ++i) {
-        if (valuesWithoutNode[i]) {
-            cout << i << " "; // Print the value if it does not exist in the tree
-        }
-    }
-    cout << endl;
+    // Balance the tree after insertion
+    return balanceTree(node);
 }
 
 
-// Method to insert pixels from a queue
-void T2::insertFromQueue(queue<RGBPixelXY>& pixelQueue, int file) {
-    while (!pixelQueue.empty()) {
-        RGBPixelXY pixel = pixelQueue.front();
-        pixelQueue.pop();
-        
-        // Insert the pixel into the tree with the file number
-        insert(pixel, file);
+// Insert a pixel into the tree (public method)
+void T2::insert(RGBPixelXY pixel, unsigned int file)
+{
+    root = insert(root, pixel, file);
+}
+
+// Helper to balance the tree
+BalancedNode* T2::balanceTree(BalancedNode* node)
+{
+    int balanceFactor = getBalanceFactor(node);
+
+    // Left-heavy case
+    if (balanceFactor > 1)
+    {
+        // Left-right case
+        if (getBalanceFactor(node->left) < 0)
+        {
+            node->left = rotateLeft(node->left);
+        }
+        return rotateRight(node); // Perform right rotation
     }
+    // Right-heavy case
+    if (balanceFactor < -1)
+    {
+        // Right-left case
+        if (getBalanceFactor(node->right) > 0)
+        {
+            node->right = rotateRight(node->right);
+        }
+        return rotateLeft(node); // Perform left rotation
+    }
+
+    return node; // No balancing needed
+}
+
+// Helper to calculate the height of the tree
+int T2::getHeight(BalancedNode* node)
+{
+    if (!node)
+    {
+        return 0; // Base case: height of an empty node is 0
+    }
+    return 1 + std::max(getHeight(node->left), getHeight(node->right));
+}
+
+// Helper to calculate the balance factor
+int T2::getBalanceFactor(BalancedNode* node)
+{
+    if (!node)
+    {
+        return 0; // Balance factor of an empty node is 0
+    }
+    return getHeight(node->left) - getHeight(node->right);
+}
+
+// Perform left rotation
+BalancedNode* T2::rotateLeft(BalancedNode* node)
+{
+    BalancedNode* newRoot = node->right;
+    node->right = newRoot->left;
+    newRoot->left = node;
+    return newRoot;
+}
+
+// Perform right rotation
+BalancedNode* T2::rotateRight(BalancedNode* node)
+{
+    BalancedNode* newRoot = node->left;
+    node->left = newRoot->right;
+    newRoot->right = node;
+    return newRoot;
+}
+
+// Helper to calculate the depth of the tree
+unsigned int T2::calculateDepth(BalancedNode* node)
+{
+    if (!node)
+    {
+        return 0; // Base case: an empty node has depth 0
+    }
+
+    unsigned int leftDepth = calculateDepth(node->left);  // Depth of the left subtree
+    unsigned int rightDepth = calculateDepth(node->right); // Depth of the right subtree
+
+    return 1 + std::max(leftDepth, rightDepth); // Return the larger depth
+}
+
+// Get the depth of the tree
+unsigned int T2::getTreeDepth()
+{
+    return calculateDepth(root);
+}
+
+// Helper to calculate the maximum number of elements in a node
+unsigned int T2::calculateMaxNodeElements(BalancedNode* node)
+{
+    if (!node)
+    {
+        return 0; // Base case: an empty node has no elements
+    }
+
+    // Maximum number of elements in the left and right subtrees
+    unsigned int leftMax = calculateMaxNodeElements(node->left);
+    unsigned int rightMax = calculateMaxNodeElements(node->right);
+
+    // Number of elements in the current node
+    unsigned int currentSize = node->pixels.getSize();
+
+    // Find the maximum of the three values
+    if (currentSize >= leftMax && currentSize >= rightMax)
+    {
+        return currentSize;
+    }
+    else if (leftMax >= currentSize && leftMax >= rightMax)
+    {
+        return leftMax;
+    }
+    else
+    {
+        return rightMax;
+    }
+}
+
+// Get the maximum number of elements in any node
+unsigned int T2::getMaxNodeElements()
+{
+    return calculateMaxNodeElements(root);
+}
+
+// Check if a node with the given sumRGB exists
+bool T2::contains(unsigned int sumRGB) const
+{
+    BalancedNode* current = root;
+
+    while (current)
+    {
+        if (sumRGB == current->sumRGB)
+        {
+            return true; // Found the node
+        }
+        else if (sumRGB < current->sumRGB)
+        {
+            current = current->left; // Traverse left
+        }
+        else
+        {
+            current = current->right; // Traverse right
+        }
+    }
+
+    return false; // Node not found
+}
+
+// Insert all pixels from a queue into the tree
+void T2::insertFromQueue(Queue& pixelQueue, unsigned int file)
+{
+    Queue tempQueue = pixelQueue.copy(); // Copy the queue
+
+    while (!tempQueue.isEmpty())
+    {
+        RGBPixelXY pixel = tempQueue.peek(); // Get the front pixel
+        insert(pixel, file);                 // Insert into the tree
+        tempQueue.dequeue();                 // Remove the pixel from the queue
+    }
+}
+
+// Get pixels from a node
+List<RGBPixelXY> T2::getNodePixels(unsigned int sumRGB) const
+{
+    BalancedNode* current = root;
+    while (current)
+    {
+        if (sumRGB == current->sumRGB)
+        {
+            return current->pixels;
+        }
+        current = (sumRGB < current->sumRGB) ? current->left : current->right;
+    }
+    return List<RGBPixelXY>(); // Return empty list if not found
 }

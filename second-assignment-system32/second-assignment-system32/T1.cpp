@@ -1,7 +1,7 @@
 #include "T1.hpp"
 
 // Constructor: Initializes the tree as empty
-T1::T1() : root(nullptr), maxDepth(0), maxElements(0) {}
+T1::T1() : root(nullptr) {}
 
 // Destructor: Clears all nodes from the tree
 T1::~T1()
@@ -20,152 +20,192 @@ void T1::clear(Node* node)
     }
 }
 
-// Inserts a pixel into the tree with file information
-void T1::insert(const RGBPixelXY& pixel, int file) {
-    unsigned int sum = pixel.getSumRGB(); // Get the sumRGB value of the pixel
-    insertHelper(root, pixel, file); // Call the recursive function to insert the pixel
-}
+// Helper method to insert a pixel into the tree
+void T1::insert(Node*& node, RGBPixelXY& pixel, unsigned int file)
+{
+    pixel.setOriginFile(file); // Establece el archivo de origen
 
-// Recursive function to insert a pixel into the tree
-void T1::insertHelper(Node*& node, const RGBPixelXY& pixel, int file) {
-    if (node == nullptr) {
-        // If the node does not exist, create a new node with the pixel
+    if (node == nullptr) // Si el nodo es nulo, crea un nuevo nodo
+    {
         node = new Node(pixel.getSumRGB(), pixel);
-    } else if (node->sumRGB == pixel.getSumRGB()) {
-        // If a node with the same sumRGB value exists, add the pixel to the list
-        node->pixels.append(pixel);
-    } else if (node->sumRGB < pixel.getSumRGB()) {
-        // If the sumRGB of the node is smaller, go to the right subtree
-        insertHelper(node->right, pixel, file);
-    } else {
-        // If the sumRGB of the node is larger, go to the left subtree
-        insertHelper(node->left, pixel, file);
+        cout << "Inserted new node with sumRGB: " << pixel.getSumRGB() << endl;
+        return;
     }
-}
 
-// Finds a node by its sumRGB value
-bool T1::find(unsigned int sumRGB) const {
-    Node* current = root;
-    while (current) {
-        if (current->sumRGB == sumRGB) {
-            return true; // Node found
-        } else if (current->sumRGB < sumRGB) {
-            current = current->right; // Go to the right subtree
+    // Verifica la dirección de la inserción
+    if (pixel.getSumRGB() < node->sumRGB)
+    {
+        // Navega al subárbol izquierdo
+        if (node->left == nullptr) {
+            node->left = new Node(pixel.getSumRGB(), pixel);
+            cout << "Inserted new node on the left with sumRGB: " << pixel.getSumRGB() << endl;
         } else {
-            current = current->left; // Go to the left subtree
+            insert(node->left, pixel, file);
         }
     }
-    return false; // Node not found
-}
-
-// Prints the tree in order
-void T1::print() const {
-    printInOrder(root);
-    cout << endl;
-}
-
-// Recursive function to print the tree in order
-void T1::printInOrder(Node* node) const {
-    if (node) {
-        printInOrder(node->left); // Print the left subtree
-        node->pixels.print();     // Print the pixels in the node
-        printInOrder(node->right); // Print the right subtree
-    }
-}
-
-// Returns the number of nodes in the tree
-unsigned int T1::size() const {
-    return sizeHelper(root);
-}
-
-// Recursive function to calculate the size of the tree
-unsigned int T1::sizeHelper(Node* node) const {
-    if (node == nullptr) {
-        return 0;
-    }
-    return 1 + sizeHelper(node->left) + sizeHelper(node->right); // Count the nodes in the left and right subtrees
-}
-
-// Recursive function to clear the memory of the tree
-void T1::clear(Node* node) {
-    if (node) {
-        clear(node->left);  // Clear the left subtree
-        clear(node->right); // Clear the right subtree
-        delete node;        // Delete the current node
-    }
-}
-
-// Calculates the maximum depth of the tree
-unsigned int T1::calculateDepth(Node* node) const {
-    if (node == nullptr) {
-        return 0;
-    }
-    unsigned int leftDepth = calculateDepth(node->left); // Calculate the depth of the left subtree
-    unsigned int rightDepth = calculateDepth(node->right); // Calculate the depth of the right subtree
-    return 1 + max(leftDepth, rightDepth); // Return the maximum depth between the left and right subtrees
-}
-
-// Calculates the node with the maximum number of elements (pixels)
-void T1::calculateMaxElements(Node* node) {
-    if (node) {
-        unsigned int nodeSize = node->pixels.getSize(); // Get the number of pixels in the node
-        if (nodeSize > maxElements) {
-            maxElements = nodeSize; // Update the maximum number of elements if necessary
-        }
-        calculateMaxElements(node->left); // Recursively check the left subtree
-        calculateMaxElements(node->right); // Recursively check the right subtree
-    }
-}
-
-// Calculates and prints statistical data about the tree
-void T1::calculateStatistics() {
-    maxDepth = calculateDepth(root); // Calculate the maximum depth of the tree
-    calculateMaxElements(root); // Calculate the node with the maximum number of elements
-
-    cout << "Maximum depth: " << maxDepth << endl;
-    cout << "Maximum number of elements in a node: " << maxElements << endl;
-}
-
-// Recursively collects values with and without nodes in the tree
-void T1::collectValues(Node* node, bool valuesWithNode[], bool valuesWithoutNode[]) const {
-    if (node) {
-        valuesWithNode[node->sumRGB] = true; // Mark the value as present in the tree
-        collectValues(node->left, valuesWithNode, valuesWithoutNode); // Recursively check the left subtree
-        collectValues(node->right, valuesWithNode, valuesWithoutNode); // Recursively check the right subtree
-    }
-}
-
-// Prints the lists of values with and without nodes in the tree
-void T1::printValueLists() const {
-    bool valuesWithNode[766] = {false}; // Array to track values with nodes (initialized to false)
-    bool valuesWithoutNode[766] = {true}; // Array to track values without nodes (initialized to true)
-
-    collectValues(root, valuesWithNode, valuesWithoutNode); // Collect values with and without nodes
-
-    cout << "Values with nodes in the tree:" << endl;
-    for (int i = 0; i <= 765; ++i) {
-        if (valuesWithNode[i]) {
-            cout << i << " "; // Print the value if it exists in the tree
+    else if (pixel.getSumRGB() > node->sumRGB)
+    {
+        // Navega al subárbol derecho
+        if (node->right == nullptr) {
+            node->right = new Node(pixel.getSumRGB(), pixel);
+            cout << "Inserted new node on the right with sumRGB: " << pixel.getSumRGB() << endl;
+        } else {
+            insert(node->right, pixel, file);
         }
     }
-    cout << endl;
+    else
+    {
+        // Si el nodo ya existe, maneja la inserción basada en el archivo
+        if (file == 1)
+        {
+            node->pixels.append(pixel); // Agrega siempre para la imagen 1
+            cout << "Appended pixel to existing node with sumRGB: " << node->sumRGB << endl;
+        }
+        else if (file == 2)
+        {
+            // Agrega solo si ya existe un píxel igual para la imagen 2
+            bool exists = false;
+            auto current = node->pixels.getHead();
+            while (current)
+            {
+                const auto& existingPixel = current->data;
+                if (existingPixel.getX() == pixel.getX() &&
+                    existingPixel.getY() == pixel.getY() &&
+                    existingPixel.getR() == pixel.getR() &&
+                    existingPixel.getG() == pixel.getG() &&
+                    existingPixel.getB() == pixel.getB())
+                {
+                    exists = true;
+                    break;
+                }
+                current = current->next;
+            }
 
-    cout << "Values without nodes in the tree:" << endl;
-    for (int i = 0; i <= 765; ++i) {
-        if (valuesWithoutNode[i]) {
-            cout << i << " "; // Print the value if it does not exist in the tree
+            if (exists)
+            {
+                node->pixels.append(pixel);
+                cout << "Appended pixel to existing node with matching pixel and sumRGB: " << node->sumRGB << endl;
+            }
         }
     }
-    cout << endl;
 }
 
-// Method to insert pixels from a queue
-void T1::insertFromQueue(queue<RGBPixelXY>& pixelQueue, int file) {
-    while (!pixelQueue.empty()) {
-        RGBPixelXY pixel = pixelQueue.front();
-        pixelQueue.pop();
-        
-        // Insert the pixel into the tree with the file number
-        insert(pixel, file);
+// Method to insert pixels from a queue into the tree
+void T1::insertFromQueue(Queue& pixelQueue, unsigned int file)
+{
+    Queue tempQueue = pixelQueue.copy(); // Create a copy of the queue
+
+    // Process each pixel in the queue
+    while (!tempQueue.isEmpty())
+    {
+        RGBPixelXY pixel = tempQueue.peek(); // Get the front pixel
+        insert(root, pixel, file);           // Insert the pixel into the tree
+        tempQueue.dequeue();                 // Remove the pixel from the queue
     }
+}
+
+// Helper method to calculate the depth of the tree
+unsigned int T1::calculateDepth(Node* node)
+{
+    if (!node)
+    {
+        return 0; // An empty node has depth 0
+    }
+
+    unsigned int leftDepth = calculateDepth(node->left);  // Depth of the left subtree
+    unsigned int rightDepth = calculateDepth(node->right); // Depth of the right subtree
+
+    return 1 + (leftDepth > rightDepth ? leftDepth : rightDepth); // Return the larger depth
+}
+
+// Method to get the depth of the tree
+unsigned int T1::getTreeDepth()
+{
+    return calculateDepth(root); // Start calculating from the root
+}
+
+// Helper method to calculate the maximum number of elements in any node
+unsigned int T1::calculateMaxNodeElements(Node* node)
+{
+    if (!node)
+    {
+        return 0; // An empty node has no elements
+    }
+
+    unsigned int leftMax = calculateMaxNodeElements(node->left);  // Max elements in the left subtree
+    unsigned int rightMax = calculateMaxNodeElements(node->right); // Max elements in the right subtree
+    unsigned int currentSize = node->pixels.getSize(); // Number of pixels in the current node
+
+    return (currentSize > leftMax && currentSize > rightMax) ? currentSize : (leftMax > rightMax ? leftMax : rightMax);
+}
+
+// Method to get the maximum number of elements in any node
+unsigned int T1::getMaxNodeElements()
+{
+    return calculateMaxNodeElements(root); // Start calculating from the root
+}
+
+// Check if a node with the given sumRGB exists
+bool T1::contains(unsigned int sumRGB) const
+{
+    Node* current = root; // Start at the root of the tree
+
+    while (current) // Traverse the tree until a leaf is reached
+    {
+        cout << "Checking node with sumRGB: " << current->sumRGB << endl; // Debug
+        if (sumRGB == current->sumRGB)
+        {
+            cout << "Found node with sumRGB: " << sumRGB << endl; // Debug
+            return true; // Node found, return true immediately
+        }
+        else if (sumRGB < current->sumRGB)
+        {
+            current = current->left; // Move to the left subtree
+        }
+        else
+        {
+            current = current->right; // Move to the right subtree
+        }
+    }
+    cout << "No node found for sumRGB: " << sumRGB << endl; // Debug
+    return false; // Node not found, return false
+}
+
+// Get pixels from a node
+List<RGBPixelXY> T1::getNodePixels(unsigned int sumRGB) const
+{
+    Node* current = root;
+    while (current)
+    {
+        if (sumRGB == current->sumRGB)
+        {
+            return current->pixels;
+        }
+        current = (sumRGB < current->sumRGB) ? current->left : current->right;
+    }
+    return List<RGBPixelXY>(); // Return empty list if not found
+}
+
+
+
+void T1::printAllSumRGB() const
+{
+    cout << "All sumRGB values in T1 (in-order traversal):" << endl;
+    printAllSumRGBHelper(root);
+}
+
+void T1::printAllSumRGBHelper(Node* node) const
+{
+    if (!node) {
+        return; // Base case: stop recursion for null nodes
+    }
+
+    // Traverse left subtree
+    printAllSumRGBHelper(node->left);
+
+    // Print the current node's sumRGB value
+    cout << "SumRGB: " << node->sumRGB << endl;
+
+    // Traverse right subtree
+    printAllSumRGBHelper(node->right);
 }
