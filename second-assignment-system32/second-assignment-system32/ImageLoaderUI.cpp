@@ -58,7 +58,6 @@ void ImageLoaderUI::run()
 	// Add pixels from the second image to T1 and T2
     processImageWithTree(image2, queue2, 2);
     
-    //Print the lists of node presence for T1 and its running time
 
     /*
 	// Generate output images
@@ -114,7 +113,7 @@ void ImageLoaderUI::processImageWithTree(const TinyImageJM& image, Queue& queue,
     T2 tree2;
     
      // Insert the image pixels into T1 and T2
-    tree1.insertFromQueue(queue, fileID);
+    tree1.insertFromQueue(queue);
     tree2.insertFromQueue(queue, fileID);
 
     // Print success message depending on fileID
@@ -125,7 +124,7 @@ void ImageLoaderUI::processImageWithTree(const TinyImageJM& image, Queue& queue,
     } else {
         cout << "Unknown file ID. Image processed and added to T1 and T2." << endl;
     }
-
+/*
     // Calculate statistics for T1
     unsigned int treeDepth = tree1.getTreeDepth();
     unsigned int maxNodeElements = tree1.getMaxNodeElements();
@@ -142,7 +141,7 @@ void ImageLoaderUI::processImageWithTree(const TinyImageJM& image, Queue& queue,
     cout << "Maximum Depth: " << t2Depth << endl;
     cout << "Node with Maximum Elements: " << t2MaxNodeElements << endl;
     cout << "*******************************************\n\n" << endl;
-
+*/
 }
 
 void ImageLoaderUI::printNodePresenceListsForT1(T1& tree1)

@@ -10,9 +10,8 @@ using namespace std;
 // T1 Class: Represents a binary search tree for organizing pixels based on sumRGB
 class T1
 {
-private:
-    // Structure to define each node of the tree
-    struct Node
+// Structure to define each node of the tree
+struct Node
 {
     unsigned int sumRGB;       // Key for the node: sum of RGB values
     List<RGBPixelXY> pixels;   // Custom List ADT to store pixels with the same sumRGB
@@ -25,18 +24,12 @@ private:
     {
         pixels.append(pixel); // Add the first pixel to the list
     }
-    
-    // Alternative constructor to initialize without a pixel
-    Node(unsigned int key)
-        : sumRGB(key), pixels(), left(nullptr), right(nullptr)
-    {
-        // Initializes the node with an empty pixel list
-    }
 };
+
+private:
+    
     Node* root; // Root node of the tree
 
-    // Helper method to insert a pixel into the tree
-    void insert(Node*& node, RGBPixelXY& pixel, unsigned int file);
 
     // Helper method to clear all nodes in the tree
     void clear(Node* node);
@@ -51,8 +44,11 @@ public:
     T1();  // Constructor
     ~T1(); // Destructor
 
-    // Method to insert pixels from a queue into the tree
-    void insertFromQueue(Queue& pixelQueue, unsigned int file);
+    void insertFromQueue(Queue<RGBPixelXY>& pixelQueue);
+    void insert(const RGBPixelXY& pixel);
+    Node* insertRecursive(Node* node, unsigned int sumRGB, const RGBPixelXY& pixel);
+
+
 
     // Method to get the depth of the tree
     unsigned int getTreeDepth();
@@ -62,6 +58,9 @@ public:
 	
 	// Check if a node with the given sumRGB exists
 	bool contains(unsigned int sumRGB) const; 
+    
+    bool containsRecursive(Node* node, unsigned int sumRGB) const;
+
 		    
     List<RGBPixelXY> getNodePixels(unsigned int sumRGB) const;
 
