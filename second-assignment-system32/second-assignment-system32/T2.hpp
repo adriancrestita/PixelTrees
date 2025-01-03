@@ -12,12 +12,13 @@ struct BalancedNode
     List<RGBPixelXY> pixels;     // List of pixels with the same sumRGB
     BalancedNode* left;          // Pointer to the left subtree
     BalancedNode* right;         // Pointer to the right subtree
+	int height;     // Height of the node (used for balancing)
 
-    // Constructor for initializing a node
+    // Constructor for the node
     BalancedNode(unsigned int sum, const RGBPixelXY& pixel)
-        : sumRGB(sum), left(nullptr), right(nullptr)
-    {
-        pixels.append(pixel);
+        : sumRGB(sum), left(nullptr), right(nullptr), height(1) 
+	{
+        pixels.append(pixel); // Add the first pixel to the list
     }
 };
 
@@ -25,33 +26,44 @@ class T2
 {
 private:
     BalancedNode* root; // Root node of the tree
+	unsigned int maxDepth; // Maximum depth of the tree
+    unsigned int maxElements; // Maximum number of elements in a node
 
-    // Recursively clears all nodes in the tree
+	// Recursive insertion function
+    void insertHelper(BalancedNode*& node, const RGBPixelXY& pixel, int file); 
+	
+	// Get the height of the node
+    int getHeight(BalancedNode* node); 
+	
+	// Get the balance factor of the node
+    int getBalance(BalancedNode* node); 
+	
+	// Right rotation
+    BalancedNode* rotateRight(BalancedNode* y); 
+	
+	// Left rotation
+    BalancedNode* rotateLeft(BalancedNode* x);  
+	
+	// Balance the node
+    BalancedNode* balance(BalancedNode*& node); 
+	
+	// Recursive function to print the tree in order
+    void printInOrder(BalancedNode* node) const; 
+	
+	// Recursive function to clear the tree memory
     void clear(BalancedNode* node);
-
-    // Helper to insert a pixel into the tree
-    BalancedNode* insert(BalancedNode* node, RGBPixelXY pixel, unsigned int file);
-
-    // Balances the tree after an insertion
-    BalancedNode* balanceTree(BalancedNode* node);
-
-    // Returns the height of a subtree
-    int getHeight(BalancedNode* node);
-
-    // Calculates the balance factor of a node
-    int getBalanceFactor(BalancedNode* node);
-
-    // Performs a left rotation on a subtree
-    BalancedNode* rotateLeft(BalancedNode* node);
-
-    // Performs a right rotation on a subtree
-    BalancedNode* rotateRight(BalancedNode* node);
-
-    // Recursively calculates the depth of the tree
-    unsigned int calculateDepth(BalancedNode* node);
-
-    // Recursively calculates the maximum number of elements in any node
-    unsigned int calculateMaxNodeElements(BalancedNode* node);
+	
+	// Recursive function to calculate the size of the tree
+    unsigned int sizeHelper(BalancedNode* node) const; 
+	
+	// Recursive function to calculate the tree depth
+    unsigned int calculateDepth(BalancedNode* node) const; 
+	
+	// Recursive function to calculate the node with the maximum number of elements
+    void calculateMaxElements(BalancedNode* node); 
+	
+	// Function to collect values with and without nodes
+    void collectValues(BalancedNode* node, bool valuesWithNode[], bool valuesWithoutNode[]) const; 
 
 public:
     // Constructor to initialize an empty tree
@@ -60,22 +72,22 @@ public:
     // Destructor to clear the tree
     ~T2();
 
-    // Inserts a pixel into the tree
-    void insert(RGBPixelXY pixel, unsigned int file);
-
-    // Returns the depth of the tree
-    unsigned int getTreeDepth();
-
-    // Returns the maximum number of elements in any node
-    unsigned int getMaxNodeElements();
-
-    // Checks if a node with the given sumRGB exists in the tree
-    bool contains(unsigned int sumRGB) const;
+	// Inserts a pixel into the tree with file information
+    void insert(const RGBPixelXY& pixel, int file); 
 	
-	// Insert all pixels from a queue into the tree
-	void insertFromQueue(Queue& pixelQueue, unsigned int file); 
-	    
-    List<RGBPixelXY> getNodePixels(unsigned int sumRGB) const;
+	// Prints the tree in order
+    void print() const; 
+	
+	// Returns the number of nodes in the tree
+    unsigned int size() const; 
+	
+	// Calculates statistical data of the tree
+    void calculateStatistics(); 
+	
+	// Prints the list of values with and without nodes
+    void printValueLists() const; 
+	
+	void insertFromQueue(queue<RGBPixelXY>& pixelQueue, int file) {
 
 };
 
