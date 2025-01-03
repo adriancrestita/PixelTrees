@@ -11,17 +11,12 @@ ImageLoaderUI::ImageLoaderUI()
 void ImageLoaderUI::run()
 {
     string imageFile1, imageFile2;
+    T1 tree1;
     
     // Request first image file name
     cout << "Enter the name of the first BMP image file (including extension):\n ";
     cin >> imageFile1;
     
-    // Start timer for calculate processing time
-    Timer timer;
-    
-    // Start global timer
-    Timer globalTimer;
-
     // Validate and load the first image
     TinyImageJM image1(imageFile1);
     if (!loadImage(imageFile1, image1))
@@ -39,25 +34,11 @@ void ImageLoaderUI::run()
     
 	// Insert pixels from image1 to t1 tree and to t2 tree
 	processImageWithTree(image1, queue1, 1);
+    printNodePresenceListsForT1(tree1);
     
-    // Stop timer and print dedicated time
-    timer.endTimer();
-    timer.calculateDuration();
-    cout << "*******************************************" << endl;
-    cout << "Image 1 procesing time:" << endl;
-    timer.printTime();
-    cout << "*******************************************" << endl;
-	
-	
     // Request second image file name
-    Timer inputTimer;
     cout << "Enter the name of the second BMP image file (including extension):\n ";
     cin >> imageFile2;
-    inputTimer.endTimer();
-    inputTimer.calculateDuration();
-    
-    // Restart the timer for the second image
-    timer.resetTimer();
     
     // Validate and load the second image
     TinyImageJM image2(imageFile2);
@@ -74,59 +55,22 @@ void ImageLoaderUI::run()
         cout << "Second image loaded into the queue successfully." << endl;    
     }
     
-    // Stop timer and print dedicated time
-    timer.endTimer();
-    timer.calculateDuration();
-    cout << "*******************************************" << endl;
-    cout << "Image 2 procesing time:" << endl;
-    timer.printTime();
-    cout << "*******************************************" << endl;
-	
-    // Reset timer
-    timer.resetTimer();
-    
 	// Add pixels from the second image to T1 and T2
-    processImage2Addition(queue2);
+    processImageWithTree(image2, queue2, 2);
     
-    // Stop timer and print dedicated time
-    timer.endTimer();
-    timer.calculateDuration();
-    cout << "*******************************************" << endl;
-    cout << "Time take to merge both images: " << endl;
-    timer.printTime();
-    
-    // Reset timer
-    timer.resetTimer();
-    
-    // Print the lists of node presence for T1 and its running time
-    printNodePresenceListsForT1();
-    timer.endTimer();
-    timer.calculateDuration();
-    cout << "*******************************************" << endl;
-    cout << "Time taken to analyze sumRGB in T1:" << endl;
-    timer.printTime();
-    cout << "*******************************************" << endl;
-    
+    //Print the lists of node presence for T1 and its running time
+
+    /*
 	// Generate output images
-    
-    
+    cout << "Creating image 1..." << endl;
+    ImageSaver::saveImage1(image1, tree1, imageFile1);
+	
     cout << "Creating image 2..." << endl;
     ImageSaver::saveImage2(image2, tree1, imageFile2);
     
     cout << "Creating image 3..." << endl;
     ImageSaver::saveImage3(image2, tree2, imageFile2);
-    
-    cout << "Creating image 1..." << endl;
-    ImageSaver::saveImage1(image1, tree1, imageFile1);
-	
-    // Stop global timer and print dedicated time
-    globalTimer.endTimer();
-    globalTimer.calculateDuration();
-    cout << "-------------------------------------------" << endl;
-    cout << "Global time taken:" << endl;
-    globalTimer.subtractTime(inputTimer);
-    globalTimer.printTime();
-    cout << "-------------------------------------------" << endl;
+    */
 }
 
 // Method to validate and load an image
@@ -166,60 +110,30 @@ void ImageLoaderUI::loadPixelsToQueue(TinyImageJM& image, Queue& queue)
 
 void ImageLoaderUI::processImageWithTree(const TinyImageJM& image, Queue& queue, unsigned int fileID)
 {
-	tree1.insertFromQueue(queue, fileID);         
-
-    cout << "Tree T1 created successfully with pixels from the image." << endl;
-
-    // Calculate statistics for T1
-    unsigned int treeDepth = tree1.getTreeDepth();
-    unsigned int maxNodeElements = tree1.getMaxNodeElements();
-    cout << "*******************************************" << endl;
-    cout << "Statistics for Tree T1:" << endl;
-    cout << "Maximum Depth: " << treeDepth << endl;
-    cout << "Node with Maximum Elements: " << maxNodeElements << endl;
-	
-	// Insert pixels into T2
+    T1 tree1;
+    T2 tree2;
+    
+     // Insert the image pixels into T1 and T2
+    tree1.insertFromQueue(queue, fileID);
     tree2.insertFromQueue(queue, fileID);
-    cout << "Tree T2 created successfully with pixels from the image." << endl;
 
-    // Calculate statistics for T2
-    unsigned int t2Depth = tree2.getTreeDepth();
-    unsigned int t2MaxNodeElements = tree2.getMaxNodeElements();
-    cout << "*******************************************" << endl;
-    cout << "Statistics for Tree T2:" << endl;
-    cout << "Maximum Depth: " << t2Depth << endl;
-    cout << "Node with Maximum Elements: " << t2MaxNodeElements << endl;
-}
-
-void ImageLoaderUI::processImage2Addition(Queue& pixelQueue)
-{
-    Queue tempQueue = pixelQueue.copy();
-    unsigned int fileID = 2;
-
-    while (!tempQueue.isEmpty())
-    {
-        RGBPixelXY pixel = tempQueue.peek();
-        if (tree1.contains(pixel.getSumRGB()))
-        {
-            tree1.addToExistingNode(pixel.getSumRGB(), pixel, fileID);
-        }
-        if (tree2.contains(pixel.getSumRGB()))
-        {
-            tree2.addToExistingNode(pixel.getSumRGB(), pixel, fileID);
-        }
-        tempQueue.dequeue();
+    // Print success message depending on fileID
+    if (fileID == 1) {
+        cout << "Image 1 processed and added to T1 and T2." << endl;
+    } else if (fileID == 2) {
+        cout << "Image 2 processed and added to T1 and T2." << endl;
+    } else {
+        cout << "Unknown file ID. Image processed and added to T1 and T2." << endl;
     }
 
-    cout << "Image 2 processed and added to T1 and T2." << endl;
-    
     // Calculate statistics for T1
     unsigned int treeDepth = tree1.getTreeDepth();
     unsigned int maxNodeElements = tree1.getMaxNodeElements();
-    cout << "*******************************************" << endl;
+    cout << "\n\n*******************************************" << endl;
     cout << "Statistics for Tree T1:" << endl;
     cout << "Maximum Depth: " << treeDepth << endl;
     cout << "Node with Maximum Elements: " << maxNodeElements << endl;
-    
+
     // Calculate statistics for T2
     unsigned int t2Depth = tree2.getTreeDepth();
     unsigned int t2MaxNodeElements = tree2.getMaxNodeElements();
@@ -227,35 +141,42 @@ void ImageLoaderUI::processImage2Addition(Queue& pixelQueue)
     cout << "Statistics for Tree T2:" << endl;
     cout << "Maximum Depth: " << t2Depth << endl;
     cout << "Node with Maximum Elements: " << t2MaxNodeElements << endl;
+    cout << "*******************************************\n\n" << endl;
+
 }
 
-void ImageLoaderUI::printNodePresenceListsForT1()
+void ImageLoaderUI::printNodePresenceListsForT1(T1& tree1)
 {
-    List<unsigned int> valuesWithNode;      // List of values with nodes
-    List<unsigned int> valuesWithoutNode;  // List of values without nodes
+    List<unsigned int> valuesWithNode;      // List of sumRGB values with nodes
+    List<unsigned int> valuesWithoutNode;  // List of sumRGB values without nodes
 
-    // Traverse the range from 0 to 765
-    for (unsigned int i = 0; i <= 765; ++i)
+    // Traverse all possible sumRGB values (0 to 765)
+    for (unsigned int sumRGB = 0; sumRGB <= 765; ++sumRGB)
     {
-        if (tree1.contains(i)) // Check if the value exists in T1
+        if (tree1.contains(sumRGB)) // Check if the node exists in T1
         {
-            valuesWithNode.append(i); // Add to the list of values with nodes
+            valuesWithNode.append(sumRGB);
         }
         else
         {
-            valuesWithoutNode.append(i); // Add to the list of values without nodes
+            valuesWithoutNode.append(sumRGB);
         }
     }
 
-    // Print the list of values with nodes
+    // Print the list of sumRGB values with nodes
     cout << "*******************************************" << endl;
-    cout << "Values with Nodes in T1:" << endl;
+    cout << "SumRGB Values with Nodes in T1:" << endl;
+    cout << "Count: " << valuesWithNode.getSize() << endl;
     valuesWithNode.print();
 
-    // Print the list of values without nodes
-    cout << "*******************************************" << endl;
-    cout << "Values without Nodes in T1:" << endl;
+    // Print the list of sumRGB values without nodes
+    cout << "\n\n*******************************************" << endl;
+    cout << "SumRGB Values without Nodes in T1:" << endl;
+    cout << "Count: " << valuesWithoutNode.getSize() << endl;
     valuesWithoutNode.print();
+    cout << "\n\n*******************************************\n\n" << endl;
+
 }
 
-// C:\Users\adria\Desktop\logo.bmp
+
+// C:\Users\adria\Desktop\foto.bmp

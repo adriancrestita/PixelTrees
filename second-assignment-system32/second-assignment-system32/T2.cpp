@@ -23,10 +23,12 @@ void T2::clear(BalancedNode* node)
 // Helper to insert a pixel into the tree
 BalancedNode* T2::insert(BalancedNode* node, RGBPixelXY pixel, unsigned int file)
 {
+    pixel.setOriginFile(file); // Set originFile for the pixel
+
     if (!node)
     {
         // Create a new node if none exists
-        return new BalancedNode(pixel.getSumRGB(), pixel, file);
+        return new BalancedNode(pixel.getSumRGB(), pixel);
     }
 
     if (pixel.getSumRGB() < node->sumRGB)
@@ -41,17 +43,42 @@ BalancedNode* T2::insert(BalancedNode* node, RGBPixelXY pixel, unsigned int file
     }
     else
     {
-        // Add the pixel to the list if a node with the same sumRGB exists
-        node->pixels.append(pixel);
-        if (node->originFile != file)
+        if (file == 1)
         {
-            node->originFile = 2; // Mark as mixed origin
+            // For file 1, add the pixel unconditionally
+            node->pixels.append(pixel);
+        }
+        else if (file == 2)
+        {
+            // For file 2, only add the pixel if it already exists
+            bool exists = false;
+            auto current = node->pixels.getHead(); // Traverse the list
+            while (current)
+            {
+                const auto& existingPixel = current->data;
+                if (existingPixel.getX() == pixel.getX() &&
+                    existingPixel.getY() == pixel.getY() &&
+                    existingPixel.getR() == pixel.getR() &&
+                    existingPixel.getG() == pixel.getG() &&
+                    existingPixel.getB() == pixel.getB())
+                {
+                    exists = true;
+                    break;
+                }
+                current = current->next;
+            }
+
+            if (exists)
+            {
+                node->pixels.append(pixel);
+            }
         }
     }
 
     // Balance the tree after insertion
     return balanceTree(node);
 }
+
 
 // Insert a pixel into the tree (public method)
 void T2::insert(RGBPixelXY pixel, unsigned int file)
@@ -206,36 +233,6 @@ bool T2::contains(unsigned int sumRGB) const
     return false; // Node not found
 }
 
-// Add a pixel to an existing node with the given sumRGB
-void T2::addToExistingNode(unsigned int sumRGB, const RGBPixelXY& pixel, unsigned int file)
-{
-    BalancedNode* current = root;
-
-    while (current)
-    {
-        if (sumRGB == current->sumRGB)
-        {
-            // Add the pixel to the node's list
-            current->pixels.append(pixel);
-
-            // Update originFile if necessary
-            if (current->originFile != file)
-            {
-                current->originFile = 2; // Mark as mixed origin
-            }
-            return;
-        }
-        else if (sumRGB < current->sumRGB)
-        {
-            current = current->left; // Traverse left
-        }
-        else
-        {
-            current = current->right; // Traverse right
-        }
-    }
-}
-
 // Insert all pixels from a queue into the tree
 void T2::insertFromQueue(Queue& pixelQueue, unsigned int file)
 {
@@ -247,27 +244,6 @@ void T2::insertFromQueue(Queue& pixelQueue, unsigned int file)
         insert(pixel, file);                 // Insert into the tree
         tempQueue.dequeue();                 // Remove the pixel from the queue
     }
-}
-
-unsigned int T2::getNodeOriginFile(unsigned int sumRGB)
-{
-    BalancedNode* current = root;
-    while (current)
-    {
-        if (sumRGB < current->sumRGB)
-        {
-            current = current->left;
-        }
-        else if (sumRGB > current->sumRGB)
-        {
-            current = current->right;
-        }
-        else
-        {
-            return current->originFile;
-        }
-    }
-    return 0; // Not found
 }
 
 // Get pixels from a node

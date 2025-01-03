@@ -10,13 +10,12 @@ struct BalancedNode
 {
     unsigned int sumRGB;         // Sum of RGB values
     List<RGBPixelXY> pixels;     // List of pixels with the same sumRGB
-    unsigned int originFile;     // File identifier (1 for image 1, 2 for image 2, 0 for mixed origin)
     BalancedNode* left;          // Pointer to the left subtree
     BalancedNode* right;         // Pointer to the right subtree
 
     // Constructor for initializing a node
-    BalancedNode(unsigned int sum, const RGBPixelXY& pixel, unsigned int file)
-        : sumRGB(sum), originFile(file), left(nullptr), right(nullptr)
+    BalancedNode(unsigned int sum, const RGBPixelXY& pixel)
+        : sumRGB(sum), left(nullptr), right(nullptr)
     {
         pixels.append(pixel);
     }
@@ -72,15 +71,10 @@ public:
 
     // Checks if a node with the given sumRGB exists in the tree
     bool contains(unsigned int sumRGB) const;
-
-    // Adds a pixel to an existing node with a matching sumRGB
-    void addToExistingNode(unsigned int sumRGB, const RGBPixelXY& pixel, unsigned int file);
 	
 	// Insert all pixels from a queue into the tree
 	void insertFromQueue(Queue& pixelQueue, unsigned int file); 
-	
-	unsigned int getNodeOriginFile(unsigned int sumRGB);
-    
+	    
     List<RGBPixelXY> getNodePixels(unsigned int sumRGB) const;
 
 };

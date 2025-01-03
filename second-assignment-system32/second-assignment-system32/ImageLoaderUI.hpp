@@ -39,9 +39,8 @@ private:
 	
 	void processImageWithTree(const TinyImageJM& image, Queue& pixelQueue, unsigned int fileID);
     
-    void processImage2Addition(Queue& pixelQueue);
-    
-    void printNodePresenceListsForT1();
+    void printNodePresenceListsForT1(T1& tree1);
+
 };
 
 

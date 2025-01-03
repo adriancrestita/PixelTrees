@@ -1,4 +1,6 @@
 #include "RGBPixelXY.hpp"
+ 
+using namespace std;
 
 // empty constructor, all 0, again
 RGBPixelXY::RGBPixelXY()
@@ -8,6 +10,7 @@ RGBPixelXY::RGBPixelXY()
     colorR=0;
     colorG=0;
     colorB=0;
+    originFile=0;
     calculateSumRGB();
 }
 
@@ -19,6 +22,7 @@ RGBPixelXY::RGBPixelXY(unsigned int paramX, unsigned int paramY)
     colorG=0;
     colorB=0;    
     calculateSumRGB();
+    originFile=0;
 }
 
 RGBPixelXY::RGBPixelXY(unsigned int paramX, unsigned int paramY, unsigned char paramR, unsigned char paramG, unsigned char paramB)
@@ -29,33 +33,34 @@ RGBPixelXY::RGBPixelXY(unsigned int paramX, unsigned int paramY, unsigned char p
     colorG=paramG;
     colorB=paramB;
 	calculateSumRGB();
+    originFile=0;
 }
 
 RGBPixelXY::~RGBPixelXY()
 {
 }
 
-unsigned int RGBPixelXY::getX()
+unsigned int RGBPixelXY::getX() const
 {
     return coordX;
 }
 
-unsigned int RGBPixelXY::getY()
+unsigned int RGBPixelXY::getY() const
 {
     return coordY;
 }
 
-unsigned char RGBPixelXY::getR()
+unsigned char RGBPixelXY::getR() const
 {
     return colorR;
 }
 
-unsigned char RGBPixelXY::getG()
+unsigned char RGBPixelXY::getG() const
 {
     return colorG;
 }
 
-unsigned char RGBPixelXY::getB()
+unsigned char RGBPixelXY::getB() const
 {
     return colorB;
 }
@@ -76,6 +81,18 @@ void RGBPixelXY::setComponents(unsigned char paramR, unsigned char paramG, unsig
 void RGBPixelXY::calculateSumRGB() 
 {
     sumRGB = static_cast<unsigned int>(colorR) + static_cast<unsigned int>(colorG) + static_cast<unsigned int>(colorB);
+}
+
+unsigned int RGBPixelXY::getOriginFile() {
+    return originFile;
+}
+
+void RGBPixelXY::setOriginFile(unsigned int fileID) {
+    if (fileID == 1 || fileID == 2) {
+        originFile = fileID;
+    } else {
+        originFile = 0; // Default to 0 if invalid value is provided
+    }
 }
 
 void RGBPixelXY::normalizeToRedGreenOrBlue()
