@@ -40,6 +40,9 @@ public:
 
     // Subtracts another timer's duration
     void subtractTime(const Timer& other);
+    
+    // Method to get the duration in seconds
+    double getDuration() const;
 };
 
 #endif
