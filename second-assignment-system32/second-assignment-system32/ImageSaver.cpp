@@ -55,11 +55,8 @@ void ImageSaver::saveImage1(const TinyImageJM& image1, T1& tree1, const string& 
     outputImage.setNewImagePointerWithOldRemoval(newImageData, width, height);
     outputImage.saveImageToDisk(baseFilename, "_image1");
 
-    cout << "antes delete" << endl;
     // Free memory
     delete[] newImageData;
-    
-    cout << "despues delete" << endl;
 }
 
 /*
