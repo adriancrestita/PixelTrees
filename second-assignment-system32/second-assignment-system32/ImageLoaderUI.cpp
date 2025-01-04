@@ -67,7 +67,7 @@ void ImageLoaderUI::run()
     
     // Stop inputTimer and restart operation timer
     inputTimer.endTimer();
-    inputTimer.calculateTimer();
+    inputTimer.calculateDuration();
     operationTimer.resetTimer();
     
     // Validate and load the second image
@@ -118,6 +118,14 @@ void ImageLoaderUI::run()
     cout << "Creating image 3..." << endl;
     ImageSaver::saveImage3(image2, tree2, imageFile2);
     cout << "[DEBUG] Finished saving image3" << endl;
+    
+    globalTimer.endTimer();
+    globalTimer.calculateDuration();
+    globalTimer.subtractTime(inputTimer);
+    cout << "*******************************************" << endl;
+    cout << "Global time consumption" << endl;
+    globalTimer.printTime();
+    cout << "*******************************************" << endl;
 }
 
 // Method to validate and load an image
@@ -168,7 +176,7 @@ void ImageLoaderUI::processImageWithTree(T1& tree1, T2& tree2, const TinyImageJM
     insertTimer.endTimer();
     insertTimer.calculateDuration();
     double T1time = insertTimer.getDuration();
-    insertTime.resetTimer();
+    insertTimer.resetTimer();
     tree2.insertFromQueue(tempQueue2, fileID);
     insertTimer.endTimer();
     insertTimer.calculateDuration();
