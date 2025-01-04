@@ -52,6 +52,9 @@ private:
 
     // Recursively calculates the maximum number of elements in any node
     unsigned int calculateMaxNodeElements(BalancedNode* node);
+    
+    // Export all pixels (in-order, for example)
+    void exportAllPixelsHelper(BalancedNode* node, Queue& outQueue) const;
 
 public:
     // Constructor to initialize an empty tree
@@ -74,9 +77,9 @@ public:
 	
 	// Insert all pixels from a queue into the tree
 	void insertFromQueue(Queue& pixelQueue, unsigned int file); 
-	    
-    List<RGBPixelXY> getNodePixels(unsigned int sumRGB) const;
-
+    
+    // Export all pixels
+    Queue exportAllPixels() const;
 };
 
 #endif

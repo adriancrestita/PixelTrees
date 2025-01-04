@@ -13,25 +13,35 @@ void ImageSaver::fillBlack(unsigned char* image, int width, int height)
     }
 }
 
-// Saves the first image
+/*
+ * saveImage1:
+ *   - Image size = dimensions of image1
+ *   - Only paint pixels from T1 where the node's pixel-list
+ *     has a majority of originFile=1 vs. originFile=2
+ *   - All other positions remain black.
+ */
 void ImageSaver::saveImage1(const TinyImageJM& image1, T1& tree1, const string& baseFilename)
 {
     int width = image1.getWidth();
     int height = image1.getHeight();
+    
     unsigned char* newImageData = new unsigned char[width * height * 3];
 
     // Fill the image with black
     fillBlack(newImageData, width, height);
 
     // Process the tree nodes
-    Queue pixelQueue;
-    tree1.insertFromQueue(pixelQueue, 1); // Traverse the tree into a queue
+    Queue pixelQueue = tree1.exportPixelsMajorityFile1();
 
-    while (!pixelQueue.isEmpty()) {
+    while (!pixelQueue.isEmpty()) 
+    {
         RGBPixelXY pixel = pixelQueue.peek();
 
-        if (pixel.getOriginFile() == 1) {
-            int index = (pixel.getY() * width + pixel.getX()) * 3;
+        int x = pixel.getX();
+        int y = pixel.getY();
+        if (x >= 0 && x < width && y >= 0 && y < height)
+        {
+            int index = (y * width + x) * 3;
             newImageData[index] = pixel.getR();
             newImageData[index + 1] = pixel.getG();
             newImageData[index + 2] = pixel.getB();
@@ -45,32 +55,46 @@ void ImageSaver::saveImage1(const TinyImageJM& image1, T1& tree1, const string& 
     outputImage.setNewImagePointerWithOldRemoval(newImageData, width, height);
     outputImage.saveImageToDisk(baseFilename, "_image1");
 
+    cout << "antes delete" << endl;
     // Free memory
     delete[] newImageData;
+    
+    cout << "despues delete" << endl;
 }
 
-// Saves the second image
+/*
+ * saveImage2:
+ *   - Image size = dimensions of image2
+ *   - Paint ALL pixels from T1 (tree1), ignoring originFile
+ *   - Others remain black
+ */
 void ImageSaver::saveImage2(const TinyImageJM& image2, T1& tree1, const string& baseFilename)
 {
     int width = image2.getWidth();
     int height = image2.getHeight();
+    
     unsigned char* newImageData = new unsigned char[width * height * 3];
 
     // Fill the image with black
     fillBlack(newImageData, width, height);
 
     // Process the tree nodes
-    Queue pixelQueue;
-    tree1.insertFromQueue(pixelQueue, 1); // Traverse the tree into a queue
+    Queue pixelQueue = tree1.exportAllPixels();
 
-    while (!pixelQueue.isEmpty()) {
+    while (!pixelQueue.isEmpty()) 
+    {
+        
         RGBPixelXY pixel = pixelQueue.peek();
 
-        int index = (pixel.getY() * width + pixel.getX()) * 3;
-        newImageData[index] = pixel.getR();
-        newImageData[index + 1] = pixel.getG();
-        newImageData[index + 2] = pixel.getB();
-
+        int x = pixel.getX();
+        int y = pixel.getY();
+        if (x >= 0 && x < width && y >= 0 && y < height)
+        {
+            int index = (y * width + x) * 3;
+            newImageData[index] = pixel.getR();
+            newImageData[index + 1] = pixel.getG();
+            newImageData[index + 2] = pixel.getB();
+        }
         pixelQueue.dequeue();
     }
 
@@ -83,28 +107,38 @@ void ImageSaver::saveImage2(const TinyImageJM& image2, T1& tree1, const string& 
     delete[] newImageData;
 }
 
-// Saves the third image
+/*
+ * saveImage3:
+ *   - Image size = dimensions of image2 (same as saveImage2)
+ *   - Paint ALL pixels from T2
+ *   - Others remain black
+ */
 void ImageSaver::saveImage3(const TinyImageJM& image2, T2& tree2, const string& baseFilename)
 {
     int width = image2.getWidth();
     int height = image2.getHeight();
+    
     unsigned char* newImageData = new unsigned char[width * height * 3];
 
     // Fill the image with black
     fillBlack(newImageData, width, height);
 
     // Process the tree nodes
-    Queue pixelQueue;
-    tree2.insertFromQueue(pixelQueue, 2); // Traverse the tree into a queue
+    Queue pixelQueue = tree2.exportAllPixels();
 
     while (!pixelQueue.isEmpty()) {
+       
         RGBPixelXY pixel = pixelQueue.peek();
 
-        int index = (pixel.getY() * width + pixel.getX()) * 3;
-        newImageData[index] = pixel.getR();
-        newImageData[index + 1] = pixel.getG();
-        newImageData[index + 2] = pixel.getB();
-
+        int x = pixel.getX();
+        int y = pixel.getY();
+        if (x >= 0 && x < width && y >= 0 && y < height)
+        {
+            int index = (y * width + x) * 3;
+            newImageData[index] = pixel.getR();
+            newImageData[index + 1] = pixel.getG();
+            newImageData[index + 2] = pixel.getB();
+        }
         pixelQueue.dequeue();
     }
 

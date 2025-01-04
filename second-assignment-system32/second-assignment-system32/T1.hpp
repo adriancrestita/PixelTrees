@@ -39,16 +39,20 @@ private:
 
     // Helper method to find the maximum number of elements in a node
     unsigned int calculateMaxNodeElements(Node* node);
+    
+    void exportAllPixelsHelper(Node* node, Queue& outQueue) const;
+    
+    void exportPixelsMajorityFile1Helper(Node* node, Queue& outQueue) const;
 
 public:
     T1();  // Constructor
     ~T1(); // Destructor
 
     void insertFromQueue(Queue& pixelQueue, int fileID);
+   
     void insert(const RGBPixelXY& pixel);
+    
     Node* insertRecursive(Node* node, unsigned int sumRGB, const RGBPixelXY& pixel);
-
-
 
     // Method to get the depth of the tree
     unsigned int getTreeDepth();
@@ -60,14 +64,10 @@ public:
 	bool contains(unsigned int sumRGB) const; 
     
     bool containsRecursive(Node* node, unsigned int sumRGB) const;
+		        
+    Queue exportAllPixels() const;
 
-		    
-    List<RGBPixelXY> getNodePixels(unsigned int sumRGB) const;
-
-    void printAllSumRGB() const;
-    
-    void printAllSumRGBHelper(Node* node) const;
-
+    Queue exportPixelsMajorityFile1() const;
 
 };
 

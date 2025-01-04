@@ -226,17 +226,26 @@ void T2::insertFromQueue(Queue& pixelQueue, unsigned int file)
     }
 }
 
-// Get pixels from a node
-List<RGBPixelXY> T2::getNodePixels(unsigned int sumRGB) const
+void T2::exportAllPixelsHelper(BalancedNode* node, Queue& outQueue) const
 {
-    BalancedNode* current = root;
-    while (current)
+    if (!node) return;
+
+    exportAllPixelsHelper(node->left, outQueue);
+
+    // Enqueue each pixel in this node
+    auto cur = node->pixels.getHead();
+    while (cur)
     {
-        if (sumRGB == current->sumRGB)
-        {
-            return current->pixels;
-        }
-        current = (sumRGB < current->sumRGB) ? current->left : current->right;
+        outQueue.enqueue(cur->data);
+        cur = cur->next;
     }
-    return List<RGBPixelXY>(); // Return empty list if not found
+
+    exportAllPixelsHelper(node->right, outQueue);
+}
+
+Queue T2::exportAllPixels() const
+{
+    Queue result;
+    exportAllPixelsHelper(root, result);
+    return result;
 }

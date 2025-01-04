@@ -60,17 +60,19 @@ void ImageLoaderUI::run()
     processImageWithTree(tree1, tree2, image2, queue2, 2);
     
 
-    /*
+    cout << "*******************************************" << endl;
 	// Generate output images
     cout << "Creating image 1..." << endl;
-    ImageSaver::saveImage1(image1, tree1, imageFile1);
-	
+    //ImageSaver::saveImage1(image1, tree1, imageFile1);
+    cout << "[DEBUG] Finished saving image1" << endl;
+
     cout << "Creating image 2..." << endl;
     ImageSaver::saveImage2(image2, tree1, imageFile2);
+    cout << "[DEBUG] Finished saving image2" << endl;
     
     cout << "Creating image 3..." << endl;
     ImageSaver::saveImage3(image2, tree2, imageFile2);
-    */
+    cout << "[DEBUG] Finished saving image3" << endl;
 }
 
 // Method to validate and load an image

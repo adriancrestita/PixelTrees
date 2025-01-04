@@ -153,42 +153,72 @@ bool T1::containsRecursive(Node* node, unsigned int sumRGB) const
     }
 }
 
-// Get pixels from a node
-List<RGBPixelXY> T1::getNodePixels(unsigned int sumRGB) const
+// In-order traversal to enqueue all pixels
+void T1::exportAllPixelsHelper(Node* node, Queue& outQueue) const
 {
-    Node* current = root;
-    while (current)
+    if (!node) return;
+    exportAllPixelsHelper(node->left, outQueue);
+
+    // Enqueue each pixel from this node
+    auto cur = node->pixels.getHead();
+    while (cur)
     {
-        if (sumRGB == current->sumRGB)
+        outQueue.enqueue(cur->data);
+        cur = cur->next;
+    }
+
+    exportAllPixelsHelper(node->right, outQueue);
+}
+
+Queue T1::exportAllPixels() const
+{
+    Queue result;
+    exportAllPixelsHelper(root, result);
+    return result;
+}
+
+// Count originFile=1 vs. originFile=2 in each node
+void T1::exportPixelsMajorityFile1Helper(Node* node, Queue& outQueue) const
+{
+    if (!node) return;
+
+    // in-order traversal
+    exportPixelsMajorityFile1Helper(node->left, outQueue);
+
+    // 1) count how many have file=1 and file=2
+    unsigned int count1 = 0;
+    unsigned int count2 = 0;
+
+    auto curCount = node->pixels.getHead();
+    while (curCount)
+    {
+        int f = curCount->data.getOriginFile();
+        if (f == 1) count1++;
+        if (f == 2) count2++;
+        curCount = curCount->next;
+    }
+
+    // 2) if #file1 > #file2, enqueue all file=1 pixels from this node
+    if (count1 > count2)
+    {
+        auto curEnq = node->pixels.getHead();
+        while (curEnq)
         {
-            return current->pixels;
+            if (curEnq->data.getOriginFile() == 1)
+            {
+                outQueue.enqueue(curEnq->data);
+            }
+            curEnq = curEnq->next;
         }
-        current = (sumRGB < current->sumRGB) ? current->left : current->right;
-    }
-    return List<RGBPixelXY>(); // Return empty list if not found
-}
-
-
-
-void T1::printAllSumRGB() const
-{
-    cout << "All sumRGB values in T1 (in-order traversal):" << endl;
-    printAllSumRGBHelper(root);
-}
-
-void T1::printAllSumRGBHelper(Node* node) const
-{
-    if (!node) {
-        return; // Base case: stop recursion for null nodes
     }
 
-    // Traverse left subtree
-    printAllSumRGBHelper(node->left);
+    exportPixelsMajorityFile1Helper(node->right, outQueue);
+}
 
-    // Print the current node's sumRGB value
-    cout << "SumRGB: " << node->sumRGB << endl;
-
-    // Traverse right subtree
-    printAllSumRGBHelper(node->right);
+Queue T1::exportPixelsMajorityFile1() const
+{
+    Queue result;
+    exportPixelsMajorityFile1Helper(root, result);
+    return result;
 }
 
