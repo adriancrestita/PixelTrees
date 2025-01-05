@@ -105,14 +105,6 @@ void ImageLoaderUI::run()
     
     queue1.deleteQueue();
     queue2.deleteQueue();
-    
-    globalTimer.endTimer();
-    globalTimer.calculateDuration();
-    globalTimer.subtractTime(inputTimer);
-    cout << "*******************************************" << endl;
-    cout << "Global time consumption" << endl;
-    globalTimer.printTime();
-    cout << "*******************************************" << endl;
 
     cout << "*******************************************" << endl;
 	// Generate output images
@@ -128,6 +120,13 @@ void ImageLoaderUI::run()
     ImageSaver::saveImage3(image2, tree2, imageFile2);
     cout << "[DEBUG] Finished saving image3" << endl;
     
+    globalTimer.endTimer();
+    globalTimer.calculateDuration();
+    globalTimer.subtractTime(inputTimer);
+    cout << "*******************************************" << endl;
+    cout << "Global time consumption" << endl;
+    globalTimer.printTime();
+    cout << "*******************************************" << endl;
     
 }
 
