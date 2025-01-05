@@ -23,6 +23,7 @@ public:
     RGBPixelXY peek() const;  // Method to return the front element without removing it
     bool isEmpty() const;  // Method to check if the queue is empty
     Queue copy() const;    // Method to create a copy of the queue
+    void deleteQueue();   //Delete the queue
 };
 
 #endif // QUEUE_HPP

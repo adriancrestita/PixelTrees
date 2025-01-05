@@ -49,7 +49,7 @@ void ImageSaver::saveImage1(const TinyImageJM& image1, T1& tree1, const string& 
 
         pixelQueue.dequeue();
     }
-
+    
     // Save the image
     TinyImageJM outputImage;
     outputImage.setNewImagePointerWithOldRemoval(newImageData, width, height);
@@ -57,6 +57,7 @@ void ImageSaver::saveImage1(const TinyImageJM& image1, T1& tree1, const string& 
 
     // Free memory
     delete[] newImageData;
+    newImageData = nullptr;
 }
 
 /*

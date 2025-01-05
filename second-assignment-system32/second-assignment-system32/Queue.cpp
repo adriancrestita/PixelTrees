@@ -54,3 +54,10 @@ Queue Queue::copy() const {
 
     return newQueue; // Return the new queue as a copy
 }
+
+// Delete queue
+void Queue::deleteQueue(){
+    while (!isEmpty()) {
+        dequeue();
+    }
+}

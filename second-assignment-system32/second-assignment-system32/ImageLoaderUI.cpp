@@ -57,7 +57,6 @@ void ImageLoaderUI::run()
     operationTimer.printTime();
     cout << "*******************************************" << endl;
     
-    
     // Timer to calculate precise global time
     Timer inputTimer;
     
@@ -104,11 +103,21 @@ void ImageLoaderUI::run()
     operationTimer.printTime();
     cout << "*******************************************" << endl;
     
+    queue1.deleteQueue();
+    queue2.deleteQueue();
+    
+    globalTimer.endTimer();
+    globalTimer.calculateDuration();
+    globalTimer.subtractTime(inputTimer);
+    cout << "*******************************************" << endl;
+    cout << "Global time consumption" << endl;
+    globalTimer.printTime();
+    cout << "*******************************************" << endl;
 
     cout << "*******************************************" << endl;
 	// Generate output images
     cout << "Creating image 1..." << endl;
-    //ImageSaver::saveImage1(image1, tree1, imageFile1);
+    ImageSaver::saveImage1(image1, tree1, imageFile1);
     cout << "[DEBUG] Finished saving image1" << endl;
 
     cout << "Creating image 2..." << endl;
@@ -119,13 +128,7 @@ void ImageLoaderUI::run()
     ImageSaver::saveImage3(image2, tree2, imageFile2);
     cout << "[DEBUG] Finished saving image3" << endl;
     
-    globalTimer.endTimer();
-    globalTimer.calculateDuration();
-    globalTimer.subtractTime(inputTimer);
-    cout << "*******************************************" << endl;
-    cout << "Global time consumption" << endl;
-    globalTimer.printTime();
-    cout << "*******************************************" << endl;
+    
 }
 
 // Method to validate and load an image
@@ -209,6 +212,9 @@ void ImageLoaderUI::processImageWithTree(T1& tree1, T2& tree2, const TinyImageJM
     cout << "Maximum Depth: " << t2Depth << endl;
     cout << "Node with Maximum Elements: " << t2MaxNodeElements << endl;
     cout << "Time dedicated to insert all pixels: " << T2time << endl;
+    
+    tempQueue2.deleteQueue();
+    tempQueue1.deleteQueue();
 }
 
 void ImageLoaderUI::printNodePresenceListsForT1(T1& tree1)
