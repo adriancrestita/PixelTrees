@@ -22,13 +22,14 @@ void ImageSaver::fillBlack(unsigned char* image, int width, int height)
  */
 void ImageSaver::saveImage1(const TinyImageJM& image1, T1& tree1, const string& baseFilename)
 {
-    int width = image1.getWidth();
+	int width = image1.getWidth();
     int height = image1.getHeight();
-    
-    unsigned char* newImageData = new unsigned char[width * height * 3];
 
+    // Allocate memory for the image
+    unsigned char* internal_image = (unsigned char*)malloc(sizeof(unsigned char) * width * height * 3);
+    
     // Fill the image with black
-    fillBlack(newImageData, width, height);
+    fillBlack(internal_image, width, height);
 
     // Process the tree nodes
     Queue pixelQueue = tree1.exportPixelsMajorityFile1();
@@ -42,9 +43,9 @@ void ImageSaver::saveImage1(const TinyImageJM& image1, T1& tree1, const string& 
         if (x >= 0 && x < width && y >= 0 && y < height)
         {
             int index = (y * width + x) * 3;
-            newImageData[index] = pixel.getR();
-            newImageData[index + 1] = pixel.getG();
-            newImageData[index + 2] = pixel.getB();
+            internal_image[index] = pixel.getR();
+            internal_image[index + 1] = pixel.getG();
+            internal_image[index + 2] = pixel.getB();
         }
 
         pixelQueue.dequeue();
@@ -52,11 +53,8 @@ void ImageSaver::saveImage1(const TinyImageJM& image1, T1& tree1, const string& 
 
     // Save the image
     TinyImageJM outputImage;
-    outputImage.setNewImagePointerWithOldRemoval(newImageData, width, height);
+    outputImage.setNewImagePointerWithOldRemoval(internal_image, width, height);
     outputImage.saveImageToDisk(baseFilename, "_image1");
-
-    // Free memory
-    delete[] newImageData;
 }
 
 /*
@@ -69,11 +67,12 @@ void ImageSaver::saveImage2(const TinyImageJM& image2, T1& tree1, const string& 
 {
     int width = image2.getWidth();
     int height = image2.getHeight();
-    
-    unsigned char* newImageData = new unsigned char[width * height * 3];
+
+    // Allocate memory for the image
+    unsigned char* internal_image = (unsigned char*)malloc(sizeof(unsigned char) * width * height * 3);
 
     // Fill the image with black
-    fillBlack(newImageData, width, height);
+    fillBlack(internal_image, width, height);
 
     // Process the tree nodes
     Queue pixelQueue = tree1.exportAllPixels();
@@ -88,20 +87,17 @@ void ImageSaver::saveImage2(const TinyImageJM& image2, T1& tree1, const string& 
         if (x >= 0 && x < width && y >= 0 && y < height)
         {
             int index = (y * width + x) * 3;
-            newImageData[index] = pixel.getR();
-            newImageData[index + 1] = pixel.getG();
-            newImageData[index + 2] = pixel.getB();
+            internal_image[index] = pixel.getR();
+            internal_image[index + 1] = pixel.getG();
+            internal_image[index + 2] = pixel.getB();
         }
         pixelQueue.dequeue();
     }
 
     // Save the image
     TinyImageJM outputImage;
-    outputImage.setNewImagePointerWithOldRemoval(newImageData, width, height);
+    outputImage.setNewImagePointerWithOldRemoval(internal_image, width, height);
     outputImage.saveImageToDisk(baseFilename, "_image2");
-
-    // Free memory
-    delete[] newImageData;
 }
 
 /*
@@ -114,11 +110,12 @@ void ImageSaver::saveImage3(const TinyImageJM& image2, T2& tree2, const string& 
 {
     int width = image2.getWidth();
     int height = image2.getHeight();
-    
-    unsigned char* newImageData = new unsigned char[width * height * 3];
 
+    // Allocate memory for the image
+    unsigned char* internal_image = (unsigned char*)malloc(sizeof(unsigned char) * width * height * 3);
+	
     // Fill the image with black
-    fillBlack(newImageData, width, height);
+    fillBlack(internal_image, width, height);
 
     // Process the tree nodes
     Queue pixelQueue = tree2.exportAllPixels();
@@ -132,18 +129,15 @@ void ImageSaver::saveImage3(const TinyImageJM& image2, T2& tree2, const string& 
         if (x >= 0 && x < width && y >= 0 && y < height)
         {
             int index = (y * width + x) * 3;
-            newImageData[index] = pixel.getR();
-            newImageData[index + 1] = pixel.getG();
-            newImageData[index + 2] = pixel.getB();
+            internal_image[index] = pixel.getR();
+            internal_image[index + 1] = pixel.getG();
+            internal_image[index + 2] = pixel.getB();
         }
         pixelQueue.dequeue();
     }
 
     // Save the image
     TinyImageJM outputImage;
-    outputImage.setNewImagePointerWithOldRemoval(newImageData, width, height);
+    outputImage.setNewImagePointerWithOldRemoval(internal_image, width, height);
     outputImage.saveImageToDisk(baseFilename, "_image3");
-
-    // Free memory
-    delete[] newImageData;
 }
