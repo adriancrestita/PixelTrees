@@ -143,7 +143,7 @@ unsigned char * TinyImageJM::getImagePointertoInternal() const
 	return result;
 }
 
-int TinyImageJM::getWidth() const
+int TinyImageJM::getWidth()
 {
 	int result = 0;
 	if (imageValid)
@@ -154,7 +154,7 @@ int TinyImageJM::getWidth() const
 	return result;
 }
 
-int TinyImageJM::getHeight() const
+int TinyImageJM::getHeight()
 {
 	int result = 0;
 	if (imageValid)

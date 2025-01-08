@@ -46,3 +46,9 @@ void Timer::subtractTime(const Timer& other)
         duration = chrono::duration<double>::zero(); // Ensure no negative durations
     }
 }
+
+// Method to get the duration in seconds
+double Timer::getDuration() const
+{
+    return duration.count(); // Return the duration in seconds as a double
+}

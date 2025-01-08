@@ -1,4 +1,5 @@
 #include "ImageLoaderUI.hpp"
+#include "Timer.hpp"
 
 using namespace std;
 
@@ -18,6 +19,10 @@ void ImageLoaderUI::run()
     cout << "Enter the name of the first BMP image file (including extension):\n ";
     cin >> imageFile1;
     
+    // Start a global timer and Timer for operations
+    Timer globalTimer;
+    Timer operationTimer;
+    
     // Validate and load the first image
     TinyImageJM image1(imageFile1);
     if (!loadImage(imageFile1, image1))
@@ -25,7 +30,7 @@ void ImageLoaderUI::run()
         cerr << "Error: Unable to load the first image." << endl;
         return; // Stop execution if the first image cannot be loaded
     }
-
+    
     // Load pixels from the first image into the queue
 	loadPixelsToQueue(image1, queue1);	
     if(!queue1.isEmpty())
@@ -33,13 +38,36 @@ void ImageLoaderUI::run()
         cout << "First image loaded into the queue successfully." << endl;    
     }
     
+    // Print Time dedicated to load image and reset timer
+    operationTimer.endTimer();
+    operationTimer.calculateDuration();
+    cout << "*******************************************" << endl;
+    cout << "Time dedicated to load image 1" << endl;
+    operationTimer.printTime();
+    cout << "*******************************************" << endl;
+    operationTimer.resetTimer();
+    
 	// Insert pixels from image1 to t1 tree and to t2 tree
     processImageWithTree(tree1, tree2, image1, queue1, 1);
+    operationTimer.endTimer();
+    operationTimer.calculateDuration();
     printNodePresenceListsForT1(tree1);
+    cout << "*******************************************" << endl;
+    cout << "Time dedicated to insert image 1 in T1 and T2" << endl;
+    operationTimer.printTime();
+    cout << "*******************************************" << endl;
+    
+    // Timer to calculate precise global time
+    Timer inputTimer;
     
     // Request second image file name
     cout << "Enter the name of the second BMP image file (including extension):\n ";
     cin >> imageFile2;
+    
+    // Stop inputTimer and restart operation timer
+    inputTimer.endTimer();
+    inputTimer.calculateDuration();
+    operationTimer.resetTimer();
     
     // Validate and load the second image
     TinyImageJM image2(imageFile2);
@@ -56,14 +84,32 @@ void ImageLoaderUI::run()
         cout << "Second image loaded into the queue successfully." << endl;    
     }
     
+    // Print Time dedicated to load image and reset timer
+    operationTimer.endTimer();
+    operationTimer.calculateDuration();
+    cout << "*******************************************" << endl;
+    cout << "Time dedicated to load image 2" << endl;
+    operationTimer.printTime();
+    cout << "*******************************************" << endl;
+    operationTimer.resetTimer();
+    
 	// Add pixels from the second image to T1 and T2
     processImageWithTree(tree1, tree2, image2, queue2, 2);
+    operationTimer.endTimer();
+    operationTimer.calculateDuration();
+    printNodePresenceListsForT1(tree1);
+    cout << "*******************************************" << endl;
+    cout << "Time dedicated to insert image 2 in T1 and T2" << endl;
+    operationTimer.printTime();
+    cout << "*******************************************" << endl;
     
+    queue1.deleteQueue();
+    queue2.deleteQueue();
 
     cout << "*******************************************" << endl;
 	// Generate output images
     cout << "Creating image 1..." << endl;
-    //ImageSaver::saveImage1(image1, tree1, imageFile1);
+    ImageSaver::saveImage1(image1, tree1, imageFile1);
     cout << "[DEBUG] Finished saving image1" << endl;
 
     cout << "Creating image 2..." << endl;
@@ -73,6 +119,15 @@ void ImageLoaderUI::run()
     cout << "Creating image 3..." << endl;
     ImageSaver::saveImage3(image2, tree2, imageFile2);
     cout << "[DEBUG] Finished saving image3" << endl;
+    
+    globalTimer.endTimer();
+    globalTimer.calculateDuration();
+    globalTimer.subtractTime(inputTimer);
+    cout << "*******************************************" << endl;
+    cout << "Global time consumption" << endl;
+    globalTimer.printTime();
+    cout << "*******************************************" << endl;
+    
 }
 
 // Method to validate and load an image
@@ -115,9 +170,20 @@ void ImageLoaderUI::processImageWithTree(T1& tree1, T2& tree2, const TinyImageJM
     Queue tempQueue1 = queue.copy();
     Queue tempQueue2 = queue.copy();
     
+    // Timer
+    Timer insertTimer;
+    
     // Insert the image pixels into T1 and T2
     tree1.insertFromQueue(tempQueue1, fileID);
+    insertTimer.endTimer();
+    insertTimer.calculateDuration();
+    double T1time = insertTimer.getDuration();
+    insertTimer.resetTimer();
     tree2.insertFromQueue(tempQueue2, fileID);
+    insertTimer.endTimer();
+    insertTimer.calculateDuration();
+    double T2time = insertTimer.getDuration();
+    insertTimer.resetTimer();
 
     // Print success message depending on fileID
     if (fileID == 1) {
@@ -135,6 +201,7 @@ void ImageLoaderUI::processImageWithTree(T1& tree1, T2& tree2, const TinyImageJM
     cout << "Statistics for Tree T1:" << endl;
     cout << "Maximum Depth: " << treeDepth << endl;
     cout << "Node with Maximum Elements: " << maxNodeElements << endl;
+    cout << "Time dedicated to insert all pixels: " << T1time << endl;
 
     // Calculate statistics for T2
     unsigned int t2Depth = tree2.getTreeDepth();
@@ -143,6 +210,10 @@ void ImageLoaderUI::processImageWithTree(T1& tree1, T2& tree2, const TinyImageJM
     cout << "Statistics for Tree T2:" << endl;
     cout << "Maximum Depth: " << t2Depth << endl;
     cout << "Node with Maximum Elements: " << t2MaxNodeElements << endl;
+    cout << "Time dedicated to insert all pixels: " << T2time << endl;
+    
+    tempQueue2.deleteQueue();
+    tempQueue1.deleteQueue();
 }
 
 void ImageLoaderUI::printNodePresenceListsForT1(T1& tree1)
