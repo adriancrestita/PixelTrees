@@ -20,7 +20,7 @@ void ImageSaver::fillBlack(unsigned char* image, int width, int height)
  *     has a majority of originFile=1 vs. originFile=2
  *   - All other positions remain black.
  */
-void ImageSaver::saveImage1(const TinyImageJM& image1, T1& tree1, const string& baseFilename)
+void ImageSaver::saveImage1(TinyImageJM& image1, T1& tree1, string& baseFilename)
 {
 	int width = image1.getWidth();
     int height = image1.getHeight();
@@ -63,7 +63,7 @@ void ImageSaver::saveImage1(const TinyImageJM& image1, T1& tree1, const string& 
  *   - Paint ALL pixels from T1 (tree1), ignoring originFile
  *   - Others remain black
  */
-void ImageSaver::saveImage2(const TinyImageJM& image2, T1& tree1, const string& baseFilename)
+void ImageSaver::saveImage2(TinyImageJM& image2, T1& tree1, string& baseFilename)
 {
     int width = image2.getWidth();
     int height = image2.getHeight();
@@ -106,7 +106,7 @@ void ImageSaver::saveImage2(const TinyImageJM& image2, T1& tree1, const string& 
  *   - Paint ALL pixels from T2
  *   - Others remain black
  */
-void ImageSaver::saveImage3(const TinyImageJM& image2, T2& tree2, const string& baseFilename)
+void ImageSaver::saveImage3(TinyImageJM& image2, T2& tree2, string& baseFilename)
 {
     int width = image2.getWidth();
     int height = image2.getHeight();

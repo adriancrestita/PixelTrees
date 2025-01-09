@@ -18,6 +18,7 @@ void ImageLoaderUI::run()
     // Request first image file name
     cout << "Enter the name of the first BMP image file (including extension):\n ";
     cin >> imageFile1;
+    cout << endl;
     
     // Start a global timer and Timer for operations
     Timer globalTimer;
@@ -35,7 +36,7 @@ void ImageLoaderUI::run()
 	loadPixelsToQueue(image1, queue1);	
     if(!queue1.isEmpty())
     {
-        cout << "First image loaded into the queue successfully." << endl;    
+        cout << "First image loaded into the queue successfully." << endl << endl;   
     }
     
     // Print Time dedicated to load image and reset timer
@@ -63,6 +64,7 @@ void ImageLoaderUI::run()
     // Request second image file name
     cout << "Enter the name of the second BMP image file (including extension):\n ";
     cin >> imageFile2;
+    cout << endl;
     
     // Stop inputTimer and restart operation timer
     inputTimer.endTimer();
@@ -81,7 +83,7 @@ void ImageLoaderUI::run()
     loadPixelsToQueue(image2, queue2);
     if(!queue2.isEmpty())
     {
-        cout << "Second image loaded into the queue successfully." << endl;    
+        cout << "Second image loaded into the queue successfully." << endl << endl;    
     }
     
     // Print Time dedicated to load image and reset timer
