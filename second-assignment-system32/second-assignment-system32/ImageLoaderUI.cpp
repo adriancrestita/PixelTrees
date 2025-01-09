@@ -250,6 +250,3 @@ void ImageLoaderUI::printNodePresenceListsForT1(T1& tree1)
     cout << "\n\n*******************************************\n\n" << endl;
 
 }
-
-
-// C:\Users\adria\Desktop\foto.bmp

@@ -23,40 +23,38 @@ void T1::clear(Node* node)
 // Method to insert pixels from a queue into the tree, especificando fileID
 void T1::insertFromQueue(Queue& pixelQueue, int fileID)
 {
-    // Mientras la cola no esté vacía
+    // While the queue is not empty
     while (!pixelQueue.isEmpty())
     {
-        // Tomamos el pixel de la cola
+        // Take the pixel from the queue
         RGBPixelXY pixel = pixelQueue.peek();  
         pixelQueue.dequeue();
 
-        // Asignamos el originFile al pixel antes de insertarlo
+        // Assign originFile to the pixel before insertion
         pixel.setOriginFile(fileID);
 
-        // Si fileID == 1, insertamos todos
+        // if fileID == 1, insert all
         if (fileID == 1)
         {
             insert(pixel);
         }
-        // Si fileID == 2, solo insertamos si su sumRGB ya existe
+        // if fileID == 2, only insert if sumRGB already exist
         else if (fileID == 2)
         {
-            // contains() verifica si el sumRGB ya está en el árbol
+            // contains() verify if sumRGB is already in the tree
             if (contains(pixel.getSumRGB()))
             {
                 insert(pixel);
             }
-            // Si no existe, no hacemos nada
+            // if doesn't exist, we do nothing
         }
         else
         {
-            // Manejo de caso: fileID desconocido
-            cerr << "[insertFromQueue] fileID no esperado: " << fileID << endl;
+            // Case management: fileID not expected
+            cerr << "[insertFromQueue] fileID not expected: " << fileID << endl;
         }
     }
 }
-
-// Resto de métodos T1, sin cambios
 
 void T1::insert(const RGBPixelXY& pixel)
 {
@@ -73,7 +71,7 @@ T1::Node* T1::insertRecursive(Node* node, unsigned int sumRGB, const RGBPixelXY&
 
     if (sumRGB == node->sumRGB)
     {
-        // Agregamos el pixel a la lista del nodo
+        // Add pixel to node list
         node->pixels.append(pixel);
     }
     else if (sumRGB < node->sumRGB)

@@ -131,12 +131,12 @@ void RGBPixelXY::normalizeToRedGreenOrBlue()
 
 bool RGBPixelXY::isBlack()
 {
-    return 0==(colorR+colorG+colorB);  // si la suma de los tres componentes es 0, el pixel es de color negro
+    return 0==(colorR+colorG+colorB);  // if sumRGB=0 is a black pixel
 }
 
 bool RGBPixelXY::isNotBlack()
 {
-    return 0!=(colorR+colorG+colorB);  // si la suma de los tres componentes no es 0, el pixel no es de color negro
+    return 0!=(colorR+colorG+colorB);  // if sumRGB!=0 is not a black pixel
 }
 
 unsigned int RGBPixelXY::getDistACentro(unsigned int width, unsigned int height)
